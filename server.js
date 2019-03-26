@@ -16,12 +16,8 @@ var pdf = require('html-pdf');
 var mongoHdlr = require('./Server/mongoHdlr.js')();
 var Consts = require('./Shared/consts.js');
 
-// * Localhost/Live Switch
-var port = 1337,
-ip = "127.0.0.1";
-
-// var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-// ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+var port = process.env.PORT || 8080,
+ip = process.env.IP || '0.0.0.0';
 
 Object.assign=require('object-assign');
 

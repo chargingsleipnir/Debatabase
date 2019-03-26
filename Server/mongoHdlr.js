@@ -13,33 +13,25 @@ var Consts = require('../Shared/consts.js');
 var SuppFuncs = require('../Shared/supportFuncs.js');
 var timeBldr = require('./timelineBuilder.js')();
 
+
+// ** mlabs CURRENTLY USING MONGO VERSION 3.6.6 **
+
 var mongoURLLabel = "";
+var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
+    mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
+    mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
+    mongoDBName = process.env[mongoServiceName + '_DATABASE'],
+    mongoPassword = process.env[mongoServiceName + '_PASSWORD']
+    mongoUser = process.env[mongoServiceName + '_USER'];
 
-// * Localhost/Live Switch
-var mongoURL = 'mongodb://127.0.0.1:27017/Debatree';
-var dbName = 'Debatree';
+if (mongoHost && mongoPort && mongoDBName) {
+    mongoURLLabel = mongoURI = 'mongodb://';
+    if (mongoUser && mongoPassword)
+        mongoURI += mongoUser + ':' + mongoPassword + '@';
 
-// ** OPENSHIFT CURRENTLY USING MONGO VERSION 3.2.10 **
-// var mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL;
-// var dbName = 'sampledb';
-
-if(mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-    var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-        mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-        mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-        mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-        mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-        mongoUser = process.env[mongoServiceName + '_USER'];
-
-    if (mongoHost && mongoPort && mongoDatabase) {
-        mongoURLLabel = mongoURL = 'mongodb://';
-        if (mongoUser && mongoPassword)
-            mongoURL += mongoUser + ':' + mongoPassword + '@';
-
-        // Provide UI label that excludes user id and pw
-        mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-        mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-    }
+    // Provide UI label that excludes user id and pw
+    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDBName;
+    mongoURI += mongoHost + ':' +  mongoPort + '/' + mongoDBName;
 }
 
 // mongoConn and db are differentiated only because the MongoStore in server.js doesn't seem to take the object from mongojs
@@ -68,23 +60,23 @@ var connOptions = {
 
 function Connect() {
     if(db) return; // Connect has already been made
-    if(mongoURL == null) return;
+    if(mongoURI == null) return;
     if(mongoDB == null || mongoClient == null) return;
     if(mongojs == null) return;
 
-    mongoClient.connect(mongoURL, function(err, client) {
+    mongoClient.connect(mongoURI, function(err, client) {
         if(err) {
             console.log('Error connecting to Mongo. Message:\n' + err);
             return;
         }
 
-        mongoConn = client.db(dbName);
+        mongoConn = client.db(mongoDBName);
         gfs = GridFS(mongoConn, mongoDB);
         dbDetails.databaseName = mongoConn.databaseName;
         dbDetails.url = mongoURLLabel;
         dbDetails.type = 'MongoDB';
 
-        db = mongojs(mongoURL, [
+        db = mongojs(mongoURI, [
             colls.ACCOUNTS,
             colls.CTRL_TREES,
             colls.OPEN_TREES,
@@ -93,7 +85,7 @@ function Connect() {
             colls.TIMELINE
         ]);
 
-        console.log('Connected to MongoDB at: %s', mongoURL);
+        console.log('Connected to MongoDB at: %s', mongoURI);
     });
 };
 
@@ -3952,7 +3944,7 @@ module.exports = function() {
             });
         },
         GetConnectionURL: function() {
-            return mongoURL;
+            return mongoURI;
         },
         GetConnObj: function() {
             if(!mongoConn)

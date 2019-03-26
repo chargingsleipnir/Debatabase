@@ -33,12 +33,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/chargingsleipnir/nodejs-ex.git"
+        "url": "https://git.heroku.com/debatabase.git"
     },
     "author": "Odin von Doom",
-    "license": "CC-BY-1.0",
-    "bugs": {
-        "url": "https://github.com/chargingsleipnir/nodejs-ex/issues"
-    },
-    "homepage": "https://github.com/chargingsleipnir/nodejs-ex"
+    "license": "CC-BY-1.0"
 }
