@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var mongojs = require('mongojs');
 var mongoDB = require('mongodb');
 const mongoClient = mongoDB.MongoClient;
@@ -19,6 +21,7 @@ var timeBldr = require('./timelineBuilder.js')();
 var mongoURLLabel = "";
 var mongoURI = "";
 
+console.log(process.env.DATABASE_SERVICE_NAME);
 var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
     mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
     mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
@@ -35,6 +38,8 @@ if (mongoHost && mongoPort && mongoDBName) {
     mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDBName;
     mongoURI += mongoHost + ':' +  mongoPort + '/' + mongoDBName;
 }
+
+console.log('mongo URI: ' + mongoURI);
 
 // mongoConn and db are differentiated only because the MongoStore in server.js doesn't seem to take the object from mongojs
 var db = null,
@@ -66,11 +71,15 @@ function Connect() {
     if(mongoDB == null || mongoClient == null) return;
     if(mongojs == null) return;
 
+    console.log('mongo connecting');
+
     mongoClient.connect(mongoURI, function(err, client) {
         if(err) {
             console.log('Error connecting to Mongo. Message:\n' + err);
             return;
         }
+
+        console.log('mongo connected');
 
         mongoConn = client.db(mongoDBName);
         gfs = GridFS(mongoConn, mongoDB);
