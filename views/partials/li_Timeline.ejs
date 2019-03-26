@@ -1,0 +1,48 @@
+<li class="timelineLI">
+    <div class="timelineStdInfo fontVarMetaDets flexRow flexSpaceBetween noWrapText">
+        <span class="flexRow">
+            <? if(showName) { ?>
+            <button class="textAsBtn userSearchBtn flexRow" value="<?= li.username ?>">
+                <img data-accountID="<?= li.accountID ?>" class="userImg sqr30" src="Images/SpeechlessGuy.png" />
+                <span class="gapMedLeft"><?= li.username ?></span>
+            </button>            
+            <span>&nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+            <? } ?>
+            <span><?= li.typeDesc ?></span>
+            <? if(li.hasSender) { ?>
+            <span>&nbsp;&nbsp;&bull;&nbsp;&nbsp;Sent&nbsp;by&nbsp;</span>
+            <input type="button" class="textAsBtn userSearchBtn" value="<?= li.senderName ?>" />
+            <? } ?>
+        </span>
+        <span class="flexRow">
+            <span><?= li.timeStamp ?></span>
+            <? if(li.type > types.SIGN_UP && li.type != types.DELETED) { ?>
+            <button type="button" class="treeBuildBtn timelineLinkBtn gapLargeLeft hasSVG" data-treeID="<?= li.treeID ?>" data-branchIdx="<?= li.branchIdx ?>" data-isCtrl="<?= li.isCtrl ?>">
+                <i class="fas fa-lg fa-map-marker-alt"></i>
+            </button>
+            <? } ?>
+        </span>
+    </div>
+
+    <? if(li.type > types.SIGN_UP) { ?>
+    <hr class="hrLight">
+    <div class="gapLargeTop">
+        <div class="fontVarMetaDets">Debate title:</div>
+        <div><?= li.title ?></div>
+    </div>
+    <div class="gapLargeTop">
+        <? if(li.showPosted) { ?>
+        <div class="fontVarMetaDets">Given assertion:</div>
+        <? } else { ?>
+        <div class="fontVarMetaDets">Main assertion:</div>
+        <? } ?>
+        <div><?= li.asser ?></div>
+    </div>
+    <? if(li.showPosted) { ?>
+    <div class="gapLargeTop">
+        <div class="fontVarMetaDets"><span class="capitalize"><?= li.argTypeName ?></span> response:</div>
+        <div><?= li.asser2 ?></div>
+    </div>
+    <? } 
+    } ?>
+</li>

@@ -1,0 +1,90 @@
+<!-- Set flex grow so the left container takes all the extra space -->
+<!-- Set these as row-reverse, just so I can list the nav at the top for ease of coding -->
+<ul id="ConnsNav" class="flexCol flexAlignStretch pointerTabs ulVarLeft rightNavBuffer">
+    <li id="TabTimeline" class="connsTab gapMedBottom paddedTab">
+        <div>Timeline</div>
+        <? if(timePublCount > 0) { ?>
+        <select id="TimePublSel" class="gapMedTop" autocomplete="off">
+            <option value="0">1 - <?= batchSize ?></option>
+            <? if(timePublCount > batchSize) {
+                var loopLen = Math.ceil(timePublCount / batchSize);
+                for(var i = 1; i < loopLen; i++) { ?>
+                <option value="<?= i ?>"><?= (i * batchSize) + 1 ?> - <?= (i + 1) * batchSize ?></option>
+            <? }
+            } ?>
+        </select>
+        <? } ?>
+    </li>
+    <li id="TabFollowing" class="connsTab gapMedBottom paddedTab">Following</li>
+    <li id="TabFollowers" class="connsTab gapMedBottom paddedTab absParent">
+        Followers
+        <!-- // TODO: Set get pending amounts, and set hide true or false based off pending > 0 -->
+        <span id="NewFollowerNotif" class="colorPos hideTrue">&#x25cf;</span>
+    </li>
+    <li id="TabBlocked" class="connsTab paddedTab">Blocked</li>
+</ul>
+<div class="flexCol contentFlex100 limitHeight">
+    <!-- Define a general/consistant width, say 50% of the parent with a min? -->
+    <ul id="PanelTimeline" class="connsPanel hideFalse flexCol flexAlignStretch scrollHeight timeline">
+        <div>Follow another user to recieve updates on their activity</div>
+    </ul>
+    <div id="PanelFollowing" class="connsPanel hideTrue limitHeight">
+        <div>
+            <div class="gapLargeH">
+                <div id="FollowingTotalBtns" class="gapLargeBottom">
+                    <button id="FollowingTotalFilter" class="follFilterBtn block width100 textAsBtn activeTrue flexRow flexSpaceBetween smText"><span>Total:&nbsp;</span><span id="FollowingTotalDisp"></span></button>
+                    <button id="FollowingAccFilter" class="follFilterBtn block width100 textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorPos">&#x25cf;</span>&nbsp;Accepted:&nbsp;</span><span id="FollowingAccDisp"></span></button>
+                    <button id="FollowingPendFilter" class="follFilterBtn block width100 textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorNeut">&#x25cf;</span>&nbsp;Pending:&nbsp;</span><span id="FollowingPendDisp"></span></button>
+                    <button id="FollowingRejFilter" class="follFilterBtn block width100 textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorNeg">&#x25cf;</span>&nbsp;Rejected:&nbsp;</span><span id="FollowingRejDisp"></span></button>
+                </div>
+                <form id="FollUserForm" name="FollUserForm" class="flexRow width100">
+                    <!-- //TODO: Include options - filter, clear all rejections, etc. Use the wording above as filter buttons -->
+                    <input type="text" name="NameOrEmailField" placeholder="username/email" />&nbsp;
+                    <button type="button" name="AddUserBtn" class="hasSVG">
+                        <i class="fas fa-2x fa-plus-circle"></i>
+                    </button>
+                </form>
+            </div>
+            <ul id="FollowingList" class="dashFollList gapLargeH">
+                <?- include('../partials/li_AddUser.ejs', { liArr: following, indOnline:false, userConnName: false, userConnOpts: false, statusInd: true, accRejBtns: true, accBtn: false, inviteResps: inviteResps }); ?>
+            </ul>
+        </div>
+    </div>
+    <div id="PanelFollowers" class="connsPanel hideTrue flexCol limitHeight">
+        <div class="flexCol width100">
+            <div class="flexRow flexAlignStart width100 gapLargeH subSect">
+                <div id="FollowerTotalBtns" class="subSect width100 flexCol flexAlignStretch">
+                    <button id="FollowerTotalFilter" class="follFilterBtn textAsBtn activeTrue flexRow flexSpaceBetween smText"><span>Total:&nbsp;</span><span id="FollowerTotalDisp"></span></button>
+                    <button id="FollowerAccFilter" class="follFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span>Accepted:&nbsp;</span><span id="FollowerAccDisp"></span></button>
+                    <button id="FollowerPendFilter" class="follFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span>Pending:&nbsp;</span><span id="FollowerPendDisp"></span></button>
+                </div>
+                <form name="FollReqOptForm" class="flexRow flexJustCenter width100 gapMegaLeft">
+                    <button type="button" name="SaveBtn" class="gapSmallH hasSVG">
+                        <i class="fas fa-2x fa-save"></i>
+                    </button>
+                    <div class="flexCol flexAlignStart gapMedLeft">
+                        <label><input type="checkbox" name="AutoAccept" <? if(followReqAutoOpt == inviteResps.ACCEPT) { ?>checked<? } ?> />&nbsp;Auto-accept&nbsp;new&nbsp;follower&nbsp;requests</label>
+                        <label><input type="checkbox" name="AutoReject" <? if(followReqAutoOpt == inviteResps.REJECT) { ?>checked<? } ?> />&nbsp;Auto-reject&nbsp;new&nbsp;follower&nbsp;requests</label>
+                    </div>
+                </form>
+            </div>
+            <ul id="FollowerList" class="dashFollList gapLargeH width100">
+                <?- include('../partials/li_AddUser.ejs', { liArr: followers, indOnline:false, userConnName: true, userConnOpts: false, statusInd: false, accRejBtns: true, accBtn: true, inviteResps: inviteResps }); ?>
+            </ul>
+        </div>
+    </div>
+    <div id="PanelBlocked" class="connsPanel hideTrue limitHeight">
+        <h5 class="insulate smSectHead alignLeft">Total:&nbsp;<span id="BlockedTotalDisp"><?= blocking.length ?></span></h5>
+        <form name="BlockForm">
+            <div class="flexRow">
+                <input type="text" class="width100" name="NameOrEmailField" placeholder="username/email" />&nbsp;
+                <button type="button" name="AddUserBtn" class="hasSVG">
+                    <i class="fas fa-2x fa-plus-circle"></i>
+                </button>
+            </div>
+        </form>
+        <ul id="BlockList" class="dashFollList gapLargeH ">
+            <?- include('../partials/li_BlockUser.ejs', { liArr: blocking }); ?>
+        </ul>
+    </div>
+</div>

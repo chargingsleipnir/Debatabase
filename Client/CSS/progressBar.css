@@ -1,0 +1,329 @@
+﻿
+/* TODO:
+For normal rating (progress) bars, 
+1. set the background to be the full red(left) to green(right) gradient,
+2. scaleX at -1 to flip them, 
+3. set their values as 1 minus the given pct, 
+4. and colour the bar itself transparent, blck, etc.
+*/
+
+/*PROGRESS BAR AS RATING SYSTEM*/
+progress[value] {
+    border: 2px solid black;
+    width: 100%;
+    height: 12px;
+    /*appearance reset*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /*For IE value background*/
+    background-color: rgba(255, 255, 255, .5);
+    
+    /*transition: width 0.25s ease;*/
+}
+.argRatingSelDisabled {
+    cursor: auto;
+}
+progress[value]::-webkit-progress-bar {
+    background-color: rgba(255, 255, 255, .5);
+}
+progress[value]::-moz-progress-bar {
+    -moz-transition: width 0.5s ease;
+}
+progress[value]::-webkit-progress-value {
+    -webkit-transition: width 0.5s ease;
+    -o-transition: width 0.5s ease;
+}
+
+.progBarCont {
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 160px;
+}
+.progBarCont div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    pointer-events: none;
+}
+
+/* Strength rating 0
+progress[value="1"] {
+    color: #E50007;
+}
+progress[value="1"]::-moz-progress-bar {
+    background-color: #E60008;
+}
+progress[value="1"]::-webkit-progress-value {
+    background-color: #E60008;
+}
+/* Strength rating 1
+progress[value="2"] {
+    color: #E15900;
+}
+progress[value="2"]::-moz-progress-bar {
+    background: -moz-linear-gradient(left, #E60008, #DD5400);
+}
+progress[value="2"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(left, #E60008, #DD5400);
+}
+/* Strength rating 2
+progress[value="3"] {
+    color: #DDB700;
+}
+progress[value="3"]::-moz-progress-bar {
+    background: -moz-linear-gradient(left, #E60008, #DD5400, #D5AA00);
+}
+progress[value="3"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(left, #E60008, #DD5400, #D5AA00);
+}
+/* Strength rating 3
+progress[value="4"] {
+    color: #A0D900;
+}
+progress[value="4"]::-moz-progress-bar {
+    background: -moz-linear-gradient(left, #E60008, #DD5400, #D5AA00, #A1CD00);
+}
+progress[value="4"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(left, #E60008, #DD5400, #D5AA00, #A1CD00);
+}
+/* Strength rating 4
+progress[value="5"] {
+    color: #41D500;
+}
+progress[value="5"]::-moz-progress-bar {
+    background: -moz-linear-gradient(left, #E60008, #DD5400, #D5AA00, #A1CD00, #48C500);
+}
+progress[value="5"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(left, #E60008, #DD5400, #D5AA00, #A1CD00, #48C500);
+}
+/* Strength rating 5
+progress[value="6"] {
+    color: #00B316;
+}
+progress[value="6"]::-moz-progress-bar {
+    background: -moz-linear-gradient(left, #E60008, #DD5400, #D5AA00, #A1CD00, #48C500, #00BD09);
+}
+progress[value="6"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(left, #E60008, #DD5400, #D5AA00, #A1CD00, #48C500, #00BD09);
+}*/
+/*
+progress[value="6"]::before {
+    color: black;
+    content: '5';
+    position: absolute;
+    right: 0;
+    top: -125%;
+}*/
+
+/* Strength rating 0 */
+progress[data-colourValue="0"] {
+    color: #E50007;
+}
+progress[data-colourValue="0"]::-moz-progress-bar {
+    background: -moz-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+}
+progress[data-colourValue="0"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+}
+/* Strength rating 1 */
+progress[data-colourValue="1"] {
+    color: #E15900;
+}
+progress[data-colourValue="1"]::-moz-progress-bar {
+    background: -moz-linear-gradient(top, #ff914d 0%, #DD5400 100%);
+}
+progress[data-colourValue="1"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(top, #ff914d 0%, #DD5400 100%);
+}
+/* Strength rating 2 */
+progress[data-colourValue="2"] {
+    color: #DDB700;
+}
+progress[data-colourValue="2"]::-moz-progress-bar {
+    background: -moz-linear-gradient(top,  #ffd633 0%, #D5AA00 100%);
+}
+progress[data-colourValue="2"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(top,  #ffd633 0%, #D5AA00 100%);
+}
+/* Strength rating 3 */
+progress[data-colourValue="3"] {
+    color: #A0D900;
+}
+progress[data-colourValue="3"]::-moz-progress-bar {
+    background: -moz-linear-gradient(top, #d3ff33 0%, #A1CD00 100%);
+}
+progress[data-colourValue="3"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(top, #d3ff33 0%, #A1CD00 100%);
+}
+/* Strength rating 4 */
+progress[data-colourValue="4"] {
+    color: #41D500;
+}
+progress[data-colourValue="4"]::-moz-progress-bar {
+    background: -moz-linear-gradient(top, #7eff33 0%, #48C500 100%);
+}
+progress[data-colourValue="4"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(top, #7eff33 0%, #48C500 100%);
+}
+/* Strength rating 5 */
+progress[data-colourValue="5"] {
+    color: #00B316;
+}
+progress[data-colourValue="5"]::-moz-progress-bar {
+    background: -moz-linear-gradient(top, #1aff25 0%, #00BD09 100%);
+}
+progress[data-colourValue="5"]::-webkit-progress-value {
+    background: -webkit-linear-gradient(top, #1aff25 0%, #00BD09 100%);
+}
+
+.checkboxRating {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 160px;
+}
+
+.checkboxRating li {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin: 5px 2px;
+    background: #fcfff4;
+    background: linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: -moz-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    background: -webkit-linear-gradient(top, #fcfff4 0%, #dfe5d7 40%, #b3bead 100%);
+    /*border-radius: 50px;*/
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+}
+.checkboxRating label {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.checkboxRating input[type=checkbox] + label {
+    background: linear-gradient(top, #666 0%, #888 100%);
+    background: -moz-linear-gradient(top, #666 0%, #888 100%);
+    background: -webkit-linear-gradient(top, #666 0%, #888 100%);
+    /*border-radius: 50px;*/
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
+}
+
+.checkboxRating input[type=checkbox]:not(:disabled) + label {
+    background: linear-gradient(top, #222 0%, #45484d 100%);
+    background: -moz-linear-gradient(top, #222 0%, #45484d 100%);
+    background: -webkit-linear-gradient(top, #222 0%, #45484d 100%);
+    /*border-radius: 50px;*/
+    box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,1);
+}
+
+.checkboxRating label::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    /*border-radius: 50px;*/
+    box-shadow: inset 0px 1px 1px white, 0px 1px 3px rgba(0,0,0,0.5);
+}
+.checkboxRating input[type=checkbox]:not(:disabled) + label::after {
+    cursor: pointer;
+}
+.checkboxRating input[type=checkbox]:not(:disabled):not(:checked) + label:hover::after {
+    opacity: 0.3;
+}
+.checkboxRating input[type=checkbox] {
+    visibility: hidden;
+}
+.checkboxRating input[type=checkbox]:checked + label:after{
+    opacity: 1;
+}
+
+/* DISABLED BUTTONS */
+.checkboxRating input[type=checkbox][value="0"] + label::after {
+    background: #ff4d52;
+    background: linear-gradient(top, #ffb3b5 0%, #ff4d52 100%);
+    background: -moz-linear-gradient(top, #ffb3b5 0%, #ff4d52 100%);
+    background: -webkit-linear-gradient(top, #ffb3b5 0%, #ff4d52 100%);
+}
+.checkboxRating input[type=checkbox][value="1"] + label::after {
+    background: #ff914d;
+    background: linear-gradient(top, #ffd0b3 0%, #ff914d 100%);
+    background: -moz-linear-gradient(top, #ffd0b3 0%, #ff914d 100%);
+    background: -webkit-linear-gradient(top, #ffd0b3 0%, #ff914d 100%);
+}
+.checkboxRating input[type=checkbox][value="2"] + label::after {
+    background: #ffd633;
+    background: linear-gradient(top,  #ffeb99 0%, #ffd633 100%);
+    background: -moz-linear-gradient(top,  #ffeb99 0%, #ffd633 100%);
+    background: -webkit-linear-gradient(top,  #ffeb99 0%, #ffd633 100%);
+}
+.checkboxRating input[type=checkbox][value="3"] + label::after {
+    background: #d3ff33;
+    background: linear-gradient(top, #e9ff99 0%, #d3ff33 100%);
+    background: -moz-linear-gradient(top, #e9ff99 0%, #d3ff33 100%);
+    background: -webkit-linear-gradient(top, #e9ff99 0%, #d3ff33 100%);
+}
+.checkboxRating input[type=checkbox][value="4"] + label::after {
+    background: #7eff33;
+    background: linear-gradient(top, #beff99 0%, #7eff33 100%);
+    background: -moz-linear-gradient(top, #beff99 0%, #7eff33 100%);
+    background: -webkit-linear-gradient(top, #beff99 0%, #7eff33 100%);
+}
+.checkboxRating input[type=checkbox][value="5"] + label::after {
+    background: #1aff25;
+    background: linear-gradient(top, #80ff86 0%, #1aff25 100%);
+    background: -moz-linear-gradient(top, #80ff86 0%, #1aff25 100%);
+    background: -webkit-linear-gradient(top, #80ff86 0%, #1aff25 100%);
+}
+
+/* ENABLED BUTTONS */
+.checkboxRating input[type=checkbox][value="0"]:not(:disabled) + label::after {
+    background: #E60008;
+    background: linear-gradient(top, #ff4d52 0%, #E60008 100%);
+    background: -moz-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+    background: -webkit-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+}
+.checkboxRating input[type=checkbox][value="1"]:not(:disabled) + label::after {
+    background: #DD5400;
+    background: linear-gradient(top, #ff914d 0%, #DD5400 100%);
+    background: -moz-linear-gradient(top, #ff914d 0%, #DD5400 100%);
+    background: -webkit-linear-gradient(top, #ff914d 0%, #DD5400 100%);
+}
+.checkboxRating input[type=checkbox][value="2"]:not(:disabled) + label::after {
+    background: #D5AA00;
+    background: linear-gradient(top,  #ffd633 0%, #D5AA00 100%);
+    background: -moz-linear-gradient(top,  #ffd633 0%, #D5AA00 100%);
+    background: -webkit-linear-gradient(top,  #ffd633 0%, #D5AA00 100%);
+}
+.checkboxRating input[type=checkbox][value="3"]:not(:disabled) + label::after {
+    background: #A1CD00;
+    background: linear-gradient(top, #d3ff33 0%, #A1CD00 100%);
+    background: -moz-linear-gradient(top, #d3ff33 0%, #A1CD00 100%);
+    background: -webkit-linear-gradient(top, #d3ff33 0%, #A1CD00 100%);
+}
+.checkboxRating input[type=checkbox][value="4"]:not(:disabled) + label::after {
+    background: #48C500;
+    background: linear-gradient(top, #7eff33 0%, #48C500 100%);
+    background: -moz-linear-gradient(top, #7eff33 0%, #48C500 100%);
+    background: -webkit-linear-gradient(top, #7eff33 0%, #48C500 100%);
+}
+.checkboxRating input[type=checkbox][value="5"]:not(:disabled) + label::after {
+    background: #00BD09;
+    background: linear-gradient(top, #1aff25 0%, #00BD09 100%);
+    background: -moz-linear-gradient(top, #1aff25 0%, #00BD09 100%);
+    background: -webkit-linear-gradient(top, #1aff25 0%, #00BD09 100%);
+}

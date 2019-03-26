@@ -1,0 +1,186 @@
+#StatusText {
+    position: fixed;
+    z-index: 99;
+    padding: 10px;
+    top: 0;
+    opacity: 0;    
+    transition: all 0.5s ease-out;
+}
+#StatusText.obscuredTrue {
+    z-index: -99;
+    padding: 0;
+    margin: 0;
+}
+#StatusText.animPos {
+    top: 20px;
+    opacity: 1;
+}
+
+/* HEADER */
+
+header {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 5px;
+}
+header > * {
+    flex: 1 1 0;
+}
+#SiteLogo {
+    cursor: pointer;
+}
+#SiteLogo:hover {
+    color: white;
+}
+
+#HeaderBtnCont {
+    padding: 0;
+    margin: 0 auto;
+}
+#HeaderBtnCont .pageTab {
+    margin: 0 5px;
+    padding: 0;
+    width: 80px;
+    background-color: transparent;
+}
+#HeaderBtnCont .pageTab > * {
+    margin: 0 auto;
+}
+
+
+/* Mod messenger window */
+#ModMsgsHeaderNotif {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-250%, 66%);
+    opacity: 1;
+    transition: all 0.5s ease-out;
+    box-shadow: transparent;
+    background-color: transparent;
+}
+#ModMsgsHeaderNotif.animNeg {
+    opacity: 0;
+}
+
+/* Notification - Activity Page, Connections Page */
+
+#TabNotifPageAct, #TabNotifPageConns {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+#TabNotifPageAct.animPos, #TabNotifPageConns.animPos {
+    opacity: 1;
+}
+
+
+
+#HeaderIconFrame {
+    width: calc(100% / 6);
+    height: 4px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    transform: translate(0, 0);
+    transition: all 0.2s ease-out;
+}
+#HeaderIconFrame.shift1 { transform: translate(100%, 0); }
+#HeaderIconFrame.shift2 { transform: translate(200%, 0); }
+#HeaderIconFrame.shift3 { transform: translate(300%, 0); }
+#HeaderIconFrame.shift4 { transform: translate(400%, 0); }
+#HeaderIconFrame.shift5 { transform: translate(500%, 0); }
+
+#HeaderRight {
+    justify-content: flex-end;
+}
+
+#UsernameText {
+    white-space: nowrap;
+}
+#UsernameText, #UsernameText + span {
+    height: 21px;
+    line-height: 18px;
+}
+#HeaderUserOpts {
+    position: absolute;
+    margin: 0;
+    top: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    background-color: rgba(240,128,128,0.75);
+    padding: 5px;
+    border-radius: 5px;
+}
+#HeaderUserOpts:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-bottom-color: rgba(240,128,128,0.75);
+	border-width: 10px;
+	margin-left: -10px;
+}
+
+#HeaderWaitInd {
+    opacity: .25;
+}
+
+/* MAIN */
+
+main {
+    flex: 1 1 auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+main .contentFrame {
+    flex: 0 0 5px;
+    z-index: 10;
+}
+#MainContent {
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+/* FOOTER */
+
+footer {
+    flex: 0 0 auto;
+}
+#FooterContCont {
+    justify-content: center;
+    padding: 5px;
+    overflow: hidden;
+    transition: all 0.25s ease-out;
+    height: 2.5em;
+}
+#FooterContCont.hiddenTrue {
+    padding: 0;
+    height: 0;
+}
+#FooterContCont > * {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 10px;
+}
+#FooterRight {
+    display: flex;
+    flex-flow: row nowrap;
+}
+#HideFooterBtn {
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+    z-index: 2;
+}

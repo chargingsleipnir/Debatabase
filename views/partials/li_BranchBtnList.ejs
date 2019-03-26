@@ -1,0 +1,13 @@
+<? for(var treeID in treeList) {
+    if(treeList[treeID].numBranches > 0) { ?>
+    <li class="bookmarkTree transFadeRot" data-treeID="<?= treeID ?>">
+        <h4 class="treeTitle"><?= treeList[treeID].title ?></h4>
+        <ul id="BookmarkListBranchListOfTree<?= treeID ?>" class="branchList">
+            <?- include(pathPartials + 'li_BranchLink.ejs', {
+                liObj: treeList[treeID].branchObj,
+            }); ?>
+        </ul>
+    </li>
+<? }
+}
+?>

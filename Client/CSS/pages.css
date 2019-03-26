@@ -1,0 +1,273 @@
+/* //* CONTAINER */
+
+.mainObscuredTrue {
+    z-index: -1;
+}
+#PagesWrapper {
+    flex: 1 0 auto;
+    overflow-x: hidden; 
+}
+#Pages {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: all 0.3s ease-out;
+}
+
+/* //* COMMON STYLES */
+
+/* Page Tabs */
+.page {
+    height: 100%;
+    overflow: hidden;
+}
+.rightNavBuffer {
+    flex: 0;
+    margin: 20px 25px 10px 10px;
+}
+.contentFlex100 {
+    flex: 1 0 0;
+}
+.paddedTab {
+    padding: 10px;
+    font-size: medium;
+}
+/* Page Tabs */
+
+
+.pageBG {
+    background-color: rgba(150, 150, 255, 0.25);
+}
+.shade {
+    background-color: rgba(147,112,219, 0.5);
+}
+
+.treeLinkLI {
+    border: none;
+    margin-bottom: 10px;
+}
+.actPanel, .connsPanel, .settingsPanel, #SearchPageWidthWrapper {
+    width: 50%;
+    min-width: 500px;
+    margin: 20px 0;
+}
+
+/* //* SEARCH PAGE */
+#SearchPage {
+    padding: 20px 0;
+    overflow-y: auto;
+}
+#SearchPageWidthWrapper {
+    margin: 0 auto;
+}
+#SearchPage form {
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+#SearchTextFieldCont {
+    justify-content: flex-end;
+}
+#SearchBar input[name="SearchTermField"] {
+    border: 1px solid #985A2D;
+    border-right: none;
+    padding: 4px;
+    height: 25px;
+    width: 250px;
+}
+#SearchBar button[name="SearchTermBtn"] {
+    border: 1px solid #985A2D;
+    border-left: none;
+    background-color: transparent;
+}
+#SearchBarCustomChecks {
+    align-items: flex-start;
+}
+#SearchBarCustomChecks label {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    white-space: nowrap;
+}
+
+#SearchResultsDescDisp {
+    white-space: nowrap;
+    margin-bottom: 10px;
+}
+#UserResults li {
+    padding: 3px;
+    margin-bottom: 7px;
+}
+.userOpts > * {
+    flex: 1 1 auto;
+    margin: 2px;
+}
+
+/*//*   ACTIVITY PAGE   */
+
+/* Timeline */
+
+/* Same setup in connections page below */
+#TabActTimeline.activeFalse #TimePersSel {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+#AllCreatedSubmDets, #AllModSubmDets {
+    justify-content: center;
+}
+
+/*Created*/
+#CreateListPanel {
+    justify-content: center;
+}
+#CreateListPanel > div {
+    width: 200px;
+}
+
+/*Moderating*/
+
+/*GuestOf*/
+
+/*Bookmark Panel*/
+.bookmarkTree .treeTitle {
+    padding: 5px;
+    cursor: pointer;
+}
+.bookTreeList > li > * {
+    margin: 5px;
+}
+.bookTreeList > li > ul > li {
+    margin-bottom: 5px;
+}
+.bookTreeList > li { 
+    margin-bottom: 10px;
+    padding: 5px;
+}
+/*Recent visits*/
+#RecentTreeVisitList {
+    margin: 10px;
+    padding: 5px;
+}
+#RecentTreeVisitList > li {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* .timeline relevant to both, activity, and conns page below */
+.timeline {
+    margin: 20px 0;
+    padding: 0 20px;
+}
+.timeline > li {
+    text-align: left;
+    margin-bottom: 20px;
+    padding: 8px;
+    background-color: rgba(110, 220, 110, 0.25);
+}
+.timeline hr {
+    opacity: 0.33;
+    margin: 5px 0;
+}
+.timeline .textAsBtn {
+    color: green;
+}
+
+/*//*   CONNS PAGE   */
+
+/* Timeline */
+
+/* Same setup in connections page below */
+#TabTimeline.activeFalse #TimePublSel {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+#NewFollowerNotif {
+    position: absolute;
+    top: -8px;
+    right: -4px;
+}
+
+.follFilterBtn { padding: 1px 2px; }
+
+#FollUserForm > input[type="text"] {
+    flex: 1 1 0;
+}
+#FollUserForm > input[type="button"] {
+    flex: 0 0 auto;
+}
+
+#FollowingList, #FollowerList {
+    min-width: 200px;
+}
+
+.dashFollList > li {
+    margin: 5px 0;
+    padding: 5px 0;
+    border-bottom: 1px dotted grey;
+}
+
+/*//*   PROFILE PAGE   */
+
+.avatarImg {
+    border: solid 1px black;
+    width: 200px;
+    height: 200px;
+    align-self: center;
+}
+#AvatarUploadProg {
+    width: 1px;
+    flex: 1 1 auto;
+    /* Since chrome is a worthless bag of shit, this causes the oposite effect, and the bar goes completely flat, of course.
+    height: 100%;*/
+    border-width: 1px;
+}
+button[name="BioSaveBtn"] {
+    align-self: flex-start;
+}
+
+/*//*   SETTINGS PAGE   */
+#SettingsPage {
+    overflow-y: auto;
+}
+#SettingsTabs h4 {
+    padding: 5px;
+}
+
+/* Default permission table */
+
+#PermDefaultTable { 
+    border-collapse: collapse; 
+    border-spacing: 0;
+}
+#PermDefaultTable th {
+    text-align: left;
+    background-color: rgba(110, 220, 110, 0.33);
+}
+#PermDefaultTable th, #PermDefaultTable td {
+    padding: 5px;
+    border: 1px solid black
+}
+#PermDefaultTable #BtnTD {
+    text-align: left;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    padding-left: 0;
+}
+
+/* Default preferences table */
+
+#PrefDefaultLayoutForm .absTag {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 1px 2px;
+    font-size: small;
+}

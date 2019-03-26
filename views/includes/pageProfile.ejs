@@ -1,0 +1,37 @@
+<div>
+    <h4 class="gapMedBottom gapLargeTop insulate greenHeaderOp0p5">Avatar</h4>
+    <div class="flexRow flexAlignStart">
+        <div class="flexCol flexAlignStretch">
+            <img id="AvatarImgViewed" class="avatarImg gapSmallH" />
+            <div class="smText alignLeft">* Use only square images</div>
+            <form name="AvatarForm" class="flexCol flexAlignStretch">
+                <div class="flexRow gapSmallH">
+                    <input type="file" name="FileBrowse" class="hideTrue" autocomplete="off" accept="image/*" />
+                    <input type="button" name="FileBrowseStandIn" class="btnTextBgGreen" value="Browse..." />
+                    <button type="button" name="Upload" class="gapMedLeft hasSVG">
+                        <i class="fas fa-2x fa-save"></i>
+                    </button>
+                    <progress id="AvatarUploadProg" class="gapMedLeft" value="0" max="<?= imgLoadMax ?>"></progress>
+                </div>
+                <input type="text" class="gapSmallH flexItem110" name="PathReplica" autocomplete="off" readonly />
+            </form>
+        </div>
+        <div class="gapMedLeft">
+            <img id="AvatarImgDB" class="avatarImg gapSmallH block" src="Images/SpeechlessGuy.png" />
+            <div class="smText alignLeft">Saved to database</div>
+        </div>
+    </div>
+</div>
+
+<div class="gapLargeLeft">
+    <h4 class="gapMedBottom gapLargeTop insulate greenHeaderOp0p5">Bio</h4>
+    <form name="BioForm" class="flexCol flexAlignStretch">
+        <input type="text" class="gapSmallH" name="FirstNameField" placeholder="First name" value="<?= bio.firstName ?>" />
+        <input type="text" class="gapSmallH" name="LastNameField" placeholder="Last name" value="<?= bio.lastName ?>" />
+        <input type="text" class="gapSmallH" name="ProfDesigField" placeholder="Professional designation" value="<?= bio.profDesig ?>" />
+        <textarea name="DescriptionField" class="gapSmallH" placeholder="Other personal information you want debate visitors to know."><?= bio.desc ?></textarea>
+        <button type="button" name="BioSaveBtn" class="gapSmallH hasSVG">
+            <i class="fas fa-2x fa-save"></i>
+        </button>
+    </form>
+</div>

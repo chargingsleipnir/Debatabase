@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<?- include includes/head.ejs ?>
+
+<body onload="Main.Start();" class="waitingTrue">
+
+    <?- include includes/myTemplates.ejs ?>
+    <!-- // TODO: Make a debug window, js controller, and css page, for better options than just the console window -->
+
+    <ul id="ObscuredUL" class="obscuredTrue"></ul>
+
+    <? var follAccCount = 0;
+    if(!!account) {
+        for(var i = 0; i < account.following.length; i++)
+            if(account.following[i].invite == inviteResps.ACCEPT)
+                follAccCount++;
+    } ?>
+
+    <?- include('includes/header.ejs', {
+        loggedIn: loggedIn,
+        treeIsLoaded: treeIsLoaded,
+        urlParam: urlParam,
+        followCount: follAccCount
+    }) ?>
+
+    <main>
+        <span class="contentFrame"></span>
+        <span id="MainContent">    
+            <div id="AsideWrapper" class="absParent">
+                <aside id="Aside" class="animNeg">
+                <?- include('includes/sideBar.ejs', {
+                    loggedIn: loggedIn,
+                    treeIsLoaded: treeIsLoaded,
+                    treeData: treeData,
+                    permObj: permObj
+                }) ?>
+                </aside>
+            </div>
+            <div id="PagesWrapper" class="absParent">
+                <canvas id="TreeTransitionDisp" class="hideTrue"></canvas>
+                <?- include('includes/sliderLeft.ejs', {
+                    loggedIn: loggedIn,
+                    treeIsLoaded: treeIsLoaded,
+                    isCtrl: isCtrl,
+                    permObj: permObj,
+                    inviteResps: inviteResps,
+                    permTypes: permTypes
+                }) ?>
+                <?#- include('includes/sliderTop.ejs', {}) ?>
+                <?- include('includes/sliderRight.ejs', {
+                    submArgCount: submArgCount,
+                    batchSize: submBatchSize,
+                    argTypesObj: argTypesObj
+                }) ?>
+                <div id="Pages" class="mainObscuredFalse">
+
+                    <!--** Make sure pages stay in order, for js tab/panel changing -->
+                    <section id="TreePageCont" class="hideTrue absParent limitHeight page">
+                        <div id="TreePageBuffer" class="scrollHeight">
+                            <div id="TreePage"></div>
+                        </div>
+                        <div id="TreePageFunc" class="flexCol gapMedLeft">
+                            <button type="button" id="LayoutBtn" class="gapLargeTop nonEffector_SideBar hasSVG" title="Debate layout">
+                                <i class="far fa-lg fa-eye"></i>
+                            </button>
+                            <button type="button" id="LocationBtn" class="gapLargeTop hasSVG" title="View navigation map">
+                                <i class="fas fa-lg fa-sitemap"></i>
+                            </button>
+                            <button type="button" id="DetailsBtn" class="gapLargeTop hasSVG" title="Debate details">
+                                <i class="fas fa-lg fa-info-circle"></i>
+                            </button>
+                            <!-- V+ Maybe put this somewhere (header tree icon? beside details icon?) to quickly idenitify archived tree <i id="ArchivedInd" class="far fa-lg fa-file-archive hideTrue"></i>-->
+                        </div>
+                    </section>
+
+                    <section id="SearchPage" class="hideTrue page">
+                        <div id="SearchPageWidthWrapper">
+                            <?- include('includes/pageSearch.ejs', {
+                                mostInteractedCtrl: mostInteractedCtrl,
+                                mostInteractedOpen: mostInteractedOpen,
+                                mostInteractedArch: mostInteractedArch,
+                            }) ?>
+                        </div>
+                    </section>
+
+                    <section id="ActivityPage" class="flexRow flexRowRev flexAlignStart hideTrue page">
+                    <? if(loggedIn) { ?>
+                        <?- include('includes/pageActivity.ejs', {
+                            loggedIn: loggedIn,
+                            timePersCount: timePersCount,
+                            batchSize: timelineBatchSize
+                        }) ?>
+                    <? } ?>
+                    </section>
+
+                    <section id="ConnsPage" class="flexRow flexRowRev flexAlignStart hideTrue page">
+                    <? if(loggedIn) { ?>
+                        <?- include('includes/pageConns.ejs', { 
+                            loggedIn: loggedIn,
+                            timePublCount: timePublCount,
+                            batchSize: timelineBatchSize,
+                            following: account.following,
+                            followers: account.followers,
+                            followReqAutoOpt: account.followReqAutoOpt,
+                            blocking: account.blocking,
+                            inviteResps: inviteResps
+                        }) ?>
+                    <? } ?>
+                    </section>
+
+                    <section id="ProfilePage" class="flexRow flexJustCenter flexAlignStart hideTrue page">
+                    <? if(loggedIn) { ?>
+                        <?- include('includes/pageProfile.ejs', { 
+                            loggedIn: loggedIn,
+                            bio: account.bio,
+                            imgLoadMax: imgLoadMax
+                        }) ?>
+                    <? } ?>
+                    </section>
+
+                    <section id="SettingsPage" class="flexRow flexRowRev flexAlignStart hideTrue page">
+                    <? if(loggedIn) { ?>
+                        <?- include('includes/pageSettings.ejs', {
+                            perms: account.permissions,
+                            permTypes: permTypes,
+                            prefs: account.preferences
+                        }) ?>
+                    <? } ?>
+                    </section>
+                </div>
+            </div>
+        </span>
+        <span class="contentFrame"></span>
+    </main>
+
+    <?- include includes/footer.ejs ?>
+
+    <!-- Needs to be here to overlap other elements -->
+    <div id="StatusText" class="statusMsg animNeg obscuredTrue"></div>
+
+    <?- include('includes/siteOverlap.ejs', {
+        loggedIn: loggedIn,
+        name: account ? account.bio.firstName || account.username : '',
+        email: account ? account.email : '',
+        treeRemoveTypes: treeRemoveTypes
+    }) ?>
+    
+</body>
+</html>

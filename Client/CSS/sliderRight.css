@@ -1,0 +1,283 @@
+/*//* Common slider styles in sliderTop.css */
+
+#SliderRight {
+    bottom: 0;
+    padding: 5px;
+    transform: translateX(100.2%);
+    transition: all 0.5s ease-out;
+
+    display: flex;
+    flex-flow: column nowrap;
+}
+#SliderRight.animPos { transform: translateX(0%); }
+
+#SliderRight > * {
+    flex: 1 0 0;
+}
+#SliderRightHeader {
+    flex: 0 0 auto;
+    justify-content: space-between;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#TreeMapCont {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+/* //TODO: Make sure asser box wraps, or ends in ellipsis, doesn't push button off screen */
+#TreeMapInfoBox {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+#TreeMapAsserBox {
+    overflow-y: auto;
+}
+
+/* This type of Nav is getting the boot for now. But if I'm ever implementing a slide show...
+#TreeBuildDataNav {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+#TreeBuildDataNav > * {
+    position: absolute;
+    pointer-events: auto;
+}
+#TreeBuildDataNav .idxDecrBtn {
+    left: 0;
+    top: 50%;
+    width: 32px;
+    height: 32px;
+    transform: translate(-30px, -50%);
+    border-radius: 50%;
+    background: url('../Images/ArrowLeft2WithBG.png');
+}
+#TreeBuildDataNav .idxDecrBtn:hover {
+    background: url('../Images/ArrowLeft2WithBGInv.png');
+}
+#TreeBuildDataNav .idxDisp {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -30px);
+    border-radius: 5%;
+    padding: 3px 5px;
+    background-color: black;
+    color: white;
+}
+#TreeBuildDataNav .idxIncrBtn {
+    right: 0;
+    top: 50%;
+    width: 32px;
+    height: 32px;
+    transform: translate(30px, -50%);
+    border-radius: 50%; 
+    background: url('../Images/ArrowRight2WithBG.png');
+}
+#TreeBuildDataNav .idxIncrBtn:hover {
+    background: url('../Images/ArrowRight2WithBGInv.png');
+}*/
+
+#TreeBuildCont {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+#TreeBuildContent {
+    flex: 1 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+}
+#TreeBuildContent section, #ContBottom {
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 5px;
+    /*overflow-y: auto;*/
+}
+#TreeBuildContent section > * {
+    padding: 5px;
+}
+
+/*//* TOP CONTAINER */
+
+#TB_TopCont {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    overflow: hidden;
+}
+#TB_TopCont > * { 
+    flex: 1 1 0;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+/*//* TOP-LEFT */
+
+#TB_TopLeft { order: 1; }
+#TB_TopLeft.swapOrderTrue { order: 2; }
+
+#TB_TopLeftBody {
+    text-align: left;
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+/*//* TOP-MIDDLE */
+
+#TB_TopMid { 
+    order: 2;
+    max-width: 40%;
+}
+#TB_TopMid.swapOrderTrue { order: 1; }
+
+#RefListOpts {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin: 5px 0;
+}
+#RefListOptsBtns {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+
+#TB_RefList {
+    padding: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+#TB_RefList > li {
+    cursor: pointer;
+    padding: 3px;
+}
+#TB_RefList > li:not(.viewingTrue):hover {
+    background: rgba(110, 220, 110, 0.25);
+}
+#TB_RefList > .viewingTrue {
+    background: rgba(110, 220, 110, 0.5);
+}
+#TB_RefList > .submLIBtn {
+    flex-flow: row nowrap;
+    height: 4.5em;
+}
+/* There doesn't seem to be any good reason to have this
+#TB_RefList > .sentLIBtn {
+    align-items: stretch;
+    height: 2.75em;
+}*/
+.sentStatusIndrs > * {
+    margin: 0 3px;
+}
+.sentStatusIndrs .notInd { 
+    opacity: 0.1;
+    /*visibility: hidden; should work just as well */
+}
+.submLIBtn.viewedTrue {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: rgb(50, 50, 50);
+}
+.submLIBtn.viewedFalse { color: rgb(0, 0, 150); }
+.submLIBtn.viewedFalse .fontVarMetaDets { color: rgb(0, 0, 220); }
+
+.submLIDispBody {
+    margin: 3px 5px;
+    overflow: hidden;
+    width: 100%;
+}
+.submLIDispMeta {
+    white-space: nowrap;
+    width: 100%;
+}
+.submLIDispMetaRight > * {
+    margin: 0 5px;
+}
+
+/*//* TOP-RIGHT */
+
+#TB_TopRight {
+    order: 3;
+}
+#TB_TopRight.createWindOpen {
+    max-width: 600px;
+}
+#PresetEditLockBtn {
+    margin-right: 15px;
+    cursor: pointer;
+}
+#ArgAliasSelCont {
+    margin-right: 20px;
+}
+#TB_TopRightHeaderBtns > * { 
+    margin-left: 5px;
+}
+#SubmDataRight {
+    align-items: stretch;
+}
+
+#AsserSubmField {
+    min-height: 50px;
+    height: 50px;
+}
+#ElabSubmField {
+    min-height: 200px;
+    height: 200px;
+}
+
+/* sources section */
+.srcTextField, .srcURLField {
+    flex: 1 1 0;
+    margin: 0 2px;
+}
+.argSources {
+    margin: 7px 0;
+}
+.argSources > li > .abs {
+    top: 0;
+    right: 0;
+}
+#EditSrcInd {
+    top: -10px;
+    right: 22px;
+}
+
+/*//* BOTTOM */
+#ContBottom {
+    flex: 0 0 auto;
+}
+
+.headerBar {
+    background-color: burlywood;
+    margin-bottom: 5px;
+    justify-content: space-between;
+}
+.headerBar h4 {
+    padding: 0;
+}
+.headerBar ul {
+    margin: 0;
+    display: flex;
+    flex-flow: row nowrap;
+}
+#TB_TopRightDisp {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.progBarDisp label {
+    text-indent: 10px;
+}
+
+.imgApprove.switchActiveTrue { color: forestgreen; }
+.imgDisapprove.switchActiveTrue { color: red; }

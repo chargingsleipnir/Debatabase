@@ -1,0 +1,88 @@
+<?#- include views/includes/functions.ejs ?>
+
+<?
+var filterClass = 'filterNewFBFalse';
+var submAtIdx = false;
+if(submArgsAct) {
+    if(submAtIdx = submArgsAct.branches[idx]) {
+        if(submAtIdx.unviewed > 0) {
+            filterClass = 'filterNewFBTrue';
+        }
+    }
+}
+?>
+<li id="BranchList<?= idx ?>" class="<?= filterClass ?> hideFalse">
+    <div class="flexRow flexSpaceBetween">
+        <div class="flexRow fontVarMetaDets">
+            <input type="button" data-branchIdx="<?= idx ?>" class="textAsBtn branchListIdx branchListLinkBtn" value="<?= idx ?>" />
+            <span class="gapLargeW">&bull;</span>
+            <div>Rev.&nbsp;<?= branch.revision ? branch.revision.list.length + 1 : 1 ?></div>
+            <span class="gapLargeW">&bull;</span>
+            <div>Last&nbsp;edit:&nbsp;<?= timeStamp ?></div>
+        </div>
+        <div class="branchListParent">
+            <? if(branch.parent > -1) {
+                if(branch.type == argTypes.CORROB) { ?>
+                    Corroborates:&nbsp;
+                <? } else if (branch.type == argTypes.REFUTE) { ?>
+                    Refutes:&nbsp;
+                <? } else { ?>
+                    Resolves:&nbsp;
+                <? } ?><input type="button" data-branchListID="<?= 'BranchList' + branch.parent ?>" class="textAsBtn branchListScrollBtn" value="<?= branch.parent ?>" />
+            <? } else { ?>
+                Root&nbsp;assertion
+            <? } ?>
+        </div>
+    </div>
+    <hr class="gapMedH colWhite">
+    <div><?= branch.assertion ?></div>
+    <hr class="gapMedH colWhite">
+    <div class="flexRow flexAlignStart smText">
+        <div class="flexItem110 flexRow flexAlignStart">
+            <div class="flexItem110 flexRow flexAlignStart">
+                <i class="far fa-lg fa-hand-point-up gapTop3" title="Interactions"></i>
+                <div class="gapMedLeft">
+                    <div>Direct:&nbsp;<?= branch.interactions.direct ?></div>
+                    <div>Cumulative&nbsp;<?= branch.interactions.cumulative ?></div>
+                </div>
+            </div>
+            <? if(submAtIdx && canViewFeedback) { ?>
+            <button class="flexItem110 flexRow branchListFBBtn hideFalse absParent gapMedLeft hasSVG" data-branchIdx="<?= idx ?>">
+                <i class="far fa-lg fa-envelope" title="Argument submissions"></i>
+                <!-- Just display the total, and add the new qty in brackets if there are any -->
+                <span class="gapMedLeft"><span class="branchListMailTotal"><?= submAtIdx.total ?></span><? if( isMod && submAtIdx.unviewed > 0) { ?>&nbsp;<span class="newFBCol">(<?= submAtIdx.unviewed ?>)</span><? } ?></span>
+            </button>
+            <? } ?>
+        </div>
+        <div class="flexItem110 flexRow flexAlignStart">
+            <div class="flexItem110 gapMedLeft">
+                <div><?= branch.typeAliases[argTypes.CORROB] ?></div>
+                <? if(branch.children[argTypes.CORROB].length > 0) { ?>
+                <div class="wrapWhiteSpace">
+                    <? for(var j = 0, length = branch.children[argTypes.CORROB].length; j < length; j++) { ?>
+                    <span>
+                        <input type="button" data-branchListID="<?= 'BranchList' + branch.children[argTypes.CORROB][j] ?>" class="textAsBtn branchListChild branchListScrollBtn" value="<?= branch.children[argTypes.CORROB][j] ?>"><? if (j != length-1) { ?>,&nbsp;<? } ?>
+                    </span>
+                    <? } ?>
+                </div>
+                <? } else { ?>
+                <div>None</div>
+                <? } ?>
+            </div>
+            <div class="flexItem110 gapMedLeft">
+                <div><?= branch.typeAliases[argTypes.REFUTE] ?></div>
+                <? if(branch.children[argTypes.REFUTE].length > 0) { ?>
+                <div class="wrapWhiteSpace">
+                    <? for(var j = 0, length = branch.children[argTypes.REFUTE].length; j < length; j++) { ?>
+                    <span>
+                        <input type="button" data-branchListID="<?= 'BranchList' + branch.children[argTypes.REFUTE][j] ?>" class="textAsBtn branchListChild branchListScrollBtn" value="<?= branch.children[argTypes.REFUTE][j] ?>" /><? if (j != length-1) { ?>,&nbsp;<? } ?>
+                    </span>
+                    <? } ?>
+                </div>
+                <? } else { ?>
+                <div>None</div>
+                <? } ?>
+            </div>
+        </div>
+    </div>        
+</li>

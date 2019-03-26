@@ -1,0 +1,14 @@
+<? for(var i = 0, len = liArr.length; i < len; i++) { ?>
+<li class="flexRow blockUserLI twoLayerLI transFadeRotColl alignLeft" data-accountID="<?= liArr[i].accountID ?>">
+    <div class="flexRow">
+        <img data-accountID="<?= liArr[i].accountID ?>" class="userImg sqr30" src="Images/SpeechlessGuy.png" />
+        <div class="flexCol flexAlignStart gapMedLeft">
+            <div class="fontVarMetaDets"><?= liArr[i].timeStamp ?></div>
+            <div><?= liArr[i].username ?></div>
+        </div>
+    </div>
+    <button type="button" class="removeBtn hasSVG">
+        <i class="fas fa-minus-circle"></i>
+    </button>
+</li>
+<? } ?>

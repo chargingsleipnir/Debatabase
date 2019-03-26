@@ -1,0 +1,18 @@
+<fieldset class="height100">
+    <legend class="gapMedBottom">Sources</legend>
+    <div class="height100 flexCol flexAlignStretch">
+        <div class="flexRow absParent">
+            <input type="text" class="srcTextField" placeholder="Text"/>
+            <!--TODO: Make it so full url is not required-->
+            <input type="url" class="srcURLField" placeholder="Full URL: http://..." pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"/>
+            <button type="button" id="SubmitDataBtn" class="addSrcBtn hasSVG">
+                <i class="fas fa-2x fa-plus-circle"></i>
+            </button>
+            <div id="EditSrcInd" class="hideTrue abs" title="Button will edit the source item with the same indicator image">
+                <i class="fas fa-lg fa-link colSteelBlue"></i>
+            </div>
+        </div>
+        <ol class="argSources alignLeft">
+        </ol>
+    </div>
+</fieldset>

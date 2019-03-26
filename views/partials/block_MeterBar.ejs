@@ -1,0 +1,8 @@
+<div class="favMeterCont favRowContCommon flexRow">
+    <span class="favPctDisp"><?= '' + favCorrobPct + '%' ?></span>&nbsp;
+    <div class="favMeterCont ratingDispAvgsAvgd absParent flexRow">
+        <meter value="<?= favCorrobPct ?>" min="0" low="50" max="100" title="% of averages of strength ratings directly compared"></meter>
+        <span class="meterLevelInd valInd bgImg imgMeterCursor"></span>
+    </div>
+    &nbsp;<span class="favPctDisp"><?= '' + (100 - favCorrobPct) + '%' ?></span>
+</div>

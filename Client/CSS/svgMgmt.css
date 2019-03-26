@@ -1,0 +1,46 @@
+.hasSVG {
+    padding: 0;
+    background-color: transparent;
+}
+
+/*//* This is for chrome and any other browser that is picking up events on sub-button elements instead
+//* of the button itself. */
+button > * {
+    pointer-events: none;
+}
+
+/* The second part is a really hackey way to make my own svg image highlight - worls in FF at least */
+button:hover svg {
+    color: forestgreen;
+}
+.hovGreen:hover svg {
+    color: forestgreen;
+}
+.hovBrown:hover svg {
+    color: saddlebrown;
+}
+.hovBurlywood:hover svg {
+    color: burlywood;
+}
+button.hovWhite:hover svg {
+    color: white;
+}
+button.hovRed:hover svg {
+    color: red;
+}
+svg.hovNone {
+    pointer-events: none;
+}
+
+/* This is special to the header tree, which cannot be a "button" elem because it has a nested input button */
+#TreePageTab:hover svg path:first-child {
+    fill: forestgreen !important;
+}
+
+button.removeBtn:hover svg, button.hoverRed:hover svg {
+    color: red;
+}
+
+#BtnTD {
+    border-top: none;
+}

@@ -1,0 +1,47 @@
+<? for(var i = 0, len = liArr.length; i < len; i++) { ?>
+    <!-- add to class? -> <?# if(accRejBtns) { ?> gapMedBottom styleH<?# } else { ?> gapMegaBottom<?# } ?> -->
+    <li class="addUserLI transFadeRotColl alignLeft hideFalse<? if(liArr[i].bio) { ?> gapMegaBottom<? } else { ?> gapMedBottom<? } ?>" data-invite="<?= liArr[i].invite ?>" data-accountID="<?= liArr[i].accountID ?>" data-username="<?= liArr[i].username ?>">
+        <div class="flexRow flexSpaceBetween">
+            <div class="flexRow">
+                <? if(statusInd) { ?>
+                <span class="colorInd <? if (liArr[i].invite == inviteResps.ACCEPT) { ?>colorPos<? } else if (liArr[i].invite == inviteResps.NONE) { ?>colorNeut<? } else { ?>colorNeg<? } ?>">&#x25cf;</span>
+                <? }
+                if(userConnName) { ?>
+                <button class="textAsBtn userSearchBtn flexRow <? if(statusInd) { ?>gapMedLeft<? } ?>" value="<?= liArr[i].username ?>">
+                    <img data-accountID="<?= liArr[i].accountID ?>" class="userImg sqr30" src="Images/SpeechlessGuy.png" />
+                    <span class="gapMedLeft"><?= liArr[i].username ?></span>
+                </button>
+                <? } else { ?>
+                <img data-accountID="<?= liArr[i].accountID ?>" class="userImg sqr30 <? if(statusInd) { ?>gapMedLeft<? } ?>"  src="Images/SpeechlessGuy.png" />
+                <span class="gapMedLeft"><?= liArr[i].username ?></span>
+                <? } ?>
+            </div>
+            <? if(indOnline) { ?>
+            <div class="colorInd colorActiveFalse onlineInd gapMedW<? if(liArr[i].invite == inviteResps.ACCEPT) { ?> hideFalse<? } else { ?> hideTrue<? } ?>">&#x25cf;</div>
+            <? }
+            if(userConnOpts) { ?>
+            <div class="userOpts" data-username="<?= liArr[i].username ?>">
+                <input type="button" class="userFollowBtn btnTextBgGreen" value="Follow" />
+                <input type="button" class="userBlockBtn btnTextBgGreen gapMedLeft" value="Block" />
+            </div>
+            <? }
+            if(accRejBtns) { ?>
+            <div class="flexRow">
+                <? if (accBtn && liArr[i].invite != inviteResps.ACCEPT) { ?>
+                <button type="button" class="acceptBtn gapMedRight hasSVG">
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+                <? } ?>
+                <button type="button" class="removeBtn hasSVG">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+            </div>
+            <? } ?>
+        </div>
+        <? if(liArr[i].bio) { ?>
+        <hr class="gapMedH">
+        <div><?= liArr[i].bio.firstName + ' ' ?><?= liArr[i].bio.lastName ?></div>
+        <div><?= liArr[i].bio.profDesig ?></div>
+        <? } ?>
+    </li>
+<? } ?>

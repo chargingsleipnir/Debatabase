@@ -1,0 +1,22 @@
+/*PROGRESS BAR AS RATING SYSTEM RESULTS*/
+meter[value] {
+    border: 2px solid black;
+    width: 300px;
+    height: 12px;
+    /*appearance reset*/
+    -moz-appearance: none;
+    /*For IE value background*/
+    background-color: #E50007;
+    /*Just 'background' covers border for chrome ??*/
+    background: black;
+    background: -moz-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+    transition: width 0.5s ease;
+}
+
+/*
+meter[data-colourValue="0"]::-moz-meter-bar {
+    background: -moz-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+}
+meter[data-colourValue="0"]::-webkit-meter-value {
+    background: -webkit-linear-gradient(top, #ff4d52 0%, #E60008 100%);
+}*/

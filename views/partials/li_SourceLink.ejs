@@ -1,0 +1,20 @@
+<? for(var i = 0, len = liArr.length; i < len; i++) { ?>
+<li class="transFadeRotColl absParent">
+    <?# Extra layer needed so li can still be displayed as a "list item" and keep it's ol number. With display flex, it goes away ?>
+    <div class="flexRow abs top0 width100">
+        <a href="<?= liArr[i].url ?>" class="gapLargeRight" target="_blank"><?= liArr[i].text ?></a>
+        <? if(isMod && canEdit) { ?>
+        <div class="dotConnector flexItem110"></div>
+        <span class="flexRow gapLargeLeft">
+            <i class="fas fa-link editSrcInd gapMedRight hideTrue colSteelBlue"></i>
+            <button type="button" class="editBtn hasSVG gapMedRight" <? if(!editReady) { ?>disabled<? } ?>>
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button type="button" class="removeBtn hasSVG" <? if(!editReady) { ?>disabled<? } ?>>
+                <i class="fas fa-minus-circle"></i>
+            </button>
+        </span>
+        <? } ?>
+    </div>
+</li>
+<? } ?>

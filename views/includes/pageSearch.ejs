@@ -1,0 +1,91 @@
+<!-- TODO: Maybe put search and popular tabs together, margin off a little to show distinction -->
+<!-- TODO: Add other search funcitonality: Constraints, showing what section the result was found in, etc. 
+Also, show other search result sections: By tag, by admin/moderator, etc.-->
+<div id="SearchCtrls" class="flexRow flexSpaceAround">
+    <form id="SearchBar" name="SearchBar" class="gapSmallH">
+        <div id="SearchTextFieldCont" class="flexRow">
+            <input type="search" name="SearchTermField" class="gapSmallH" maxlength="254" placeholder="Search" />
+            <button type="button" name="SearchTermBtn" class="sqr25 hasSVG">
+                <i class="fas fa-lg fa-search"></i>
+            </button>
+        </div>
+        <div id="SearchBarCustomChecks" class="flexCol">
+            <label><input type="radio" name="Method" value="byTag" checked />Debate Text Search</label>
+            <label><input type="radio" name="Method" value="byText" />Debate Tag Search</label>
+            <label><input type="radio" name="Method" value="byUser" />User Search</label>
+        </div>
+    </form>
+    <div class="alignLeft">
+        <h5 class="insulate smSectHead alignLeft">Display</h5>
+        <form name="SearchLayout" class="flexRow flexAlignStart">
+            <div class="gapLargeRight">
+                <label class="block"><input type="radio" name="DispType" autocomplete="off" checked />Popular debates</label>
+                <label class="block"><input type="radio" name="DispType" autocomplete="off" />Search results</label>
+            </div>
+            <div>
+                <label class="block"><input type="checkbox" name="DispGroup" checked />Moderated</label>
+                <label class="block"><input type="checkbox" name="DispGroup" checked />Open</label>
+                <label class="block"><input type="checkbox" name="DispGroup" checked />Archived</label>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="SearchDisplay" class="gapMegaTop">
+    <!-- Need to show results horizontally to see long titles and assertions 
+    Controls above will allow this to be easy managed/viewed-->
+    <div id="PopularList" class="hideFalse">
+        <? if(mostInteractedCtrl.length > 0) { ?>
+        <div class="filterMod hideFalse">
+            <h5 class="insulate smSectHead alignLeft">Moderated</h5>
+            <ul>
+                <?- include('../partials/lis_TreeLink.ejs', {
+                    treeType: 'ctrl',
+                    liArr: mostInteractedCtrl
+                }); ?>
+            </ul>
+        </div>
+        <? }
+        if(mostInteractedOpen.length > 0) { ?>
+        <div class="filterOpen hideFalse">
+            <h5 class="insulate smSectHead alignLeft">Open</h5>
+            <ul>
+                <?- include('../partials/lis_TreeLink.ejs', {
+                    treeType: 'open',
+                    liArr: mostInteractedOpen
+                }); ?>
+            </ul>
+        </div>
+        <? }
+        if(mostInteractedArch.length > 0) { ?>
+        <div class="filterArch hideFalse">
+            <h5 class="insulate smSectHead alignLeft">Archived</h5>
+            <ul>
+                <?- include('../partials/lis_TreeLink.ejs', {
+                    treeType: 'ctrl',
+                    liArr: mostInteractedArch
+                }); ?>
+            </ul>
+        </div>
+        <? } ?>
+    </div>
+    <div id="SearchResults" class="hideTrue">
+        <div id="SearchResultsDescDisp">Nothing searched yet.</div>
+        <div id="TreeResultsCont" class="hideFalse">
+            <div class="filterMod hideFalse">
+                <h5 class="insulate smSectHead alignLeft">Moderated<span id="ModNoResText" class="hideFalse">&nbsp;(no results)</span></h5>
+                <ul id="SearchResultsCtrl"></ul>
+            </div>
+            <div class="filterOpen hideFalse">
+                <h5 class="insulate smSectHead alignLeft">Open<span id="OpenNoResText" class="hideFalse">&nbsp;(no results)</span></h5>
+                <ul id="SearchResultsOpen"></ul>
+            </div>
+            <div class="filterArch hideFalse">
+                <h5 class="insulate smSectHead alignLeft">Archived<span id="ArchNoResText" class="hideFalse">&nbsp;(no results)</span></h5>
+                <ul id="SearchResultsArch"></ul>
+            </div>
+        </div>
+        <div id="UserResultsCont" class="hideTrue alignLeft">
+            <ul id="UserResults"></ul>
+        </div>
+    </div>
+</div>

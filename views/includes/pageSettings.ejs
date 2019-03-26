@@ -1,0 +1,163 @@
+<!-- Probably best used here, if anywhere -->
+<ul id="SettingsTabs" class="flexCol flexAlignStretch pointerTabs ulVarLeft rightNavBuffer">
+    <li id="TabPermDefaults" class="settingsTab paddedTab gapMedBottom">Permission<br>Defaults</li>
+    <li id="TabPrefDefaults" class="settingsTab paddedTab gapMedBottom">Preference<br>Defaults</li>
+    <li id="TabAccount" class="settingsTab paddedTab gapMedBottom">Account</li>        
+</ul>
+<div class="flexCol contentFlex100 limitHeight">
+    <div id="PanelPermDefaults" class="settingsPanel hideFalse">
+        <form name="DashPermDefaultForm" class="flexCol">
+            <table id="PermDefaultTable" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Visitor&nbsp;type</th>
+                        <th colspan="3">Who&nbsp;can&nbsp;view:</th>
+                        <th colspan="2">Who&nbsp;can&nbsp;submit:</th>
+                    </tr>
+                    <tr>
+                        <th>Debate</th>
+                        <th>Feedback</th>
+                        <th>Ratings</th>
+                        <th>Feedback</th>
+                        <th>Ratings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Any&nbsp;visitor</th>
+                        <td><input type="radio" name="viewDebate" value="<?= permTypes.ANYONE ?>" <?= (perms['viewDebate'] == permTypes.ANYONE) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewFeedback" value="<?= permTypes.ANYONE ?>" <?= (perms['viewFeedback'] == permTypes.ANYONE) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewRating" value="<?= permTypes.ANYONE ?>" <?= (perms['viewRating'] == permTypes.ANYONE) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitFeedback" value="<?= permTypes.ANYONE ?>" <?= (perms['submitFeedback'] == permTypes.ANYONE) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" disabled/></td> <!-- name="submitRating" value="<?= permTypes.ANYONE ?>" <?#= (perms['submitRating'] == permTypes.ANYONE) ? 'checked' : '' ?> -->
+                    </tr>
+                    <tr>
+                        <th>Anyone&nbsp;logged&nbsp;in</th>
+                        <td><input type="radio" name="viewDebate" value="<?= permTypes.LOGGEDIN ?>" <?= (perms['viewDebate'] == permTypes.LOGGEDIN) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewFeedback" value="<?= permTypes.LOGGEDIN ?>" <?= (perms['viewFeedback'] == permTypes.LOGGEDIN) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewRating" value="<?= permTypes.LOGGEDIN ?>" <?= (perms['viewRating'] == permTypes.LOGGEDIN) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitFeedback" value="<?= permTypes.LOGGEDIN ?>" <?= (perms['submitFeedback'] == permTypes.LOGGEDIN) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitRating" value="<?= permTypes.LOGGEDIN ?>" <?= (perms['submitRating'] == permTypes.LOGGEDIN) ? 'checked' : '' ?>/></td>
+                    </tr>
+                    <tr>
+                        <th>Listed&nbsp;guests</th>
+                        <td><input type="radio" name="viewDebate" value="<?= permTypes.GUEST ?>" <?= (perms['viewDebate'] == permTypes.GUEST) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewFeedback" value="<?= permTypes.GUEST ?>" <?= (perms['viewFeedback'] == permTypes.GUEST) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewRating" value="<?= permTypes.GUEST ?>" <?= (perms['viewRating'] == permTypes.GUEST) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitFeedback" value="<?= permTypes.GUEST ?>" <?= (perms['submitFeedback'] == permTypes.GUEST) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitRating" value="<?= permTypes.GUEST ?>" <?= (perms['submitRating'] == permTypes.GUEST) ? 'checked' : '' ?>/></td>
+                    </tr>
+                    <tr>
+                        <th>Nobody</th>
+                        <td><input type="radio" name="viewDebate" value="<?= permTypes.MOD ?>" <?= (perms['viewDebate'] == permTypes.MOD) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewFeedback" value="<?= permTypes.MOD ?>" <?= (perms['viewFeedback'] == permTypes.MOD) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="viewRating" value="<?= permTypes.MOD ?>" <?= (perms['viewRating'] == permTypes.MOD) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitFeedback" value="<?= permTypes.MOD ?>" <?= (perms['submitFeedback'] == permTypes.MOD) ? 'checked' : '' ?>/></td>
+                        <td><input type="radio" name="submitRating" value="<?= permTypes.MOD ?>" <?= (perms['submitRating'] == permTypes.MOD) ? 'checked' : '' ?>/></td>
+                    </tr>
+                    <tr>
+                        <td id="BtnTD" colspan="6" class="flexRow">
+                            <button type="button" id="DashSaveDefaultPermsBtn" title="Save as default permissions" class="hovBrown hasSVG">
+                                <i class="fas fa-2x fa-save"></i>
+                            </button>
+                            <input id="DashApplyDefaultPermsBtn" class="btnTextBgBrown gapMedLeft" type="button" value="Show saved" title="Reset current default check boxes." />
+                            <input id="UpdateAllTreesDefaultPermsBtn" class="btnTextBgBrown gapMedLeft" type="button" value="Apply to all created debates" title="Apply current default checks to all my created debtes." />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div id="PanelPrefDefaults" class="settingsPanel flexRow flexAlignStart hideTrue">
+        <form name="PrefDefaultLayoutForm" id="PrefDefaultLayoutForm" class="prefForm flexItem110 flexCol flexAlignStretch">
+            <h4 class="gapMedBottom insulate greenHeaderOp0p5">Layout</h4>
+            <!--<div class="spacedBlock insulate shade">
+            </div> In case I decide to put them back here -->
+            <fieldset class="alignLeft gapLargeBottom">
+                <legend class="fontVarMetaDets">Arguments</legend>
+                <label><input type="checkbox" name="LayoutChecks" value="argShowContDets" <? if(prefs.treeLayout['argShowContDets']) { ?>checked<? } ?> />Show content details</label><br />
+                <label><input type="checkbox" name="LayoutChecks" value="argShowMetaDets" <? if(prefs.treeLayout['argShowMetaDets']) { ?>checked<? } ?> />Show header details</label>
+                <!--<label><input type="checkbox" name="LayoutChecks" value="argShowContext" />Show context markers</label>-->
+            </fieldset>
+            <fieldset class="alignLeft gapLargeBottom">
+                <legend class="fontVarMetaDets">Ratings</legend>
+                <label><input type="checkbox" name="LayoutChecks" value="ratingShowSelf" <? if(prefs.treeLayout['ratingShowSelf']) { ?>checked<? } ?> />Show my own</label>
+                <div class="absParent insulate buffer greenHeaderOp0p33">
+                    <label><input type="checkbox" name="LayoutChecks" value="ratingShowMod" <? if(prefs.treeLayout['ratingShowMod']) { ?>checked<? } ?> />Show moderators</label><br />
+                    <label><input type="checkbox" name="LayoutChecks" value="ratingShowVis" <? if(prefs.treeLayout['ratingShowVis']) { ?>checked<? } ?> />Show visitors</label>
+                    <span class="absTag greenHeaderOp0p5">mod</span>
+                </div>
+                <div class="absParent insulate buffer greenHeaderOp0p33">
+                    <label><input type="checkbox" name="LayoutChecks" value="ratingShowOpen" <? if(prefs.treeLayout['ratingShowOpen']) { ?>checked<? } ?> />Show visitors</label>
+                    <span class="absTag greenHeaderOp0p5">open</span>
+                </div>
+            </fieldset>
+            <fieldset class="alignLeft gapLargeBottom">
+                <legend class="fontVarMetaDets">Favourability</legend>
+                <label><input type="checkbox" name="LayoutChecks" value="favShowSelf" <? if(prefs.treeLayout['favShowSelf']) { ?>checked<? } ?> />Show my own</label><br />
+                <div class="absParent insulate buffer greenHeaderOp0p33">
+                    <label><input type="checkbox" name="LayoutChecks" value="favShowMod" <? if(prefs.treeLayout['favShowMod']) { ?>checked<? } ?> />Show moderators</label><br />
+                    <label><input type="checkbox" name="LayoutChecks" value="favShowVis" <? if(prefs.treeLayout['favShowVis']) { ?>checked<? } ?> />Show visitors</label>
+                    <span class="absTag greenHeaderOp0p5">mod</span>
+                </div>
+                <div class="absParent insulate buffer greenHeaderOp0p33">
+                    <label><input type="checkbox" name="LayoutChecks" value="favShowOpen" <? if(prefs.treeLayout['favShowOpen']) { ?>checked<? } ?> />Show visitors</label>
+                    <span class="absTag greenHeaderOp0p5">open</span>
+                </div>
+            </fieldset>
+            <div class="flexRow">
+                <button type="button" name="LayoutSaveBtn" class="hovBrown hasSVG" title="Save selections as defaults">
+                    <i class="fas fa-2x fa-save"></i>
+                </button>
+                <input type="button" name="LayoutDefaultBtn" class="btnTextBgBrown gapMedLeft" value="Show saved" />
+                <input type="button" name="LayoutApplyAllBtn" class="btnTextBgBrown gapMedLeft" value="Show/hide all" />
+            </div>
+        </form>
+        <form name="ConfMsgsForm" id="ConfMsgsForm" class="prefForm flexItem110 flexCol flexAlignStretch gapLargeLeft">
+            <h4 class="gapMedBottom insulate greenHeaderOp0p5">Confirm Messages</h4>
+            <div class="alignLeft noWrapText">
+                <label><input type="checkbox" name="ConfMsgChecks" value="stopFollowing" <? if(prefs.confMsgs['stopFollowing']) { ?>checked<? } ?> />Stop following user</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="cutFollower" <? if(prefs.confMsgs['cutFollower']) { ?>checked<? } ?> />Stop user from following you</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="unblock" <? if(prefs.confMsgs['unblock']) { ?>checked<? } ?> />Unblock user</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="rescindInv" <? if(prefs.confMsgs['rescindInv']) { ?>checked<? } ?> />Rescind invitation of moderator/guest</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="removeLink" <? if(prefs.confMsgs['removeLink']) { ?>checked<? } ?> />Remove moderator/guest link &amp; drop permissions</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="changeArg" <? if(prefs.confMsgs['changeArg']) { ?>checked<? } ?> />Edit argument, creating new revision</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="editLimit" <? if(prefs.confMsgs['editLimit']) { ?>checked<? } ?> />Branch argument. Can only edit sources after</label><br />
+                <label><input type="checkbox" name="ConfMsgChecks" value="deleteFB" <? if(prefs.confMsgs['deleteFB']) { ?>checked<? } ?> />Delete messages</label>
+            </div>
+            <div class="flexRow gapMedTop">
+                <button type="button" name="SaveBtn" class="hovBrown hasSVG" title="Save to implement">
+                    <i class="fas fa-2x fa-save"></i>
+                </button>
+                <input type="button" name="DefaultBtn" class="btnTextBgBrown gapMedLeft" value="Show saved" />
+            </div>
+        </form>
+    </div>
+    <div id="PanelAccount" class="settingsPanel flexRow flexAlignStart flexJustCenter hideTrue flexRow">
+        <form name="PwdForm" class="flexCol flexAlignStretch">
+            <h4 class="gapMedBottom insulate greenHeaderOp0p5">Change Password</h4>
+            <input type="text" class="gapSmallH" name="CurrPwdField" size="20" maxlength="20" placeholder="Current password" />
+            <input type="text" class="gapSmallH" name="NewPwdField" size="20" maxlength="20" placeholder="New password" autocomplete="off" pattern="^[A-Za-z0-9!@#$%^&*()-_]{3,20}$" title="Password must be 3 - 20 characters, which can consist of most characters." />
+            <input type="password" class="gapSmallH" name="RepeatPwdField" size="20" maxlength="20" placeholder="Repeat new password" />
+            <div class="flexRow gapMedTop">
+                <button type="button" name="PwdSaveBtn" class="hovBrown hasSVG">
+                    <i class="fas fa-2x fa-save"></i>
+                </button>
+                <? if(false) { ?>
+                    <?# TODO: Hashing passwords now, so I can't actually retrieve any. To implement this, I'd need a more complicated email re-direct and/or Q & A setup. ?>
+                <button type="button" name="ForgotPwdBtn" class="gapMedLeft btnTextBgBrown hovBurlywood insulate flexRow hasSVG">
+                    <span>I forgot</span>
+                    <i class="far fa-lg fa-frown gapMedLeft"></i>
+                </button>
+                <? } ?>
+            </div>
+        </form>
+        <form name="AccountOptsForm" class="gapLargeLeft">
+            <h4 class="gapMedBottom insulate greenHeaderOp0p5">
+                <span>Account Options</span>
+            </h4>
+            <input type="button" name="DeleteAccountBtn" class="btnTextBgBrown width100" value="Delete Account" />
+        </form>
+    </div>
+    <div class="spacerElem">&nbsp;</div>
+</div>

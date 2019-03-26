@@ -1,0 +1,153 @@
+<div id="SliderRight" class="animNeg">
+    <div id="SliderRightHeader" class="flexRow gapMedBottom">
+        <button type="button" class="closeBtn hasSVG colBlack hovWhite">
+            <i class="far fa-lg fa-arrow-alt-circle-right"></i>
+        </button>
+        <span id="SliderRightHeaderText"></span>
+        <button type="button" class="closeBtn hasSVG colBlack hovWhite">
+            <i class="far fa-lg fa-arrow-alt-circle-right"></i>
+        </button>
+    </div>
+    <section id="TreeBuildCont" class="limitHeight hideTrue">
+        <!--
+        <div id="TreeBuildDataNav" class="panelNav hideTrue">
+            <?#- include('partials/nav_ArrowBar.ejs'); ?>
+        </div>-->
+        <div id="TreeBuildContent" class="limitHeight">
+            <div id="TB_TopCont">
+                <section id="TB_TopLeft" class="flexCol hideTrue swapOrderFalse">
+                    <div class="headerBar flexRow">
+                        <h4 id="TB_TopLeftHeader"></h4>
+                        <button type="button" id="TB_TopLeftGoToBranchBtn" class="hideTrue hasSVG" title="Go to the current debate & argument">
+                            <i class="fas fa-lg fa-map-marker-alt"></i>
+                        </button>
+                    </div>
+                    <div id="TB_TopLeftBody">
+                        <div class="asserDisp preWrapText"></div>
+                        <div class="elabDisp gapLargeH hideTrue preWrapText"></div>
+                        <ol class="srcListDisp gapLargeH hideTrue"></ol>
+                        <div class="progBarDisp gapLargeH hideTrue"></div>
+                    </div>
+                </section>
+                <section id="TB_TopMid" class="flexCol hideTrue swapOrderFalse">
+                    <div class="headerBar flexRow">
+                        <h4 id="TB_TopMidHeader">Select List Item</h4>
+                    </div>
+                    <div class="limitHeight flexCol flexAlignStretch">
+                        <div id="RefListOpts">
+                            <select id="ArgTypeSel" class="hideTrue">
+                                <option value="<?= argTypesObj.CORROB ?>">Corroboration</option>
+                                <option value="<?= argTypesObj.REFUTE ?>">Refutation</option>
+                            </select>
+                            <select id="ArgBatchSel" class="hideTrue" autocomplete="off">
+                                <option value="0">1 - <?= batchSize ?></option>
+                                <? if(submArgCount > batchSize) {
+                                    var loopLen = Math.ceil(submArgCount / batchSize);
+                                    for(var i = 1; i < loopLen; i++) { ?>
+                                <option value="<?= i ?>"><?= (i * batchSize) + 1 ?> - <?= (i + 1) * batchSize ?></option>
+                                <? }
+                                } ?>
+                            </select>
+                            <span id="RefListIdxDisp">
+                                <span id="RefListCurrText">0</span><span class="gapMedW">/</span><span id="RefListTotalText">0</span>
+                            </span>
+                            <span id="RefListOptsBtns" class="hideTrue">
+                                <button type="button" id="RefListAll" class="hasSVG">
+                                    <i class="far fa-lg fa-check-square"></i>
+                                </button>
+                                <button type="button" id="RefListTrash" class="hasSVG gapLargeLeft">
+                                    <i class="far fa-lg fa-trash-alt"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <ul id="TB_RefList"></ul>
+                    </div>
+                </section>
+                <!-- TODO: This side cleary needs a distinct display setup as well, if not for revisions, than at least for argSubs -->
+                <section id="TB_TopRight" class="hideTrue flexCol createWindClosed">
+                    <div class="headerBar flexRow">
+                        <h4 id="TB_TopRightHeader" class="hideTrue"></h4>
+                        <div class="flexRow">
+                            <div id="ArgAliasSelCont" class="hideTrue">
+                                Of&nbsp;type:&nbsp;<select id="ArgAliasSel">
+                                    <option id="ArgAliasCorrob" value="<?= argTypesObj.CORROB ?>" selected>Pro</option>
+                                    <option id="ArgAliasRefute" value="<?= argTypesObj.REFUTE ?>" >Con</option>
+                                </select>
+                            </div>
+                            <label id="PresetEditLockBtn" for="PresetEditLockCheck" class="flexRow hovGreen hideTrue" title="Lock editing option">
+                                Edit&nbsp;lock&nbsp;
+                                <i id="PresetEditLockImg" class="fas fa-lg fa-lock-open"></i>
+                            </label>
+                            <input type="checkbox" id="PresetEditLockCheck" class="hideTrue" autocomplete="off" />
+                            <div id="TB_TopRightHeaderBtns" class="flexRow">
+                                <button type="button" id="SubmitDataBtn" class="hideTrue hasSVG">
+                                    <i class="far fa-lg fa-check-circle"></i>
+                                </button>
+                                <button type="button" id="EditDataBtn" class="hideTrue hasSVG">
+                                    <i class="fas fa-lg fa-pencil-alt"></i>
+                                </button>
+                                <button type="button" id="DeleteDataBtn" class="hideTrue hasSVG">
+                                    <i class="fas fa-lg fa-minus-circle"></i>
+                                </button>
+                                <button type="button" id="BackToDataBtn" class="hideTrue hasSVG">
+                                    <i class="far fa-lg fa-caret-square-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="TB_TopRightDisp" class="alignLeft scrollHeight hideTrue">
+                        <div class="asserDisp preWrapText"></div>
+                        <div class="elabDisp gapLargeH hideTrue preWrapText"></div>
+                        <ol class="srcListDisp gapLargeH hideTrue"></ol>
+                        <div class="progBarDisp gapLargeH hideTrue"></div>
+                        <div class="detailDisp gapMegaTop gapLargeBottom hideTrue fontVarMetaDets">
+                            <div class="dateDisp gapMedH hideTrue"></div>
+                            <div class="senderDisp gapMedH hideTrue">
+                                <span>From:&nbsp;</span><input id="SubmArgSenderBtn" type="button" class="textAsBtn submArgSender fromAccountTrue" />
+                            </div>                            
+                            <div class="adoptedIdxDisp gapMedH hideTrue"></div>
+                        </div>
+                    </div>
+                    <div id="SubmDataRight" class="flexCol hideTrue scrollHeight">
+                        <input type="text" id="TitleSubmField" class="gapMedH hideTrue" maxlength="75" placeholder="Title" required/>
+                        <textarea id="CommentSubmField" class="hideTrue" placeholder="Comment"></textarea>
+                        <textarea id="AsserSubmField" class="gapMedH hideTrue" placeholder="Assertion" required></textarea>
+                        <h5 id="SubmOptionalMsg" class="hideTrue">(Optional Fields)</h5>
+                        <textarea id="ElabSubmField" class="gapMedH hideTrue" placeholder="Elaboration"></textarea>
+                        <textarea id="SrcBlockSubmField" class="gapMedH hideTrue" placeholder="Sources"></textarea>
+                        <div id="SrcListMgmtCont" class="gapMedH hideTrue height100">
+                            <?- include('../partials/panel_SourceListMgmt.ejs'); ?>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- As a means of accountability, everyone can see revisions, but mods/admins cannot vote on their integrity. -->
+            <section id="ContBottom" class="hideTrue">
+                <div class="headerBar flexRow">
+                    <h4 id="ContBottomHeader">Revision&nbsp;Integrity</h4>
+                </div>
+                <div class="revisIntegCheck flexRow">
+                    <!-- TODO: Adjust btn disabled/enabled based on user permissions -->
+                    <button type="button" id="RevIntegBtnPos" class="switchActiveFalse imgApprove hasSVG">
+                        <i class="far fa-lg fa-thumbs-up"></i>
+                    </button>
+                    <span id="RevisIntegDispPos" class="gapMedLeft">0</span>
+                    <button type="button" id="RevIntegBtnNeg" class="switchActiveFalse imgDisapprove hoverRed gapLargeLeft hasSVG">
+                        <i class="far fa-lg fa-thumbs-down"></i>
+                    </button>
+                    <span id="RevisIntegDispNeg" class="gapMedLeft">0</span>
+                </div>
+                <!-- With this section implemented, could divide into left & right if needed -->
+            </section>
+        </div>
+    </section>
+    <section id="TreeMapCont" class="hideFalse absParent">
+        <canvas id="TreeMap"></canvas>
+        <div id="TreeMapInfoBox" class="flexRow redHeaderOp0p33">
+            <div id="TreeMapAsserBox" class="height100 width100 insulate alignLeft"></div>
+            <button type="button" id="TreeMapGoToBtn" class="hasSVG gapLargeW">
+                <i class="fas fa-2x fa-map-marker-alt"></i>
+            </button>
+        </div>
+    </section>
+</div>

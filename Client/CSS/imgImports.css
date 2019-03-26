@@ -1,0 +1,83 @@
+.bgImg {
+    padding: 0 !important;
+    background-size: 100% 100% !important;
+    background-color: transparent;
+}
+
+.imgMeterCursor { background: url('../Images/MeterCursor.png'); }
+
+/*
+.imgTreeBright { background: url('../Images/Tree4Bright.png'); }
+.imgHistory { background: url('../Images/History.png'); }
+.imgPeople { background: url('../Images/People2.png'); }
+.imgHeadOpen { background: url('../Images/HeadOpen.png'); }
+.imgGear { background: url('../Images/Gear2.png'); }
+.imgFrame { background: url('../Images/IconFrame.png'); }
+
+.imgArchive { background: url('../Images/Archive.png'); }
+.imgList { background: url('../Images/List1.png'); }
+
+.imgBookMark { background: url('../Images/Bookmark2.png'); }
+.imgShare { background: url('../Images/Share.png'); }
+.imgLoc  { background: url('../Images/LocationNoBG.png'); }
+.imgQMark { background: url('../Images/QMark.png'); }
+.imgEdit { background: url('../Images/EditNoBG.png'); }
+.imgEditLocked { background: url('../Images/EditLocked.png'); }
+.imgRevHist{ background: url('../Images/RevHist2NoBG.png'); }
+.imgAccept { background-image: url('../Images/Accept.png'); }
+.imgAcceptGreen { background-image: url('../Images/AcceptGreen.png'); }
+.imgSave { background-image: url('../Images/Save3.png'); }
+.imgArrowL { background-image: url('../Images/GoToLeft.png'); }
+.imgArrowR { background-image: url('../Images/GoToRight.png'); }
+.imgSpeechBubble { background-image: url('../Images/SpeechBubbleNoBG.png'); }
+.imgSpeechBubble3 { background-image: url('../Images/SpeechBubbleNoBG3.png'); }
+.imgBranching { background-image: url('../Images/Branching2ThickerNoBG.png'); }
+.imgTrash { background: url('../Images/Trash.png'); }
+.imgMail { background-image: url('../Images/FeedbackView2NoBG.png'); }
+.imgEnvelopeClosed { background-image: url('../Images/EnvelopeClosed.png'); }
+.imgPaperPlane { background-image: url('../Images/PaperAirplane2.png'); }
+.imgCopies { background-image: url('../Images/Copies.png'); }
+.imgSwapLRVert { background-image: url('../Images/SwapVertNoBG.png'); }
+.imgMagGlass { background-image: url('../Images/Search2.png'); }
+.imgMagGlass2 { background-image: url('../Images/Search3.png'); }
+.imgArrowsRot { background-image: url('../Images/RotationArrows.png'); }
+.imgArrowDownload { background-image: url('../Images/DownloadArrow.png'); }
+.imgLockOpen { background-image: url('../Images/Lock2Open.png'); }
+.imgLockClosed { background-image: url('../Images/Lock2Closed.png'); }
+.imgExclamation { background-image: url('../Images/Exclamation.png'); }
+.imgExclamAuraGreen { background-image: url('../Images/ExclamAuraGreen.png'); }
+.imgExclamCirc { background-image: url('../Images/ExclamationCirc.png'); }
+.imgExclamCircWhite { background-image: url('../Images/ExclamationCircWhite.png'); }
+
+.imgFoot { background: url('../Images/Foot.png'); }
+.imgHand { background-image: url('../Images/Pointer.png'); }
+.imgEye { background-image: url('../Images/Eye2.png'); }
+
+
+.imgCircArrowR { background: url('../Images/ArrowRight2WithBG.png'); }
+.imgCircArrowR:hover { background: url('../Images/ArrowRight2WithBGInv.png'); }
+
+.imgCircArrowL { background: url('../Images/ArrowLeft2WithBG.png'); }
+.imgCircArrowL:hover { background: url('../Images/ArrowLeft2WithBGInv.png'); }
+
+.imgMinus { background-image: url('../Images/Minus.png'); }
+.imgMinus:hover { background-image: url('../Images/MinusWhite.png'); }
+
+.imgPlus { background-image: url('../Images/Plus.png'); }
+
+.imgMinusSm { background-image: url('../Images/SmallMinusNoBG.png'); }
+.imgMinusSm:hover { background-image: url('../Images/SmallMinusNoBGHover.png'); }
+
+.imgPlusSm { background-image: url('../Images/SmallPlusNoBG.png'); }
+.imgPlusSm:hover { background-image: url('../Images/SmallPlusNoBGHover.png'); }
+
+.imgCircX { background-image: url('../Images/CloseWithBG.png'); }
+.imgCircX:hover { background-image: url('../Images/CloseWithBGHover.png'); }
+
+
+.imgApprove { background-image: url('../Images/Approve.png'); }
+.imgApprove.switchActiveTrue { background-image: url('../Images/ApproveSelected.png'); }
+
+.imgDisapprove { background-image: url('../Images/Disapprove.png'); }
+.imgDisapprove.switchActiveTrue { background-image: url('../Images/DisapproveSelected.png'); }
+*/

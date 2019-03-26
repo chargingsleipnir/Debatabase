@@ -1,0 +1,7 @@
+<div class="flexRow <?= layoutClass ?> hideFalse">
+    <span class="progBarCont absParent">
+        <progress data-totalEntries="<?= entries ?>" data-totalValue="<?= absValue ?>" data-colourValue="0" value="<?= pctValue ?>" max="100"></progress>
+        <span class="meterLevelInd valInd bgImg imgMeterCursor"></span>
+    </span>
+    <label class="labelLeftBuffer"><?= labelMsg ?><span class="ratingText"><? if (avgValue > -1) { ?><?= avgValue.toFixed(2) ?>&nbsp;(<?= pctValue ?>%)&nbsp;|&nbsp;<?= '' + entries + ((entries > 1) ? ' entries' : ' entry') ?><? if (overrideMsg) { ?>&nbsp;|&nbsp;<span class="argOverrideNotif">overridden</span><? } ?><? } else { ?>none<? } ?></span></label>
+</div>

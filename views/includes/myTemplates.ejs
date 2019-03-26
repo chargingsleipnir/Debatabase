@@ -1,0 +1,30 @@
+<script id="ProgBarTemplate" type="text/template">
+    <div class="flexRow">
+        <span class="progBarCont">
+            <progress data-colourValue="{{colourValue}}" value="{{ratingValueAttr}}" max="100"></progress>
+        </span>
+        <label>{{label}}:&nbsp;<span class="ratingDisp">{{rating}}</span></label>
+    </div>
+</script>
+
+<script id="SourceEditDispTemplate" type="text/template">
+    <li class="gapLargeH">
+        <div><strong>Text:</strong>&nbsp;<span class="srcLITextCopy">{{text}}</span></div>
+        <div><strong>URL:</strong>&nbsp;<span class="srcLIURLCopy">{{url}}</span></div>
+    </li>
+</script>
+
+<script id="SenderDispTemplate" type="text/template">
+    <div class="userInfo">
+        <div>From user: {{username}}</div>
+        <div>Sent: {{date}}</div>
+    </div>
+</script>
+
+<script id="ModMsgTemplate" type="text/template">
+    <li class="{{senderClass}}">
+        <div class="flexRow flexAlignStart fontVarMetaDets noWrapText">{{username}}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{{timeStamp}}</div>
+        <hr class="gapSmallH">
+        <div class="alignLeft">{{msg}}</div>
+    </li>
+</script>

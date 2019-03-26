@@ -1,0 +1,169 @@
+/*//* Common slider styles in sliderTop.css */
+
+#SliderLeft {
+    bottom: 0;
+    padding: 5px;
+    transform: translateX(-100.2%);
+    transition: all 0.5s ease-out;
+}
+#SliderLeft.animPos { transform: translateX(0%); }
+
+/* GENERAL */
+
+#TreeDetTabs {
+    margin: 0 10px 0 25px;
+}
+.treeDetTab {
+    padding: 10px;
+    font-size: medium;
+}
+
+#TreeDetPanels {
+    width: 100%;
+}
+.treeDetPanel {
+    color: white;
+    height: 100%;
+    margin: 0 auto;
+    width: 50%;
+    min-width: 500px;
+}
+#BranchListPanel .fontVarMetaDets {
+    color: white;
+}
+.treeDetPanel .prefForm {
+    padding: 5px;
+    text-align: left;
+    background-color: rgba(110, 220, 110, 0.75);
+}
+.treeDetPanel .prefForm label {
+    white-space: nowrap;
+}
+
+.treeDetPanel > form:not(:first-child) {
+    margin-top: 10px;
+}
+.treeDetPanel > li {
+    width: 200px;
+}
+.treeDetPanel li:first-child {
+    margin-top: 0;
+}
+
+.panelPermSubBlock ul {
+    margin: 5px 0;
+    text-align: left;
+}
+
+/* MODERATORS PANEL */
+#ModeratorField {
+    flex: 1 1 auto;
+}
+.modFilterBtn { padding: 1px 2px; }
+
+#ModListPanel > * {
+    flex: 1 1 0;
+}
+
+#ModListPanel.cssSwitchTrue {
+    width: 75%;
+    min-width: 750px;
+}
+
+/* Mod chat */
+#ModChatDisp {
+    width: 100%;
+    background-color: white;
+    height: 250px;
+    border: 1px solid #985A2D;
+}
+#ModChatDisp > li {
+    padding: 5px;
+    width: 66%;
+}
+#ModChatDisp > li.fromClientTrue {
+    background-color: rgba(0, 255, 255, 0.5);
+    margin: 10px 10px 10px auto;
+}
+#ModChatDisp > li.fromClientFalse {
+    /*background-color: rgba(255, 0, 255, 0.5);*/
+    margin: 10px auto 10px 10px;
+}
+
+#ModChatForm textarea {
+    min-height: 45px;
+    height: 45px;
+}
+
+/* Permission panel - table mostly */
+#GuestField {
+    flex: 1 1 auto;
+}
+.guestFilterBtn { padding: 1px 2px; }
+
+#PanelPerms h5 {
+    padding: 0 0 5px 0;
+}
+#PermissionsTable { 
+    border-collapse: collapse; 
+    border-spacing: 0; 
+} 
+#PermissionsTable caption {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: rgba(34,139,34, 0.5); /* RGB for "forestgreen" */
+}
+#PermissionsTable th {
+    text-align: left;
+    background-color: rgba(110, 220, 110, 0.5);
+}
+#PermissionsTable th, #PermissionsTable td {
+    padding: 5px;
+    border: 1px solid white;
+}
+/* Customized radio buttons */
+#PermissionsTable td {
+    background-color: rgba(110, 220, 110, 0.25);
+    position: relative;
+}
+#PermissionsTable td input[type="radio"] ~ .activeTrueImg {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: black;
+}
+#PermissionsTable td input[type="radio"].activeFalse ~ .activeTrueImg {
+    display: none;
+}
+
+/* Tag panel */
+
+#TagListPanel input[name="InputElem"] {
+    flex: 1 1 auto;
+}
+#TagList {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: baseline;
+}
+#TagList .removeSmallAbs {
+    transform: translate(66%, -33%);
+}
+#TagList > li { margin: 3px 15px 3px 0; }
+#TagList > li:last-child { margin-right: 3px; }
+
+/* Branches panel */
+
+#BranchList .wrapWhiteSpace {
+    white-space: unset;
+    display: flex;
+    flex-flow: row wrap;
+}
+#BranchList > li {
+    width: 100%;
+    padding: 5px;
+    margin: 0 0 40px 0;
+}
+.branchListLinkBtn, .branchListScrollBtn {
+    color: rgb(255, 255, 0) !important;
+}

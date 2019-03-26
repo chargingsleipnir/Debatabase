@@ -1,0 +1,39 @@
+<div id="PrefCont">
+    <form name="LayoutForm" class="prefForm noWrapText alignLeft insulate">
+        <h4>Layout</h4>
+        <label><input type="checkbox" name="LayoutChecks" value="argShowContDets" class="layoutDefaultCheck" checked />Show content details</label><br/>
+        <label><input type="checkbox" name="LayoutChecks" value="argShowMetaDets" />Show header details</label>
+        <!--<label><input type="checkbox" name="LayoutChecks" value="argShowContext" />Show context markers</label>-->
+        <fieldset class="gapLargeTop">
+            <legend>Ratings</legend>
+            <? if(loggedIn) { ?>
+            <label><input type="checkbox" name="LayoutChecks" value="ratingShowSelf" class="layoutRatingCheck layoutRatingOpenCheck layoutDefaultCheck" checked />Show my own</label><br />
+            <? } ?>
+            <div id="SB_CtrlPrefRatingsChecks" class="hideTrue">
+                <label><input type="checkbox" name="LayoutChecks" value="ratingShowMod" class="layoutRatingCheck" />Show moderators</label><br />
+                <label><input type="checkbox" name="LayoutChecks" value="ratingShowVis" class="layoutRatingCheck" />Show visitors</label>
+            </div>
+            <label id="SB_OpenPrefRatingsCheck" class="hideTrue"><input type="checkbox" name="LayoutChecks" value="ratingShowOpen" class="layoutRatingOpenCheck" />Show visitors</label>
+        </fieldset>
+        <fieldset class="gapLargeTop">
+            <legend>Favourability</legend>
+            <? if(loggedIn) { ?>
+            <label><input type="checkbox" name="LayoutChecks" value="favShowSelf" class="layoutFavCheck layoutFavOpenCheck layoutDefaultCheck" checked />Show my own</label><br />
+            <? } ?>
+            <div id="SB_CtrlPrefFavChecks" class="hideTrue">
+                <label><input type="checkbox" name="LayoutChecks" value="favShowMod" class="layoutFavCheck" />Show moderators</label><br />
+                <label><input type="checkbox" name="LayoutChecks" value="favShowVis" class="layoutFavCheck" />Show visitors</label>
+            </div>
+            <label id="SB_OpenPrefFavCheck" class="hideTrue"><input type="checkbox"  name="LayoutChecks" value="favShowOpen" class="layoutFavOpenCheck" />Show visitors</label>
+        </fieldset>
+        <div class="gapLargeTop">
+            <input type="button" name="LayoutApplyAllBtn" class="btnTextBgGreen gapMedBottom block" value="Show/hide all" />
+            <input type="button" name="LayoutDefaultBtn" class="btnTextBgGreen gapMedBottom block" value="Show default" />
+            <? if(loggedIn) { ?>
+            <button type="button" name="LayoutSaveBtn" class="block hasSVG" title="Save selections as defaults">
+                <i class="fas fa-2x fa-save"></i>
+            </button>
+            <? } ?>
+        </div>
+    </form>
+</div>

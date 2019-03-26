@@ -1,0 +1,20 @@
+#SliderLeft, #SliderRight, #TopSlider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    z-index: 4;
+    background-color: rgba(150, 150, 150, 0.95);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+#TopSlider {
+    
+    height: 300px;
+    padding: 10px;
+    transform: translateY(-100.2%);
+    transition: all 0.25s ease-out;
+}
+#TopSlider.animPos { transform: translateY(0%); }

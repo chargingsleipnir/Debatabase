@@ -1,0 +1,132 @@
+﻿.tabsHor {
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0;
+}
+.tabsHor > li {
+    border: none;
+    padding: 5px;
+}
+.tabsHor > li:hover {
+    cursor: pointer;
+}
+.errorTrue {
+    border: 2px solid darkred !important;
+    box-shadow: 0 0 1px 1px red !important;
+}
+
+.pointerTabs > li {
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    color: #666666;
+    background-color: #fbecde;
+}
+/*
+.pointerTabs > li.enabledFalse {
+    color: #999;
+    background-color: #DDD;
+}*/
+.pointerTabs > li:hover:not(.activeTrue) {
+    cursor: pointer;
+    color: green;
+    background-color: #ffc999;
+}
+.pointerTabs .activeTrue {
+    background-color: peachpuff;
+    position: relative;
+    color: black;
+}
+.pointerTabs .activeTrue:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-top-color: peachpuff;
+	border-width: 15px;
+	margin-left: -15px;
+}
+
+/*//* "Underline" varient to above tab setup */
+.ulVar > li {
+    background-color: transparent;
+    border-bottom: solid 6px rgb(255, 200, 150);
+}
+.ulVar > li:hover:not(.activeTrue) {
+    background-color: transparent;
+    color: #666;
+    border-bottom-color: rgb(255, 80, 0);
+}
+.ulVar .activeTrue {
+    background-color: transparent;
+    border-bottom-color: rgb(255, 140, 45);
+}
+.ulVar .activeTrue:after {
+    border-top-color: rgb(255, 140, 45);
+}
+
+/*//* "Underline" varient varient (nav on right) to above tab setups */
+.ulVarLeft > li {
+    border-left: solid 6px rgb(255, 200, 150);
+}
+.ulVarLeft > li:hover:not(.activeTrue) {
+    background-color: rgba(255, 80, 0, 0.1);
+    color: #333;
+    border-left-color: rgb(255, 80, 0);
+}
+.ulVarLeft .activeTrue {
+    color: white;
+    background-color: rgb(255, 140, 45);
+    border-left-color: rgb(255, 140, 45);
+}
+.ulVarLeft .activeTrue:after {
+	left: unset;
+    border-top-color: transparent;
+	margin-left: unset;
+	top: 50%;
+	right: 100%;
+	border-right-color: rgb(255, 140, 45);
+    border-width: 15px;
+    margin-top: -15px;
+}
+
+/*//* "Underline" varient varient (nav on left) to above tab setups */
+.ulVarRight > li {
+    background-color: rgba(255, 80, 0, 0.5);
+    color: #DDD;
+    border-right: solid 6px rgb(255, 200, 150);
+}
+/*
+.ulVarRight > li.enabledFalse {
+    background-color: rgba(255, 80, 0, 0.1);
+    color: #555;
+    border-right: solid 6px rgba(255, 80, 0, 0.1);
+}*/
+.ulVarRight > li:hover:not(.activeTrue) {
+    background-color: rgba(255, 80, 0, 0.75);
+    color: white;
+    border-right-color: rgb(255, 80, 0);
+}
+.ulVarRight .activeTrue {
+    color: white;
+    background-color: rgb(255, 140, 45);
+    border-right-color: rgb(255, 140, 45);
+}
+.ulVarRight .activeTrue:after {
+	right: unset;
+    border-top-color: transparent;
+	margin-right: unset;
+	top: 50%;
+	left: 100%;
+	border-left-color: rgb(255, 140, 45);
+    border-width: 15px;
+    margin-top: -15px;
+    margin-left: 0;
+}
+
+
+/*//* Child argument tabbed box */
+

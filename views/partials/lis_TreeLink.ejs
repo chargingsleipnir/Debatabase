@@ -1,0 +1,16 @@
+<? for(var i = 0, len = liArr.length; i < len; i++) { ?>
+<li class="treeLinkLI">
+    <div class="treeLinkTitleBar overFlowEllipsis" title="<?= liArr[i].title ?>"><?= liArr[i].title ?></div>
+    <div class="treeLinkDets flexRow flexSpaceAround">
+        <div class="flexRow">
+            <i class="far fa-hand-point-up" title="Interactions"></i>
+            <span class="gapMedLeft"><?= liArr[i].interactions.cumulative ?></span>
+        </div>
+        <div>
+            <button type="button" class="treeGoToBtn hasSVG" data-treeID="<?= liArr[i].treeID ?>" data-type="<?= treeType ?>">
+                <i class="fas fa-lg fa-map-marker-alt"></i>
+            </button>
+        </div>
+    </div>
+</li>
+<? } ?>

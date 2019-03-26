@@ -1,0 +1,77 @@
+#OverlapContMsg {
+    position: absolute;
+    top: 0;
+    padding: 5px;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+#OverlapContMsg.animPos {
+    top: 10px;
+    opacity: 1;
+}
+
+#OverlapContentBuffer {
+    background-color: white;
+    padding: 30px;
+}
+
+.closeBtnAbs {
+    right: -5px;
+    top: -7px;
+}
+
+#OverlapCont {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(100, 100, 100, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 0;
+    /*transition: opacity .33s;*/
+}
+#OverlapCont.cssSwitchFalse {
+    /*animation: fadeOut .33s forwards;*/
+    pointer-events: none;
+}
+#OverlapCont.animPos {
+    /*animation: fadeIn .33s forwards;*/
+}
+
+#BranchNavMap, #LogInSignUpCont {
+    background-color: white;
+}
+
+/* LOG IN & SIGN UP TABS */
+
+#LogInSignUpCont form {
+    padding: 30px 10px 10px 10px;
+}
+
+#LoginTabs .loginTab {
+    padding: 20px;
+}
+
+/* CONTACT FORM */
+
+#ContactAdmin textarea {
+    width: 300px;
+    height: 250px;
+}
+
+#ContactAdmin button[name="Send"] { align-self: flex-start; }
+
+/* REMOVE TREE */
+
+#RemoveTreeConf {
+    width: 400px;
+}
+#RemoveTreeConf table {
+    margin-bottom: 10px;
+    border-spacing: 10px;
+}
+#RemoveTreeConf td {
+    vertical-align: top;
+}

@@ -1,0 +1,64 @@
+<? 
+var favCorrobPct = 50;
+if(fav[argTypes.CORROB].entries + fav[argTypes.REFUTE].entries > 0) {
+    var fullUserCorrobPct = fav[argTypes.CORROB].avg * fav[argTypes.CORROB].entries;
+    var fullUserRefutePct = fav[argTypes.REFUTE].avg * fav[argTypes.REFUTE].entries;
+    var compTotal = fullUserCorrobPct + fullUserRefutePct;
+    if(compTotal > 0)
+        favCorrobPct = Math.round((fullUserCorrobPct / compTotal) * 100);
+}
+?>
+
+<?# TRYING DIFFERENT STYLES - FULL TABLE OFFERS MOST INFORMATION BUT IS A LITTLE BULKY ?>
+<? var showDetailed = false; ?>
+
+<? if (showDetailed) { ?>
+<table class="favDispTable <?= layoutClass ?> hideFalse">
+    <? if(headerTypeStr) { ?>
+    <caption><?= headerTypeStr ?></caption>
+    <? } ?>
+    <thead class="smText">
+        <tr>
+            <th></th>
+            <th><?= typeAliases[argTypes.CORROB] ?></th>
+            <th><?= typeAliases[argTypes.REFUTE] ?></th>
+        </tr>
+    </thead>
+    <tbody class="smText">
+        <tr>
+            <th>Entries</th>
+            <td><?= fav[argTypes.CORROB].entries ?></td>
+            <td><?= fav[argTypes.REFUTE].entries ?></td>
+        </tr>
+        <tr>
+            <th rowspan="2">Rating avgs.</th>
+            <td>
+                <span><?= Math.round(fav[argTypes.CORROB].avg) ?>%</span>&nbsp;
+                <div class="absParent favMeterCont colAvgRatingDisp">
+                    <meter value="<?= fav[argTypes.CORROB].avg ?>" min="0" max="100" data-colourValue="0" title="% of averages of corroboration strength ratings"></meter>
+                    <span class="meterLevelInd valInd bgImg imgMeterCursor"></span>
+                </div>
+            </td>
+            <td>
+                <div class="absParent favMeterCont colAvgRatingDisp">
+                    <meter value="<?= fav[argTypes.REFUTE].avg ?>" min="0" max="100" data-colourValue="0" title="% of averages of refutation strength ratings"></meter>
+                    <span class="meterLevelInd valInd bgImg imgMeterCursor"></span>
+                </div>&nbsp;
+                <span><?= Math.round(fav[argTypes.REFUTE].avg) ?>%</span>             
+            </td>
+        </tr>
+        <tr>
+            <!-- <th>Compared</th> -->
+            <td colspan="2">
+                <?- include('block_MeterBar.ejs', { favCorrobPct: favCorrobPct }); ?>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<? } else { ?>
+<div class="<?= layoutClass ?> hideFalse smText width100 gapMedTop flexRow">
+    <?- include('block_MeterBar.ejs', { favCorrobPct: favCorrobPct }); ?>
+    <span>&nbsp;|&nbsp;</span>
+    <div><?= headerTypeStr ?></div>
+</div>
+<? } ?>

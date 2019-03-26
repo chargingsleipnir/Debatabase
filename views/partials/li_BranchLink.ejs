@@ -1,0 +1,13 @@
+<? for(var idx in liObj) { ?>
+<li class="transFadeRotColl flexRow" data-branchIdx="<?= idx ?>">
+    <div class="flexItem110 alignLeft overFlowEllipsis"><?= liObj[idx].assertion ?></div>
+    <div class="gapMedLeft flexRow">
+        <button type="button" class="removeBtn hasSVG">
+            <i class="fas fa-lg fa-minus-circle"></i>
+        </button>
+        <button type="button" class="treeLinkBtn gapMedLeft hasSVG" data-branchIdx="<?= idx ?>">
+            <i class="fas fa-lg fa-map-marker-alt"></i>
+        </button>
+    </div>
+</li>
+<? } ?>

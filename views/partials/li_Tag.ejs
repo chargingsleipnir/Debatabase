@@ -1,0 +1,10 @@
+<? for(var i = 0, len = tagArr.length; i < len; i++) { ?>
+<li class="transFadeRotColl absParent">
+    <input type="button" class="searchTagBtn btnTextBgGreen" value="<?= tagArr[i] ?>" />
+    <? if(canRemove) { ?>
+    <button type="button" class="removeSmallAbs removeBtn abs hasSVG" data-tag="<?= tagArr[i] ?>">
+        <i class="fas fa-minus-circle"></i>
+    </button>
+    <? } ?>
+</li>
+<? } ?>

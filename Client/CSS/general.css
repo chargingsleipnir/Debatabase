@@ -1,0 +1,712 @@
+﻿* {
+    box-sizing: border-box;
+    font-family: 'Muli', 'Segoe UI', sans-serif;
+}
+
+.fontTreb { font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; }
+.fontHelv { font-family: 'Helvetica', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; }
+.fontTimes { font-family: 'Times New Roman', Times, serif; }
+.fontSegoe { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.fontMuli { font-family: 'Muli', sans-serif; }
+
+/* TEXT/FONT VARIANCE */
+.headerPageName {
+    font-size: small;
+    white-space: nowrap;
+    font-weight: bold;
+}
+.smSectHead {
+    font-size: small;
+    font-weight: bold;
+}
+
+.fontVarMetaDets {
+    font-weight: 300;
+    font-size: small;
+    color: #333;
+    /* // TODO: Need to allow other local css to overide this easily. */
+}
+.fontSize66 {
+    font-size: 66% !important;
+}
+.fontSize85 {
+    font-size: 85% !important;
+}
+
+html, body {
+    margin: 0;
+    height: 100vh;
+}
+body {
+    text-align: center;
+    cursor: default;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+body.waitingTrue {
+    pointer-events: none;
+}
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+}
+
+ol {
+    padding: 0 0 0 2em;
+    list-style-position: outside;
+    /*counter-reset: li;*/
+    /*display: table;*/
+    /*table-layout: fixed;*/
+    /*width: 100%;*/
+}
+ol > li {
+    /*list-style: none;
+    counter-increment: li;*/
+    /*display: table-row;*/
+}
+ol > li::before {
+    /*content: counter(li) ".";
+    /*display: table-cell;*/
+    /*text-align: right;
+    padding-right: .3em;
+    width: 0;*/
+}
+
+
+
+/* ANIMATED LIST ITEMS */
+
+.extensibleListCont {
+    /*overflow: hidden;*/
+    transition: all 0.5s ease-out;
+    perspective: 1000px;
+}
+.obscuredTrue {
+    position: absolute;
+    z-index: -99;
+    margin: 0;
+    opacity: 0;
+}
+.disableTransition {
+    transition: none;
+}
+.enableTransition {
+    transition: all 0.33s cubic-bezier(.4, -0.33, .6, 1.33);
+}
+/*animation: rotateOut 0.5s forwards;*/
+.transFadeRotColl.animNeg {
+    /*could add cubic-bezier(.36,-0.64,.34,1.76)*/
+    transform: rotateX(-90deg) /*scale(0)*/ !important;
+    opacity: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+}
+.transFadeRot.animNeg {
+    transform: rotateX(-90deg) !important;
+    opacity: 0 !important;
+}
+
+/*// TODO: Plan out these heights better */
+/* Heights for all list items that I want to animate */
+/* Need to maybe change this (lis themselves actually) to account for changing li height/buttons */
+#PopularList li,
+#SideCreateOpenList > li,
+#CtrlList > li,
+#ModList > li, 
+#GuestOfList > li { height: 4em; }
+.twoLayerLI { height: 2.5em; }
+.argSources > li, .branchList > li { height: 1.5em; }
+.addUserLI.styleH { height: 1.25em; }
+.dashObsList > li { height: 1.25em; }
+#TagList > li { height: 1.75em; }
+
+
+.block { display: block; }
+
+/* INPUT FIELDS */
+input, textarea, label, .smText {
+    font-size: small;
+    font-weight: normal;
+}
+textarea {
+    min-height: 100px;
+}
+input[type=text], input[type=email], input[type=password], input[type=search], input[type=url], textarea {
+    border: 1px solid #985A2D;
+    padding: 4px;
+}
+
+input[type=text][readonly] {
+    cursor: default;
+    /* Insivible text with text-shadow to make it visible again - makes input cursor go away */
+    color: transparent;
+    text-shadow: 0 0 0 black;
+}
+input:required, textarea:required {
+    box-shadow: none;
+}
+input[type=radio]:not(:disabled) {
+    cursor: pointer;
+}
+
+/*//TODO: Need to do more to make sure input and labels are consistantly level */
+label > input[type=radio] {
+    margin: auto 5px auto 0;
+}
+
+
+/* BUTTONS */
+
+input[type=button], input[type=submit], button {
+    border: none;
+    color: inherit;
+}
+
+input[type=button]:enabled, input[type=submit]:enabled, button:enabled { cursor: pointer; }
+input[type=button]:not(.textAsBtn), input[type=submit]:not(.textAsBtn) {
+    padding: 5px;
+    font-weight: bold;
+}
+button:not(.textAsBtn) { font-weight: bold; }
+
+/*
+.btnCover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer;
+}*/
+
+.textAsBtn {
+    padding: 0;
+    background-color: transparent;
+}
+.textAsBtn:not(.smText) {
+    font-size: medium;
+}
+.hoverHand { cursor: pointer; }
+
+
+/* Pop-up message containers */
+.statusMsg {
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);    
+    border: 3px solid black;
+    border-radius: 5%;
+    opacity: 0;
+    /*transition: opacity 0.5s;*/
+    background-color: rgba(150, 150, 150, 0.85);
+    color: white;
+    text-shadow: 2px 2px 4px #AA0000, 0 0 5px #0000AA;
+}
+
+
+
+/* General support classes */
+
+.clearfix { overflow: auto; }
+.abs { position: absolute; }
+.top0 { top: 0; }
+.absParent { position: relative; }
+.spacer { visibility: hidden; }
+
+.floatLeft {
+    float: left;
+}
+.floatRight {
+    float: right;
+}
+
+
+
+.alignLeft { text-align: left; }
+.alignCenter { text-align: center; }
+.alignRight { text-align: right; }
+.ital { font-style: italic; }
+.capitalize { text-transform: capitalize; }
+.noWrapText { white-space: nowrap; }
+.preWrapText { white-space: pre-wrap; }
+.overFlowEllipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.flexCol {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+.flexRow {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+.flexRowRev { flex-direction: row-reverse; }
+.flexAlignStart { align-items: flex-start; }
+.flexAlignEnd { align-items: flex-end; }
+.flexAlignStretch { align-items: stretch; }
+.flexJustStretch { justify-content: stretch; }
+.flexJustCenter { justify-content: center; }
+.flexJustEnd { justify-content: flex-end; }
+.flexSpaceAround { justify-content: space-around; }
+.flexSpaceBetween, .addUserLI, .blockUserLI { justify-content: space-between; }
+.flexItem110 { flex: 1 1 0; }
+.flexItem11Auto { flex: 1 1 auto; }
+
+.sqr15 {
+    width: 15px;
+    height: 15px;
+}
+.sqr18 {
+    width: 18px;
+    height: 18px;
+}
+.sqr20 {
+    width: 20px;
+    height: 20px;
+}
+.sqr25 {
+    width: 25px;
+    height: 25px;
+}
+.sqr30 {
+    width: 30px;
+    height: 30px;
+}
+.sqr35 {
+    width: 35px;
+    height: 35px;
+}
+.sqr40 {
+    width: 40px;
+    height: 40px;
+}
+.width100 { width: 100%; }
+.height100 { height: 100%; }
+
+.limitY {
+    overflow-y: hidden;
+}
+.limitHeight {
+    overflow: hidden;
+    height: 100%;
+}
+
+.dotConnector {
+    overflow: hidden;
+    border-bottom: 2px dotted #AAA;
+    height: 66%;
+}
+
+.scrollHeight {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.gapNone { margin: 0; }
+.marg0Auto { margin: 0 auto; }
+
+.gapSmallW:not(:empty) { margin: 0 2px; }
+.gapSmallH { margin: 2px 0; }
+.gapSmallTop { margin-top: 2px; }
+.gapTop3 { margin-top: 3px; }
+.gapMedH { margin: 5px 0; }
+.gapMedW { margin: 0 5px; }
+.gapMedTop { margin-top: 5px; }
+.gapLargeH { margin: 10px 0; }
+.gapLargeW { margin: 0 10px; }
+.gapLargeTop { margin-top: 10px; }
+.gapMegaTop { margin-top: 20px; }
+.gapMegaBottom { margin-bottom: 20px; }
+.gapMedBottom { margin-bottom: 5px; }
+.gapLargeBottom { margin-bottom: 10px; }
+.gapLargeRight { margin-right: 10px; }
+.gapLargeLeft { margin-left: 10px; }
+.margLeft15 { margin-left: 15px; }
+.gapMegaLeft { margin-left: 20px; }
+.gapMedRight { margin-right: 5px; }
+.margRight20 { margin-right: 20px; }
+.margRight30 { margin-right: 30px; }
+.margRight40 { margin-right: 40px; }
+.gapMedLeft { margin-left: 5px; }
+
+.buffer { margin: 5px; }
+.bufferL { margin: 10px; }
+
+.insulate { padding: 5px; }
+
+.padMedW { padding: 0 5px; }
+.padMedH { padding: 0 5px; }
+.padMedTop { padding-top: 5px; }
+.padLargeTop { padding-top: 10px; }
+
+/* <div class="spacerElem">&nbsp;</div> */
+.spacerElem {
+    margin: 40px 0;
+}
+
+/* Specifically helpful to link lists in sideBar expansion */
+.horizSpacer:not(.hideTrue) + .horizSpacer { margin-left: 20px; }
+
+
+/*Always present, for transition purposes
+.hiddenAlphaZero {
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s, opacity 0.5s linear;
+    position:absolute;
+}*/
+/* This still wouldn't cut it if it's reflow I'm really concerned about stopping.
+.hideTrue { 
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}*/
+.hideTrue { 
+    display: none !important;
+}
+.enabledFalse { 
+    pointer-events:none !important;
+    opacity: 0.33;
+}
+/*
+.hideFalse {
+    opacity: 1;
+    visibility: visible;
+}*/
+
+
+.notifNum { position: absolute; }
+
+.notifNum.pendingInvites {
+    border-radius: 5px;
+    background: #BADA55;
+    color: black;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -15px;
+    font-size: small;
+}
+.notifNum.pendingInvites:not(:empty) {
+    padding: 2px 7px;
+}
+.notifNum.pendingInvites:not(:empty):after {
+    top: 50%;
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-right-color: #BADA55;
+    border-width: 5px;
+    margin-top: -5px;
+}
+
+.notifNum.inTree {
+    border-radius: 0;
+    background: firebrick;
+    color: white;
+    padding: 0 3px;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+.notifNum.inTree:not(:empty):after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-top-color: firebrick;
+	border-width: 5px;
+	margin-left: -5px;
+}
+
+.notifNum.offSideBar {
+    border-radius: 5px;
+    background: rgb(0, 200, 200);
+    padding: 5px;
+    top: 50%;
+    right: -35px;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.notifNum.offSideBar:not(:empty):after {
+	top: 50%;
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-right-color: rgb(0, 200, 200);
+    border-width: 6px;
+    margin-top: -6px;
+}
+
+.notifNum.besideTreeBtn {
+    background: rgb(166, 0, 0);
+    padding: 3px;
+    top: 50%;
+    left: -35px;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+.notifNum.besideTreeBtn:not(:empty):after {
+	top: 50%;
+	left: 100%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+	border-left-color: rgb(166, 0, 0);
+    border-width: 6px;
+}
+
+
+/* FIELDSET GENERAL */
+
+fieldset {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-top-width: 1px;
+    padding: 0;
+}
+fieldset legend {
+    font-size: 66% !important;
+    text-align: left !important;
+}
+fieldset ul { margin: 0; }
+/* Not in use any more, but makes for a rather nice looking fieldset option 
+fieldset.tabLegend {
+    border-top: 2px solid;
+    color: white;
+    background-color: #A68064;
+    border-top-color: #5C4033;
+}
+
+fieldset.tabLegend > legend {
+    padding: 5px;
+    color: white;
+    background-color: #855E42;
+    border: 1px solid #5C4033;
+    border-radius: 2px;
+    margin-left: -15px;
+}*/
+
+
+/* VERTICAL PIPE SEPERATORS */
+
+hr.vertical {
+    width: 1px;
+    height: 100%;
+    border: 0;
+    margin-top: 0;
+    background: lightgoldenrodyellow;
+    background: linear-gradient(top,  rgba(250, 250, 210, 0) 0%, rgba(250, 250, 210, 0.48) 24%, rgba(250, 250, 210, 1) 50%, rgba(250, 250, 210, 0.42) 79%, rgba(250, 250, 210, 0) 100%);
+    background: -moz-linear-gradient(top,  rgba(250, 250, 210, 0) 0%, rgba(250, 250, 210, 0.48) 24%, rgba(250, 250, 210, 1) 50%, rgba(250, 250, 210, 0.42) 79%, rgba(250, 250, 210, 0) 100%);
+    background: -webkit-linear-gradient(top,  rgba(250, 250, 210, 0) 0%, rgba(250, 250, 210, 0.48) 24%, rgba(250, 250, 210, 1) 50%, rgba(250, 250, 210, 0.42) 79%, rgba(250, 250, 210, 0) 100%);
+}
+
+.hrLight {
+    border: 0;
+    height: 1px;
+    background-color: rgb(150, 150, 150);
+    background: linear-gradient(left,  rgba(150, 150, 150, 0) 0%, rgba(150, 150, 150, 0.5) 10%, rgba(150, 150, 150, 1) 50%, rgba(150, 150, 150, 0.5) 90%, rgba(150, 150, 150, 0) 100%);
+    background: -moz-linear-gradient(left,  rgba(150, 150, 150, 0) 0%, rgba(150, 150, 150, 0.5) 10%, rgba(150, 150, 150, 1) 50%, rgba(150, 150, 150, 0.5) 90%, rgba(150, 150, 150, 0) 100%);
+    background: -webkit-linear-gradient(left,  rgba(150, 150, 150, 0) 0%, rgba(150, 150, 150, 0.5) 10%, rgba(150, 150, 150, 1) 50%, rgba(150, 150, 150, 0.5) 90%, rgba(150, 150, 150, 0) 100%);
+}
+
+
+
+/* There was a time... */
+/*
+div[contenteditable]:empty {
+    width: 100px;
+}*/
+[contenteditable=true] {
+    border: 1px solid black;
+    background-color: white;
+    padding: 2px 4px;
+    min-width: 100px;
+    cursor: text;
+}
+[contenteditable=false] { background-color: none; }
+
+
+/* USER IMAGES */
+/*general*/
+.userImg {
+    border-radius: 50%;
+    border: 2px solid black;
+}
+/*override*/
+#UserAvatarHeader {
+    border-color: white;
+}
+
+
+/* FLOATING NOTIFICATIONS */
+
+.colorPos { color: green; }
+.colorNeut { color: lightgray; }
+.colorNeg { color: red; }
+
+.colorActiveFalse { color: black; }
+.colorActiveTrue { color: white; }
+.colorActiveFalse.onlineInd::after { content: " offline"; font-size: small; }
+.colorActiveTrue.onlineInd::after { content: " online"; font-size: small; }
+
+/* TEMP BACKGROUND COLOURS */
+.colWhite { color: white; }
+.colWhiteImp { color: white !important; }
+.bgWhite { background-color: white; }
+.colBlack { color: black; }
+.colSteelBlue { color: steelblue; }
+
+canvas { background-color: white; }
+.contentFrame { background-color: rgb(225,190,145); }
+#PrefCont { background-color:rgb(225,190,145); }
+main { background-color: snow; }
+main header { background-color: lightgoldenrodyellow; }
+
+.sideBarTab.activeTrue, .sideBarTab:hover, .sideBarTab:active { background-color: mediumpurple; }
+.dashLowerSeg > * { border: 1px solid black; }
+#ModInfoBtn { background-color: burlywood; }
+.parentArgUpper .argGoToBranchBtn { background-color: white; }
+.parentArgUpper .argGoToBranchBtn:hover { background-color: rgb(255,150,150); }
+#SearchBar input[name="SearchTermBtn"] { background-color: white; }
+/* Buttons */
+a {
+    text-decoration: underline;
+    color: chocolate;
+}
+a:hover { color: brown; }
+.arg a, .submArgBtnCol {
+    text-decoration: underline;
+    color: darkblue;
+}
+.arg a:hover, .submArgBtnCol:hover { color: steelblue; }
+
+.submArgSender.fromAccountTrue {
+    text-decoration: underline;
+    color: darkblue;
+}
+.submArgSender.fromAccountTrue:hover { color: steelblue; }
+
+/*
+input[type=button]:not(.textAsBtn), input[type=submit]:not(.textAsBtn) {
+    background-color: lightgreen;
+    color: darkslategrey;
+}
+input[type=button]:not(.textAsBtn):enabled:hover, input[type=submit]:not(.textAsBtn):enabled:hover { 
+    background-color: limegreen;
+}*/
+
+.btnTextBgGreen {
+    color: black !important;
+    background-color: lightgreen !important;
+}
+.btnTextBgGreen:hover {
+    color: lightgreen !important;
+    background-color: forestgreen !important;
+}
+
+.btnTextBgLightGreen {
+    background-color: rgba(110, 220, 110, 0.25) !important;
+}
+.btnTextBgLightGreen:hover {
+    background-color: lightgreen !important;
+}
+
+.btnTextBgBrown {
+    color: black !important;
+    background-color: burlywood !important;
+}
+.btnTextBgBrown:hover {
+    color: burlywood !important;
+    background-color: saddlebrown !important;
+}
+
+.branchListLinkBtn { color: rgb(255, 255, 0); }
+.branchListScrollBtn { color: rgb(0, 255, 0); }
+
+/* These not only control colour but are also being detected for btn functionality. Account for this if changing names */
+.newFBBtn { color: rgb(100, 255, 255) !important; }
+.newFBBtn2 { color: rgb(0, 125, 125) !important; }
+
+.newFBCol { color: rgb(100, 255, 255); }
+
+.greenHeaderOp0p5 { background-color: rgba(110, 220, 110, 0.5); }
+.greenHeaderOp0p33 { background-color: rgba(110, 220, 110, 0.33); }
+.greenHeaderOp0p15 { background-color: rgba(110, 220, 110, 0.15); }
+
+.redHeaderOp0p33 { background-color: rgba(220, 110, 110, 0.33); }
+
+.follFilterBtn.activeTrue { background-color: rgba(110, 220, 110, 0.33); }
+.follFilterBtn:not(.activeTrue):hover { background-color: rgba(110, 220, 110, 0.15); }
+.modFilterBtn.activeTrue { background-color: rgba(110, 220, 110, 0.66); }
+.modFilterBtn:not(.activeTrue):hover { background-color: rgba(110, 220, 110, 0.33); }
+.guestFilterBtn.activeTrue { background-color: rgba(110, 220, 110, 0.66); }
+.guestFilterBtn:not(.activeTrue):hover { background-color: rgba(110, 220, 110, 0.33); }
+
+.bookTreeList > li { background-color: rgba(110, 220, 110, 0.25); }
+
+/* FIND APPROPRIATE PLACE FOR THESE */
+.treeLinkBtn {    
+    padding: 2px 5px;
+    cursor: pointer;
+    text-align: left
+}
+.treeLinkTitleBar {
+    padding: 2px 5px;
+    text-align: left;
+    background-color: rgba(110, 220, 110, 0.66);
+}
+.accInvBtn {
+    background-color: green;
+    color: white;
+    padding: 2px 5px;
+    cursor: pointer;
+}
+.accInvBtn:hover {
+    background-color: lightgreen;
+    color: black;
+}
+
+.treeLinkDets {
+    background-color: rgba(110, 220, 110, 0.33);
+    padding: 3px 0;
+    justify-content: space-around;
+}
+.treeLinkDets > * {
+    flex: 1 1 0;
+    justify-content: center;
+}

@@ -1,0 +1,93 @@
+<div id="ActivityNavCont" class="rightNavBuffer">
+    <ul id="ActivityNav" class="pointerTabs ulVarLeft noWrapText gapNone">
+        <li id="TabActTimeline" class="actTab paddedTab gapMedBottom">
+            <div>Timeline</div>
+            <select id="TimePersSel" class="gapMedTop" autocomplete="off">
+                <option value="0">1 - <?= batchSize ?></option>
+                <? if(timePersCount > batchSize) {
+                    var loopLen = Math.ceil(timePersCount / batchSize);
+                    for(var i = 1; i < loopLen; i++) { ?>
+                    <option value="<?= i ?>"><?= (i * batchSize) + 1 ?> - <?= (i + 1) * batchSize ?></option>
+                <? }
+                } ?>
+            </select>
+        </li>
+        <li id="TabCreated" class="actTab paddedTab gapMedBottom">
+            <div>Administering</div>
+            <div class="flexRow flexJustCenter">
+                <i class="far fa-lg fa-envelope"></i>
+                <span id="DashCreatedTotalFBQtyNotif" class="gapMedLeft"></span>
+                <input type="button" id="DashCreatedNewFBQtyNotif" class="textAsBtn newFBBtn2 gapMedLeft" value="" />
+            </div>
+        </li>
+        <!-- Find better placement of mod and guest invite notifications -->
+        <li id="TabMod" class="actTab paddedTab gapMedBottom absParent">
+            <div>Moderating</div>
+            <div class="flexRow flexJustCenter">
+                <i class="far fa-lg fa-envelope"></i>
+                <span id="DashModTotalFBQtyNotif" class="gapMedLeft"></span>
+                <input type="button" id="DashModNewFBQtyNotif" class="textAsBtn newFBBtn2 gapMedLeft" value="" />
+            </div>
+            <span id="ModPendingInvitesText" class="notifNum pendingInvites"></span>
+        </li>
+        <li id="TabGuest" class="actTab paddedTab gapMedBottom absParent">
+            <div>Guest of</div>
+            <span id="GuestPendingInvitesText" class="notifNum pendingInvites"></span>
+        </li>
+        <li id="TabBookmarked" class="actTab paddedTab gapMedBottom">Bookmarked</li>
+        <li id="TabRecentVis" class="actTab paddedTab gapMedBottom">Last viewed</li>
+    </ul>
+    <label class="flexRow flexJustCenter hoverHand insulate">
+        <button type="button" id="ViewAllSubmArgsBtn" class="treeBuildBtn gapLargeRight hasSVG" title="Sent">
+            <i class="fas fa-2x fa-clipboard-list"></i>
+        </button>
+        <span>Argument<br/>Submissions</span>
+    </label>
+</div>
+<div class="flexCol contentFlex100 limitHeight">
+    <ul id="PersonalTimeline" class="actPanel hideFalse scrollHeight timeline"></ul>
+    <div id="PanelAdmin" class="actPanel hideTrue limitHeight">
+        <form id="CreateListFilterForm" name="CreateListFilterForm" class="optForm">
+            <label class="flexRow noWrapText"><input type="checkbox" name="NewFeedback" disabled />&nbsp;Filter&nbsp;-&nbsp;new&nbsp;submissions</label>
+        </form>
+        <ul id="CtrlList" class="gapMegaTop"></ul>
+    </div>
+    <div id="PanelMod" class="actPanel hideTrue">
+        <form id="ModListFilterForm" name="ModListFilterForm" class="optForm">
+            <label class="flexRow noWrapText block"><input type="checkbox" name="NewFeedback" disabled />&nbsp;Filter&nbsp;-&nbsp;new&nbsp;submissions</label>
+            <!-- V+ <label class="flexRow noWrapText block"><input type="checkbox" name="Accepted" disabled />&nbsp;Filter&nbsp;-&nbsp;accepted&nbsp;invites</label>-->
+        </form>
+        <ul id="ModList" class="gapMegaTop"></ul>
+    </div>
+    <div id="PanelGuestOf" class="actPanel hideTrue">
+        <ul id="GuestOfList"></ul>
+    </div>
+    <div id="PanelBookmarked" class="actPanel hideTrue">
+        <div id="BookListCtrlCont" class="hideTrue">
+            <h5 class="insulate smSectHead alignLeft">Moderated</h5>
+            <ul id="BookListCtrl" class="bookTreeList"></ul>
+        </div>
+        <div id="BookListOpenCont" class="hideTrue">
+            <h5 class="insulate smSectHead alignLeft">Open</h5>
+            <ul id="BookListOpen" class="bookTreeList"></ul>
+        </div>
+        <div id="BookListArchCont" class="hideTrue">
+            <h5 class="insulate smSectHead alignLeft">Archived</h5>
+            <ul id="BookListArch" class="bookTreeList"></ul>
+        </div>
+    </div>
+    <div id="PanelRecentVis" class="actPanel hideTrue">
+        <ul id="RecentTreeVisitList"></ul>
+    </div>
+</div>
+
+<!--
+    Things to possibly add in private timeline
+    <ul>
+        <li>following someone</li>
+        <li>getting a new follower</li>
+        <li>rating an arg</li>
+        <li>or even revision integrity</li>
+        <li>any triviality - profile/settings changes even?</li>
+    </ul>
+ -->

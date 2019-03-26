@@ -1,0 +1,171 @@
+<!-- //TODO: All permission handling here, should mean I rarely have to worry about security issues with using display:none-->
+<!-- Do I really want to pass this whole thing for every tree though? Particularly when certain buttons will constantly need new click
+event listeners? Maybe keep most of this in the client and pass down major data block that change (lists - guests, mods, args, etc.) 
+Send the typical JSON object but replacing some data like arg lists with strings, other data like title leave as is and populate in client.-->
+
+<?# include(meta.pathIncludes + 'functions.ejs') ?>
+
+<!-- TODO: May keep all data in js and get rid of meta tag -->
+<meta id="TreeMetaData" data-totalBranches="<?= tree.branches.length ?>" data-currentIdx="<?= idx ?>">
+
+<?
+    var parentChain = [],
+    arg = null,
+    index = tree.branches[idx].parent;
+    while (index > -1) {
+        parentChain.push(index);
+        index = tree.branches[index].parent;
+} ?>
+<div id="ParentDispContBuffer" class="<?= (parentChain.length > 0) ? 'hideFalse' : 'hideTrue' ?>">
+    <div id="ParentDispCont" class="parentListCompressed">
+        <!--Make sure to include type headers between parent list items.-->
+        <div id="ParentArgsBundle" class="flexCol absParent">
+            <hr>
+            <hr>
+            <hr>
+            <span id="ParentArgsCountCont"><span id="ParentArgsCount"><?= parentChain.length ?></span>&nbsp;parent&nbsp;branch<?= (parentChain.length > 1) ? 'es' : '' ?></span>
+        </div>
+        <ul id="ParentArgsList" class="obscuredTrue">
+        <?
+        if(parentChain.length > 0) {
+            for(var i = parentChain.length - 1; i >= 0; i--) {
+            arg = tree.branches[parentChain[i]]; ?>
+            <?- include(meta.pathPartials + 'li_ArgParent.ejs', {
+                    treeCtrl: isCtrl,
+                    idx: parentChain[i],
+                    arg: arg,
+                    canViewRatings: permObj.canViewRatings
+                }); ?>
+        <? }
+        } ?>
+        </ul>
+    </div>
+</div>
+<div id="BranchFocusContWrap">
+    <div id="BranchFocusCont">
+        <? arg = tree.branches[idx]; ?>
+        <?- include(meta.pathPartials + 'block_Arg.ejs', {
+                pathPartials: '',
+                treeCtrl: isCtrl,
+                treeArch: archived,
+                idx: idx,
+                arg: arg,
+                isFocalArg: true,
+                permObj: permObj,
+                strRating: isNaN(strRatings[idx]) ? -1 : strRatings[idx],
+                userFavour: userFavour,
+                argTypes: argTypes
+            }); ?>
+    </div>
+</div>
+
+<? 
+var argsLeft = [], argsRight = [], extContribs = [];
+
+for(var i = 0, len = arg.children[argTypes.CORROB].length; i < len; i++) {
+    index = arg.children[argTypes.CORROB][i];
+    var childArg = tree.branches[index];
+    childArg.idx = index;
+    argsLeft.push(childArg);
+}
+
+for(var i = 0, len = arg.children[argTypes.REFUTE].length; i < len; i++) {
+    index = arg.children[argTypes.REFUTE][i];
+    var childArg = tree.branches[index];
+    childArg.idx = index;
+    argsRight.push(childArg);
+}
+
+for(var i = 0, len = arg.children[argTypes.EXT_CONTRIB].length; i < len; i++) {
+    
+}
+?>
+
+<div id="ChildArgSection">
+    <div class="shadowWrapper">
+        <ul id="ChildArgTabs" class="tabsHor flexSpaceAround">
+            <li id="CorrobTab" class="flexCol flexJustCenter absParent">
+                <? if(permObj.isMod) { ?>
+                <div class="smText gapSmallH">(Corroborations side)</div>
+                <? } ?>
+                <div class="colHeadOpts flexRow flexJustCenter">
+                    <h3 id="CorrobAliasText" class="hideFalse"><?= arg.typeAliases[argTypes.CORROB] ?></h3>
+                    <? if(permObj.isMod) { ?>
+                    <input id="LeftArgColHeadInputField" type="text" class="aliasInputElem hideTrue" maxlength="20" placeholder="Pro, For, Affirmative..." />
+                    <button type="button" id="LeftArgColHeadUpdateBtn" class="aliasInputElem hasSVG hideTrue">
+                        <i class="fas fa-lg fa-save"></i>
+                    </button>
+                    <button type="button" id="LeftArgColEdit" class="aliasInputElem hasSVG" title="Change argument type alias">
+                        <i class="fas fa-lg fa-pencil-alt"></i>
+                    </button>
+                    <? } ?>
+                </div>
+                <span id="CorrobTabChildCount" class="argTabChildCount smText">(<?= argsLeft.length ?>)</span>
+            </li>
+            <li id="ContribTab" class="flexCol flexJustCenter absParent">
+                <h3>Linked debates (coming)</h3>
+                <span id="ContribTabChildCount" class="argTabChildCount smText">(<?= extContribs.length ?>)</span>
+            </li>
+            <li id="RefuteTab" class="flexCol flexJustCenter absParent">
+                <? if(permObj.isMod) { ?>
+                <div class="smText gapSmallH">(Refutations side)</div>
+                <? } ?>
+                <div class="colHeadOpts flexRow flexJustCenter">
+                    <h3 id="RefuteAliasText" class="hideFalse"><?= arg.typeAliases[argTypes.REFUTE] ?></h3>
+                    <? if(permObj.isMod) { ?>
+                    <input id="RightArgColHeadInputField" type="text" class="aliasInputElem hideTrue" maxlength="20" placeholder="Con, Against, Negative..." />
+                    <button type="button" id="RightArgColHeadUpdateBtn" class="aliasInputElem hasSVG hideTrue">
+                        <i class="fas fa-lg fa-save"></i>
+                    </button>
+                    <button type="button" id="RightArgColEdit" class="aliasInputElem hasSVG" title="Change argument type alias">
+                        <i class="fas fa-lg fa-pencil-alt"></i>
+                    </button>
+                    <? } ?>
+                </div>
+                <span id="RefuteTabChildCount" class="argTabChildCount smText">(<?= argsRight.length ?>)</span>
+            </li>
+        </ul>
+        <div id="CorrobRefutePanel" class="childArgPanel flexRow flexAlignStart hideFalse">
+            <ul id="CorrobArgsList">
+                <? for(var i = 0; i < argsLeft.length; i++) { ?>
+                <!-- 'idx' property not standard, added in this ejs file -->
+                <?- include(meta.pathPartials + 'block_Arg.ejs', {
+                        pathPartials: '',
+                        treeCtrl: isCtrl,
+                        treeArch: archived,
+                        idx: argsLeft[i].idx,
+                        arg: argsLeft[i],
+                        isFocalArg: false,
+                        permObj: permObj,
+                        strRating: isNaN(strRatings[argsLeft[i].idx]) ? -1 : strRatings[argsLeft[i].idx],
+                        userFavour: userFavour,
+                        argTypes: argTypes
+                    }); ?>
+                <? } ?>
+            </ul>
+            <ul id="RefuteArgsList">
+                <? for(var i = 0; i < argsRight.length; i++) { ?>
+                <!-- 'idx' property not standard, added in this ejs file -->
+                <?- include(meta.pathPartials + 'block_Arg.ejs', {
+                        pathPartials: '',
+                        treeCtrl: isCtrl,
+                        treeArch: archived,
+                        idx: argsRight[i].idx,
+                        arg: argsRight[i],
+                        isFocalArg: false,
+                        permObj: permObj,
+                        strRating: isNaN(strRatings[argsRight[i].idx]) ? -1 : strRatings[argsRight[i].idx],
+                        userFavour: userFavour,
+                        argTypes: argTypes
+                    }); ?>
+                <? } ?>
+            </ul>
+        </div>
+        <div id="ContribPanel" class="childArgPanel hideTrue">
+            <?# if(permObj.isMod || extContribs.length > 0) { ?>
+                <ul id="ContribList" class="flexCol">
+                </ul>
+            <?# } ?>
+        </div>
+    </div>
+</div>

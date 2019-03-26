@@ -1,0 +1,143 @@
+
+<html>
+    <head>
+        <style>
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            li.branch {
+                width: 100%;
+                padding: 5px;
+                margin: 0 0 40px 0;
+            }
+            .flexRow {
+                display: -webkit-flex;
+                -webkit-flex-flow: row nowrap;
+                -webkit-align-items: center;
+
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+            }
+            .flexSpaceBetween {
+                -webkit-justify-content: space-between;
+                justify-content: space-between;
+            }
+            .flexItem110 { 
+                -webkit-flex: 1 1 0; 
+                flex: 1 1 0;
+            }
+            .wrapWhiteSpace {
+                white-space: unset;
+
+                display: -webkit-flex;
+                display: flex;
+
+                flex-flow: row wrap;
+                -webkit-flex-flow: row wrap;
+            }
+            .preWrapText { white-space: pre-wrap; }
+
+            .smText {
+                font-size: small;
+                font-weight: normal;
+            }
+            .bold {
+                font-weight: bold;
+            }
+            .colGrey {
+                color: #666;
+            }
+
+            .gapMedH { margin: 5px 0; }
+            .gapLargeH { margin: 5px 0; }
+            .gapMedLeft { margin-left: 5px; }
+            .gapLargeW { margin: 0 10px; }
+            .gapBottom50 { margin-bottom: 50px; }
+        </style>
+    </head>
+    <body>
+        <div class="gapBottom50">
+            <h1><?= title ?></h1>
+            <div>Created: <?= timeStamp ?></div>
+            <? if(archTimeStamp) { ?>
+            <div>Archived: <?= archTimeStamp ?></div>
+            <? } ?>
+        </div>
+        <ul>
+        <? for(var i = 0, len = branches.length; i < len; i++) { ?>
+            <li class="branch smText">
+                <div class="flexRow flexSpaceBetween colGrey">
+                    <div>
+                        <span class="bold"><?= i ?></span>
+                        <span class="gapLargeW">&bull;</span>
+                        <span>Rev.&nbsp;<?= branches[i].revision ? branches[i].revision.list.length + 1 : 1 ?></span>
+                        <span class="gapLargeW">&bull;</span>
+                        <span>Last&nbsp;edit:&nbsp;<?= branches[i].timeStamp.toDateString() ?></span>
+                    </div>
+                    <div>
+                        <? if(branches[i].parent > -1) {
+                            if(branches[i].type == argTypes.CORROB) { ?>
+                                Corroborates:&nbsp;
+                            <? } else if (branches[i].type == argTypes.REFUTE) { ?>
+                                Refutes:&nbsp;
+                            <? } else { ?>
+                                Resolves:&nbsp;
+                            <? } ?><span class="bold"><?= branches[i].parent ?></span>
+                        <? } else { ?>
+                            Root&nbsp;assertion
+                        <? } ?>
+                    </div>
+                </div>
+                <hr class="gapMedH">
+                <div class="gapLargeH"><?= branches[i].assertion ?></div>
+                <? if(branches[i].elaboration != '') { ?>
+                <div class="gapLargeH preWrapText"><?= branches[i].elaboration ?></div>
+                <? }
+                if(branches[i].sources.length > 0) { ?>
+                <ol class="gapLargeH">
+                <? for(var j = 0, srcLen = branches[i].sources.length; j < srcLen; j++) { ?>
+                    <li>
+                        <div>Text:&nbsp;<?= branches[i].sources[j].text ?></div>
+                        <div>URL:&nbsp;<?= branches[i].sources[j].url ?></div>
+                    </li>
+                <? } ?>
+                </ol>
+                <? } ?>
+                <hr class="gapMedH">
+                <div class="flexRow flexAlignStart colGrey">
+                    <div class="flexItem110 gapMedLeft">
+                        <div><?= branches[i].typeAliases[argTypes.CORROB] ?></div>
+                        <? if(branches[i].children[argTypes.CORROB].length > 0) { ?>
+                        <div class="wrapWhiteSpace">
+                            <? for(var j = 0, length = branches[i].children[argTypes.CORROB].length; j < length; j++) { ?>
+                            <span>
+                                <span class="bold"><?= branches[i].children[argTypes.CORROB][j] ?></span><? if (j != length-1) { ?>,&nbsp;<? } ?>
+                            </span>
+                            <? } ?>
+                        </div>
+                        <? } else { ?>
+                        <div>None</div>
+                        <? } ?>
+                    </div>
+                    <div class="flexItem110 gapMedLeft">
+                        <div><?= branches[i].typeAliases[argTypes.REFUTE] ?></div>
+                        <? if(branches[i].children[argTypes.REFUTE].length > 0) { ?>
+                        <div class="wrapWhiteSpace">
+                            <? for(var j = 0, length = branches[i].children[argTypes.REFUTE].length; j < length; j++) { ?>
+                            <span>
+                                <span class="bold"><?= branches[i].children[argTypes.REFUTE][j] ?></span><? if (j != length-1) { ?>,&nbsp;<? } ?>
+                            </span>
+                            <? } ?>
+                        </div>
+                        <? } else { ?>
+                        <div>None</div>
+                        <? } ?>
+                    </div>
+                </div>        
+            </li>
+        <? } ?>
+        </ul>
+    </body>
+</html>

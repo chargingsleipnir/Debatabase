@@ -1,0 +1,55 @@
+#Aside {
+    flex: 0 0 auto;
+    width: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    position: relative;
+    transition: all 0.3s ease-out;
+}
+#Aside.animPos {
+    width: 200px;
+}
+
+#PrefCont {
+    position: relative;
+    height: 100%;
+    z-index: 5;
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
+}
+
+#SBTreeCtrl_FeedbackDisp, #SBTreeCtrl_Body, #SBTreeCtrl_ByBranchSect {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.sideBarTab {
+    width: 100%;
+    border: none;
+    background-color: darkslateblue;
+    color: white;
+}
+
+/* Buttons */
+.removeSmallAbs {
+    right: 0;
+    top: 0;
+    transform: translate(50%, 100%);
+    background-color: transparent;
+}
+/* Bookmark specific */
+.branchList .removeSmallAbs {
+    transform: translate(50%, -25%);
+}
+.searchTagBtn {
+    width: 100%;
+}
+.acceptSmallAbs {
+    left: 0;
+    top: 0;
+    transform: translate(-50%, 100%);
+    background-color: transparent;
+}

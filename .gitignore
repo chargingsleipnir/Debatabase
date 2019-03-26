@@ -1,5 +1,6 @@
 # Node build artifacts
 node_modules
+pdfCreateDeleteSpace/*
 npm-debug.log
 
 # Local development

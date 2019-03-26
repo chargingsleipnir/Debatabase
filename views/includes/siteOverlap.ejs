@@ -1,0 +1,95 @@
+<div id="OverlapCont">
+    <div id="OverlapContentBuffer" class="absParent hideTrue">
+        <button type="button" class="closeBtnAbs abs closeBtn hovRed hasSVG">
+            <i class="fas fa-lg fa-minus-circle"></i>
+        </button>
+        <section id="BetaNotes" class="hideTrue alignLeft">
+            <h5>Beta Info</h5>
+            <div class="gapLargeTop">
+                <div>Exploration</div>
+                <div class="fontVarMetaDets gapMedTop">
+                    <div>To explore full app before creating an account (functionality limited), use guest login:</div>
+                    <div>Username: Guest</div>
+                    <div>Password: 1234</div>
+                    <div class="gapMedTop">Any debate can be downloaded to pdf format (Debate view > "details" window > "download" button), which it might be wise to do sometimes while the app is still in beta.</div>
+                </div>
+            </div>
+            <div class="gapLargeTop">
+                <div>Compatibility</div>
+                <div class="fontVarMetaDets gapMedTop">Debatabase is currently optimized for newer versions of Google Chrome and Firefox. IE is not recommended, ever, for anything.</div>
+            </div>
+            <div class="gapLargeTop">
+                <div>Contact</div>
+                <div class="fontVarMetaDets gapMedTop">Button for contact form is in the footer ( <i class="fas fa-arrows-alt-v"></i> to open )</div>
+            </div>
+        </section>
+        <? if(!loggedIn) { ?>
+        <section id="LogInSignUpCont" class="hideTrue">
+            <ul id="LoginTabs" class="tabsHor pointerTabs">
+                <li id="TabLogin" class="loginTab">
+                    <h3>Log in</h3>
+                </li>
+                <li id="TabSignUp" class="loginTab">
+                    <h2>New to Debatabase?</h2>
+                    <h4>Create an account</h4>
+                </li>
+            </ul>
+            <form id="PanelLogin" name="PanelLogin" class="loginPanel hideFalse flexCol flexAlignStretch">
+                <input type="text" name="usernameEmailField" class="gapSmallH" size="20" maxlength="254" placeholder="Username/email" autocomplete="off" pattern="^[A-Za-z0-9_@\. ]{3,254}$" title="Enter account username or email address" autofocus required />
+                <!--TODO: Find a way to ping or send to this email to validate uniqueness, only for signing up-->
+                <input type="password" name="passwordFieldLogin" class="gapSmallH" size="20" maxlength="20" placeholder="Password" autocomplete="off" pattern="^[A-Za-z0-9!@#$%^&*()-_]{3,20}$" title="Password must be 3 - 20 characters, which can consist of most characters." required />
+                <input type="text" class="spacer gapSmallH" />
+                <input type="button" id="LoginSubmitBtn" name="submitLogin" class="btnTextBgGreen gapSmallH" value="Log in" />
+                <div class="loginOpts">
+                    <label><input type="checkbox" name="showPasswordLogin" value="true" />Show password</label>
+                </div>
+            </form>
+            <form id="PanelSignUp" name="PanelSignUp" class="loginPanel hideTrue flexCol flexAlignStretch">
+                <input type="text" name="usernameField" class="gapSmallH" size="20" maxlength="20" placeholder="Username" autocomplete="off" pattern="^[A-Za-z0-9_@\. ]{3,20}$" title="Username must be 3 - 20 characters, which can consist of any: letter, number, space, underscore, period, or @ symbol." required />
+                <!--TODO: Find a way to ping or send to this email to validate uniqueness, only for signing up-->
+                <input type="email" name="emailField" class="gapSmallH" size="20" maxlength="254" placeholder="Email: example@abc.com" autocomplete="off" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" title="Email address will be validated. Must be lower case." required />
+                <input type="password" name="passwordFieldSignUp" class="gapSmallH" size="20" maxlength="20" placeholder="Password" autocomplete="off" pattern="^[A-Za-z0-9!@#$%^&*()-_]{3,20}$" title="Password must be 3 - 20 characters, which can consist of most characters." required />
+                <input type="button" id="SignUpSubmitBtn" name="submitSignUp" class="btnTextBgGreen gapSmallH" value="Sign up" />
+                <div class="loginOpts">
+                    <label><input type="checkbox" name="showPasswordSignUp" value="showPassword" />Show password</label>
+                </div>
+            </form>
+        </section>
+        <? } ?>
+        <form id="ContactAdmin" name="ContactAdminForm" class="flexCol flexAlignStretch hideTrue">
+            <input type="text" name="Name" class="gapMedH" <? if(loggedIn) { ?>disabled value="<?= name ?>"<? } else { ?>placeholder="Name"<? } ?>>
+            <input type="text" name="Email" class="gapMedH" <? if(loggedIn) { ?>disabled value="<?= email ?>"<? } else { ?>placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"<? } ?>>
+            <input type="text" name="Subject" class="gapMedH" placeholder="Subject">
+            <textarea name="Message" class="gapMedH" placeholder="Message"></textarea>
+            <button type="button" name="Send" class="gapMedH hasSVG">
+                <i class="far fa-2x fa-paper-plane"></i>
+            </button>
+        </form>
+        <form id="RemoveTreeConf" name="RemoveTreeConfForm" class="hideTrue nonEffector">
+            <table class="alignLeft">
+                <caption>Remove debate: "<span id="RemoveDebateTitle"></span>"?</caption>
+                <tbody>
+                    <tr>
+                        <td><input type="radio" name="RemoveType" value="<?= treeRemoveTypes.ARCHIVE ?>" checked /></td>
+                        <td>
+                            <div>Archive</div> 
+                            <div class="fontVarMetaDets">Debate can always be found &amp; read, but no longer edited or interacted with. It will be added to the "Bookmarked" tabs of yourself, and any guests or moderators listed, for final viewing consideration.</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="RemoveType" value="<?= treeRemoveTypes.DELETE ?>" /></td>
+                        <td>
+                            <div>Delete</div>
+                            <div class="fontVarMetaDets">Remove debate entirely</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="button" class="removeTreeSubSection btnTextBgGreen nonEffector" name="Accept" value="Remove" />
+        </form>
+        <div id="OverlapContMsg" class="statusMsg animNeg"></div>
+    </div>
+    <div id="OverlapWaitingDisp" class="hideTrue">
+        <i class="fas fa-3x fa-spinner fa-pulse"></i>
+    </div>
+</div>

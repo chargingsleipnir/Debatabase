@@ -1,0 +1,10 @@
+<? for(var i = 0, len = linkDataArr.length; i < len; i++) { ?>
+<li>
+    <button type="button" class="insulate textAsBtn alignLeft dashTreeLinkBtn width100 btnTextBgLightGreen" data-treeID="<?= linkDataArr[i].id ?>" data-isCtrl="<?= linkDataArr[i].isCtrl ?>">
+        <div class="fontVarMetaDets flexItem110">Debate title:</div>
+        <div><?= linkDataArr[i].title ?></div>
+        <div class="fontVarMetaDets gapLargeTop">Main assertion:</div>
+        <div><?= linkDataArr[i].assertion ?></div>
+    </button>
+</li>
+<? } ?>

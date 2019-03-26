@@ -1,0 +1,32 @@
+<? for(var argID in liObj) { ?>
+<li class="transFadeRotColl submLIBtn flexRow <?= (!!liObj[argID].modViews[accountID] || !isMod) ? 'viewedTrue' : 'viewedFalse' ?> viewingFalse" data-hashKey="<?= argID ?>">
+    <? if(loggedIn && isMod) { ?>
+    <div class="flexCol flexSpaceAround">
+        <input type="checkbox" class="sqr15 deletionCheckbox" />
+    </div>
+    <? } ?>
+    <span class="submLIDispBody flexCol flexAlignStart alignLeft">
+        <div class="submLIDispMeta flexRow flexSpaceBetween">
+            <div class="flexRow">
+                <img data-accountID="<?= liObj[argID].accountID ?>" class="userImg sqr30" src="Images/SpeechlessGuy.png" />
+                <div class="gapMedLeft">
+                    <? var date = new Date(liObj[argID].timeStamp); ?>
+                    <div class="submLIDispSender fontVarMetaDets"><?= liObj[argID].username ?></div>
+                    <div class="submLIDispDate fontVarMetaDets"><?= date.toDateString() ?></div>
+                </div>
+            </div>
+            <div class="flexRow submLIDispMetaRight">
+                <? if(liObj[argID].adoptions.length > 0) { ?>
+                <i class="fas fa-check colorPos"></i>
+                <? }
+                if(loggedIn && isMod) { ?>
+                <button type="button" class="removeBtn hasSVG">
+                    <i class="fas fa-minus-circle"></i>
+                </button>
+                <? } ?>
+            </div>
+        </div>
+        <div class="submLIDispAsser overFlowEllipsis gapMedTop"><?= liObj[argID].assertion ?></div>
+    </span>
+</li>
+<? } ?>

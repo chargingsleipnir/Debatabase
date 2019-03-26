@@ -1,0 +1,22 @@
+<li class="alignLeft sentLIBtn gapLargeBottom viewingFalse" data-listIdx="<?= listIdx ?>">
+    <div class="submMetaData">
+        <div class="flexRow flexSpaceBetween noWrapText">
+            <div class="fontVarMetaDets">Sent:&nbsp;<?= timeStamp ?></div>
+            <div class="flexRow sentStatusIndrs">
+                <? var viewed = false;
+                for(var i in modViews) {
+                    if(modViews[i]) {
+                        viewed = true;
+                        break;
+                    }
+                } ?>
+                <i class="fas fa-eye<?= viewed ? '' : ' notInd' ?>"></i>
+                <i class="fas fa-trash-alt<?= archived ? '' : ' notInd' ?>"></i>
+                <i class="fas fa-check-circle<?= wasAdopted ? '' : ' notInd' ?>"></i>
+            </div>
+        </div>
+    </div>
+    <div class="submAsserCont">
+        <div class="submAsser overFlowEllipsis"><?= assertion ?></div>
+    </div>
+</li>

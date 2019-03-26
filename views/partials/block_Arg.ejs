@@ -1,0 +1,256 @@
+<? if(isFocalArg) { ?>
+<div id="FocalBranch" class="arg focalArg" data-type="<?= arg.type ?>" data-index="<?= idx ?>" data-revision="<?= arg.revision ? arg.revision.list.length + 1 : -1 ?>">
+<? } else { ?>
+<li id="VisChildArg<?= idx ?>" class="arg childArg" data-type="<?= arg.type ?>" data-index="<?= idx ?>" data-revision="<?= arg.revision ? arg.revision.list.length + 1 : -1 ?>">        
+<? } ?>
+    <section class="alignLeft fontVarMetaDets">
+        <?# This is necessary for when used in the client, as the timestamps from the database are converted from "Date" to "String" datatype when transfered from the server. ?>
+        <? var date = new Date(arg.timeStamp); ?>
+        <div class="flexRow">
+            <div class="flexItem11Auto layoutOptShowMetaDets hideFalse">Created <?= date.toDateString() ?></div>
+            <div class="argMenuBtns flexItem11Auto flexRow">
+                <? if(!treeArch) {
+                    if(permObj.isMod) {
+                        if(arg.canEdit) { ?>
+                        <button type="button" class="sqr20 editLockBtn treeBuildBtn gapMedLeft hasSVG" title="Lock out all but sources editting">
+                            <i class="fas fa-lg fa-lock"></i>
+                        </button>
+                        <button type="button" class="sqr20 argEditBtn treeBuildBtn gapMedLeft hasSVG" title="Edit argument">
+                            <i class="fas fa-lg fa-pencil-alt"></i>
+                        </button>
+                        <? if(idx > 0 && !isFocalArg) { ?>
+                        <button type="button" class="sqr20 argColSwapBtn treeBuildBtn gapMedLeft hasSVG" title="Change column">
+                            <i class="fas fa-lg fa-exchange-alt"></i>
+                        </button>
+                        <? }
+                        } 
+                        else { ?>
+                        <button type="button" class="sqr20 argEditBtn treeBuildBtn gapMedLeft hasSVG" title="Edit sources only">
+                            <span class="fa-layers">
+                                <i class="fas fa-lg fa-pencil-alt" data-fa-transform="shrink-3 up-2 left-3"></i>
+                                <i class="fas fa-lg fa-lock" data-fa-transform="shrink-6 down-3 right-3"></i>
+                            </span>
+                        </button>
+                    <?  }
+                    } 
+                }
+                if(treeCtrl) {
+                    if(arg.revision.list.length > 0) { ?>
+                    <!-- The "button" and "cover" need both the function and slider references because on click, firefox stops at the button, but chrome goes down to the deepest child -->
+                    <button type="button" class="argBtnTextCont flexRow argRevHistBtn treeBuildBtn gapMedLeft hasSVG" title="Revision History">
+                        <i class="fab fa-lg fa-firstdraft"></i>
+                        <span class="argRevHistNotifText gapSmallW"></span>
+                    </button>
+                <? }
+                }
+                if(!treeArch) {
+                    if(permObj.isMod || !treeCtrl) { ?>
+                    <button type="button" class="sqr20 addArgBtn treeBuildBtn gapMedLeft hasSVG" title="Add New Response">
+                        <i class="fas fa-lg fa-plus-circle"></i>
+                    </button>
+                    <? }
+                    if(permObj.canSubmitFeedback) { ?>
+                    <button type="button" class="sqr20 argSubmFeedbackBtn treeBuildBtn gapMedLeft hasSVG" title="Respond">
+                        <i class="far fa-lg fa-comment"></i>
+                    </button>
+                    <? }
+                }
+                if(permObj.canViewFeedback) { ?>
+                <!-- The "button" and "cover" need both the function and slider references because on click, firefox stops at the button, but chrome goes down to the deepest child -->
+                <button type="button" class="argBtnTextCont flexRow argViewFBBtn treeBuildBtn argViewFBLI gapMedLeft hasSVG" title="View Feedback">
+                    <i class="far fa-lg fa-envelope-open"></i>
+                    <span class="viewSubmNotifCont">
+                        <span class="viewSubmNotifTotal gapSmallW"></span><span class="viewSubmNotifUnviewed newFBBtn2 gapSmallW"></span>
+                    </span>
+                </button>
+                <? }
+                if(!treeCtrl || (!permObj.isAdmin && permObj.loggedIn)) { ?>
+                <!-- Definitely not version 1, if ever.
+                    <li><input type="button" class="bgImg sqr20 imgBranching argCloneBranchBtn treeBuildBtn" title="Clone Branch" /></li>-->
+                <? } ?>
+                <button type="button" class="sqr20 argShareBtn gapMedLeft hasSVG" title="Share">
+                    <i class="fas fa-lg fa-share-alt"></i>
+                </button>
+                <? if(permObj.loggedIn && !permObj.isAdmin) { ?>
+                <button type="button" class="sqr20 argBookmarkBtn gapMedLeft hasSVG" title="Bookmark">
+                    <span class="fa-layers">
+                        <i class="far fa-lg fa-bookmark" data-fa-transform="left-3"></i>
+                        <i class="fas fa-lg fa-circle colWhiteImp" data-fa-transform="shrink-3 right-3 up-1"></i>
+                        <i class="fas fa-lg fa-plus-circle" data-fa-transform="shrink-3 right-3 up-1"></i>
+                    </span>
+                </button>
+                <? }
+                if(!isFocalArg) { ?>
+                <button type="button" class="sqr20 argGoToBranchBtn gapMedLeft hasSVG" data-branchIdx="<?= idx ?>" title="Make focal argument">
+                    <i class="fas fa-lg fa-map-marker-alt"></i>
+                </button>
+                <? } ?>
+            </div>
+        </div>
+        <? if(arg.submArg) { 
+            if(arg.submArg.id != null) { ?>
+            <div class="layoutOptShowMetaDets hideFalse">Adopted from <input type="button" class="submArgOrigBtn submArgBtnCol textAsBtn" data-submArgID="<?= arg.submArg.id ?>" value="submission"> by user <input type="button" class="submArgUserBtn submArgBtnCol textAsBtn" value="<?= arg.submArg.username ?>"></div>
+            <? }
+        } ?>
+    </section>
+    <hr class="gapNone gapMedTop hrLight">
+    <section class="alignLeft">
+        <div class="argAssertion gapLargeH preWrapText"><?= arg.assertion ?></div>
+        <? var hasElab = (arg.elaboration != ''), hasSources = (arg.sources.length > 0);
+        if(hasElab || hasSources) { ?>
+        <div class="layoutOptShowContDets hideFalse">
+            <? if(hasElab) { ?>
+            <div class="argElaboration gapLargeH preWrapText"><?= arg.elaboration ?></div>
+            <? }
+            if(hasSources) { ?>
+            <div class="gapMedH">
+                <ol class="argSources">
+                    <?- include(pathPartials + 'li_SourceLink.ejs', {liArr: arg.sources, isMod: permObj.isMod, canEdit: false, editReady: false}); ?>
+                </ol>
+            </div>
+            <? } ?>
+        </div>
+        <? } ?>
+            
+        <!-- RATINGS -->
+        <? if(arg.type != argTypes.EXT_CONTRIB) { ?> <!-- External contributing debates are rated in their own views, not here -->
+            <? if((!treeCtrl || permObj.canViewRatings || permObj.canRate) && idx > 0) { ?>
+            <div class="argStrengthCheck gapMegaTop <?= treeCtrl ? 'layoutOptShowRatings' : 'layoutOptShowOpenRatingsGroup' ?> hideFalse">
+                <h5 class="fontVarMetaDets alignLeft width100"><?= 'Argument Strength' + (permObj.isMod && arg.canEdit ? ' (Lock out editting to enable)' : '') ?></h5>
+                <div class="gapMedLeft gapMedTop">
+                    <? if(permObj.canRate || treeArch) {
+                        var overrideMsg = !!userFavour[idx];
+                        if(isFocalArg || treeArch || permObj.canRate && arg.canEdit) { 
+                            var pctValue = (strRating > -1) ? Math.round((strRating / 5) * 100) : 0; ?>
+                            <!-- Included to provide some manner of self-rating visual in focal branch. Used html because of custom label at the bottom -->
+                            <div class="flexRow layoutOptShowSelfRatings hideFalse">
+                                <span class="progBarCont absParent">
+                                    <progress data-totalEntries="1" data-totalValue="<?= strRating ?>" data-colourValue="0" value="<?= pctValue ?>" max="100"></progress>
+                                    <span class="meterLevelInd valInd bgImg imgMeterCursor"></span>
+                                </span>
+                                <label class="labelLeftBuffer">My&nbsp;rating:&nbsp;<span class="ratingText"><? if (strRating > -1) { ?><?= strRating ?>&nbsp;(<?= pctValue ?>%)<? if (overrideMsg) { ?>&nbsp;|&nbsp;<span class="argOverrideNotif">overridden</span><? } ?><? } else { ?>none<? } ?></span></label>
+                            </div>
+                        <? } 
+                        else if(permObj.canRate && !arg.canEdit) { ?>
+                            <!-- Also add notification element & css, if rating has happened -->
+                            <div class="flexRow strRatingInput layoutOptShowSelfRatings hideFalse">
+                                <ul class="checkboxRating gapMedBottom">
+                                    <li><input type="checkbox" class="ratingCheckbox" id="RatingCheckArg<?= arg.type ?><?= idx ?>Val0" value="0" <?= (strRating > -1) ? 'checked': '' ?>/><label for="RatingCheckArg<?= arg.type ?><?= idx ?>Val0"></label></li>
+                                    <li><input type="checkbox" class="ratingCheckbox" id="RatingCheckArg<?= arg.type ?><?= idx ?>Val1" value="1" <?= (strRating > 0) ? 'checked': '' ?>/><label for="RatingCheckArg<?= arg.type ?><?= idx ?>Val1"></label></li>
+                                    <li><input type="checkbox" class="ratingCheckbox" id="RatingCheckArg<?= arg.type ?><?= idx ?>Val2" value="2" <?= (strRating > 1) ? 'checked': '' ?>/><label for="RatingCheckArg<?= arg.type ?><?= idx ?>Val2"></label></li>
+                                    <li><input type="checkbox" class="ratingCheckbox" id="RatingCheckArg<?= arg.type ?><?= idx ?>Val3" value="3" <?= (strRating > 2) ? 'checked': '' ?>/><label for="RatingCheckArg<?= arg.type ?><?= idx ?>Val3"></label></li>
+                                    <li><input type="checkbox" class="ratingCheckbox" id="RatingCheckArg<?= arg.type ?><?= idx ?>Val4" value="4" <?= (strRating > 3) ? 'checked': '' ?>/><label for="RatingCheckArg<?= arg.type ?><?= idx ?>Val4"></label></li>
+                                    <li><input type="checkbox" class="ratingCheckbox" id="RatingCheckArg<?= arg.type ?><?= idx ?>Val5" value="5" <?= (strRating > 4) ? 'checked': '' ?>/><label for="RatingCheckArg<?= arg.type ?><?= idx ?>Val5"></label></li>
+                                </ul>
+                                <label class="labelLeftBuffer">My&nbsp;rating:&nbsp;<span class="ratingText"><? if (strRating > -1) { ?><?= '' + strRating + ' (' + ((strRating/5) * 100) + '%)' ?><? if (overrideMsg) { ?>&nbsp;|&nbsp;<span class="argOverrideNotif">overridden</span><? } ?><? } else { ?>none<? } ?></span></label>
+                            </div>
+                        <? }
+                    } 
+                    if(permObj.canViewRatings) {
+                        if(treeCtrl) { ?>
+                        <div class="ctrlStrRatingCont">
+                            <? 
+                            var modEntries = arg.rating.mod.entries,
+                            modRatingVal = (modEntries > 0) ? (arg.rating.mod.cumuValue / modEntries) : -1;
+                            ?>
+                            <?- include(pathPartials + 'block_ProgBar.ejs', {
+                                layoutClass: 'layoutOptShowModRatings',
+                                entries: modEntries,
+                                absValue: arg.rating.mod.cumuValue,
+                                avgValue: modRatingVal,
+                                pctValue: (modRatingVal > -1) ? Math.round((modRatingVal / 5) * 100) : 0,
+                                labelMsg: 'Moderators: ',
+                                overrideMsg: arg.rating.mod.override
+                            }); ?>
+                            <? 
+                            var visEntries = arg.rating.vis.entries,
+                            visRatingVal = (visEntries > 0) ? (arg.rating.vis.cumuValue / visEntries) : -1;
+                            ?>
+                            <?- include(pathPartials + 'block_ProgBar.ejs', {
+                                layoutClass: 'layoutOptShowVisRatings',
+                                entries: visEntries,
+                                absValue: arg.rating.vis.cumuValue,
+                                avgValue: visRatingVal,
+                                pctValue: (visRatingVal > -1) ? Math.round((visRatingVal / 5) * 100) : 0,
+                                labelMsg: 'Visitors: ',
+                                overrideMsg: arg.rating.vis.override
+                            }); ?>
+                        </div>
+                        <? } else { ?>
+                        <div class="openStrRatingCont">
+                            <?
+                            var entries = arg.rating.entries,
+                            ratingVal = (entries > 0) ? (arg.rating.cumuValue / entries) : -1;
+                            ?>
+                            <?- include(pathPartials + 'block_ProgBar.ejs', {
+                                layoutClass: 'layoutOptShowOpenRatings',
+                                entries: entries,
+                                absValue: arg.rating.cumuValue,
+                                avgValue: ratingVal,
+                                pctValue: (ratingVal > -1) ? Math.round((ratingVal / 5) * 100) : 0,
+                                labelMsg: '',
+                                overrideMsg: arg.rating.override
+                            }); ?>
+                        </div>
+                        <? } 
+                    } ?>
+                </div>
+            </div>
+            <? }
+        } ?>
+
+        <div class="favourCont gapMegaTop <?= treeCtrl ? 'layoutOptShowFav' : 'layoutOptShowOpenFavGroup' ?> alignCenter hideFalse">
+            <h5 class="fontVarMetaDets alignLeft width100">Favourability</h5>
+            <? if(permObj.loggedIn) { ?>
+                <?- include(pathPartials + 'block_FavDisp.ejs', {
+                    layoutClass: 'layoutOptShowSelfFav',
+                    headerTypeStr: 'Mine',
+                    typeAliases: arg.typeAliases,
+                    fav: userFavour[idx] ? userFavour[idx].favObj : [{entries: 0, avg: 0}, {entries: 0, avg: 0}],
+                    argTypes: argTypes,
+                }); ?>
+            <? }
+            if(treeCtrl) { ?>
+                <?- include(pathPartials + 'block_FavDisp.ejs', {
+                    layoutClass: 'layoutOptShowModFav',
+                    headerTypeStr: 'Moderator',
+                    typeAliases: arg.typeAliases,
+                    fav: arg.favour.mod,
+                    argTypes: argTypes,
+                }); ?>
+                <?- include(pathPartials + 'block_FavDisp.ejs', {
+                    layoutClass: 'layoutOptShowVisFav',
+                    headerTypeStr: 'Visitor',
+                    typeAliases: arg.typeAliases,
+                    fav: arg.favour.vis,
+                    argTypes: argTypes,
+                }); ?>
+            <? } 
+            else { ?>
+                <?- include(pathPartials + 'block_FavDisp.ejs', {
+                    layoutClass: 'layoutOptShowOpenFav',
+                    headerTypeStr: 'Visitors',
+                    typeAliases: arg.typeAliases,
+                    fav: arg.favour,
+                    argTypes: argTypes,
+                }); ?>
+            <? } ?>
+        </div>              
+    </section>
+    <?# if(!isFocalArg) { ?>
+    <? if(false) { ?>
+    <!--
+    <section class="flexRow flexSpaceBetween layoutOptShowMetaDets hideFalse greenHeaderOp0p33 gapMedTop">
+        <div class="smText noWrapText width100 alignLeft">
+            Idx: <?= idx ?>, rev: <?= arg.revision ? arg.revision.list.length + 1 : -1 ?>, parent: <?= arg.parent ?>, type: <?= arg.type ?>
+        </div>
+        <div class="argFooterMetaBar smText">
+            (<?= arg.children[argTypes.CORROB].length ?>)&nbsp;(<?= arg.children[argTypes.EXT_CONTRIB].length ?>)&nbsp;(<?= arg.children[argTypes.REFUTE].length ?>)
+        </div>
+    </section>-->
+    <? } ?>
+<? if(isFocalArg) { ?>
+</div>
+<? } else { ?>
+</li>        
+<? } ?>

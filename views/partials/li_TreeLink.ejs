@@ -1,0 +1,46 @@
+<? for(var i = 0, len = liArr.length; i < len; i++) {
+    var filterClass = 'filterNewFBFalse';
+    if(liArr[i].argSubs) {
+        if(liArr[i].argSubs.unviewed > 0) {
+            filterClass = 'filterNewFBTrue';
+        }
+    }
+?>
+<li class="transFadeRotColl sideBarLI <?= filterClass ?> hideFalse" data-treeID="<?= liArr[i].treeID ?>" <? if(liArr[i].inviteLink) { ?>data-invAccepted="<?= liArr[i].invAccepted ?>" <? } ?>>
+    <div class="treeLinkTitleBar overFlowEllipsis" title="<?= liArr[i].title ?>"><?= liArr[i].title ?></div>
+    <div class="treeLinkDets flexRow">
+        <div class="flexRow">
+            <i class="far fa-hand-point-up" title="Interactions"></i>
+            <span class="gapMedLeft"><?= liArr[i].interactions.cumulative ?></span>
+        </div>
+        <? if(liArr[i].argSubs) { ?>
+        <div class="flexRow">
+            <i class="far fa-envelope" title="Argument submissions"></i>
+            <span class="totalFeedbackQtyNotif gapMedLeft"><?= liArr[i].argSubs.total ?></span>
+            <? if (liArr[i].argSubs.unviewed > 0) { ?>
+            &nbsp;<input type="button" class="textAsBtn mailBtn newFBBtn2" data-treeID="<?= liArr[i].treeID ?>" value="(<?= liArr[i].argSubs.unviewed ?>)" />
+            <? } ?>
+        </div>
+        <? } ?>
+        <div class="flexRow">
+            <? if(liArr[i].inviteLink) {
+                if(!liArr[i].invAccepted) { ?>
+                <button type="button" class="acceptBtn nonEffector gapMedRight hasSVG">
+                    <i class="fas fa-lg fa-plus-circle"></i>
+                </button>
+                <? }
+            } ?>
+            <button type="button" class="removeBtn nonEffector hasSVG">
+                <i class="fas fa-lg fa-minus-circle"></i>
+            </button>
+        </div>
+        <div class="flexRow">
+            <button type="button" data-treeID="<?= liArr[i].treeID ?>" class="treeLinkBtn hasSVG">
+                <i class="fas fa-lg fa-map-marker-alt"></i>
+            </button>
+        </div>
+        <!-- Add archived/released icon and keep such tree sorted to bottom of search lists?
+        Or put them in a third search list...? -->
+    </div>
+</li>
+<? } ?>

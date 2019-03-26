@@ -1,0 +1,8 @@
+<? for(var i = 0, len = liArr.length; i < len; i++) { ?>
+<li class="revLIBtn viewingFalse fontVarMetaDets flexRow" data-listIdx="<?= i ?>">
+    <span class="revLIDispIdx">Revision&nbsp;<?= len - i ?></span>
+    &nbsp;&bull;&nbsp;
+    <? var date = new Date(liArr[i].timeStamp); ?>
+    <span class="revLIDispDate"><?= date.toDateString() ?></span>
+</li>
+<? } ?>

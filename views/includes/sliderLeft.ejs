@@ -1,0 +1,172 @@
+<div id="SliderLeft" class="animNeg">
+    <div class="flexRow flexAlignStart flexSpaceBetween">
+        <div class="alignLeft colWhite noWrapText">
+            <h2 id="TreeTitle" class="insulate"></h2>
+            <div id="DateTreeCreated" class="insulate smText"></div>
+            <div id="DateTreeArchived" class="insulate smText"></div>
+        </div>
+        <button type="button" id="SliderLeftCloseBtn" class="hasSVG colBlack hovWhite">
+            <i class="far fa-lg fa-arrow-alt-circle-left"></i>
+        </button>
+    </div>
+    <div class="flexRow flexAlignStart gapMegaTop">
+        <div id="TreeDetTabs">
+            <ul id="ActivityNav" class="pointerTabs ulVarRight noWrapText gapNone">
+                <li id="TabModDets" class="treeDetTab gapMedH">Moderators</li>
+                <!-- TODO: Chat indicator under moderator tab name? Number of unread messages? -->
+                <li id="TabPerms" class="treeDetTab">Permissions</li>               
+                <li id="TabTags" class="treeDetTab gapMedH">Tags</li>
+                <li id="TabArgs" class="treeDetTab gapMedH absParent">
+                    <div>Arguments</div>
+                    <div id="SBTreeCtrl_FeedbackByTree" class="flexRow flexJustCenter <? if(permObj) { if(permObj.canViewFeedback) { ?>hideFalse<? } else { ?>hideTrue<? } } else { ?>hideTrue<? } ?>">
+                        <i class="far fa-lg fa-envelope"></i>
+                        <span id="SBTreeCtrl_FeedbackTotal">&nbsp;<?= treeIsLoaded ? (treeData.argSubs ? treeData.argSubs.active : '0') : '0' ?></span>
+                        <input type="button" id="SBTreeCtrl_UnviewedTotal" class="textAsBtn newFBBtn nonEffector" value="<?= treeIsLoaded ? ((permObj.ismod && treeData.argSubs) ? ' (' + treeData.argSubs.unviewed + ')' : '') : '' ?>" />
+                    </div>
+                </li>
+            </ul>
+            <label class="flexRow flexJustCenter hoverHand insulate colWhite">
+                <button type="button" id="DownloadTreeBtn" class="treeBuildBtn gapLargeRight hasSVG" title="Download debate text">
+                    <i class="fas fa-lg fa-download"></i>
+                </button>
+                <span>Download</span>
+            </label>
+        </div>
+        <div id="TreeDetPanels">
+            <div id="ModListPanel" class="flexRow flexAlignStart subMenu treeDetPanel hideFalse">
+                <!-- Mod controls and list -->
+                <div> 
+                    <div id="ModAdminCtrls" class="gapLargeBottom hideTrue">
+                        <div id="ModTotalBtns" class="width100 flexCol flexAlignStretch insluate">
+                            <button id="ModTotalFilter" class="modFilterBtn textAsBtn activeTrue flexRow flexSpaceBetween smText"><span>Total:&nbsp;</span><span id="ModTotalDisp"></span></button>
+                            <button id="ModAccFilter" class="modFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorPos">&#x25cf;</span>&nbsp;Accepted:&nbsp;</span><span id="ModAccDisp"></span></button>
+                            <button id="ModPendFilter" class="modFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorNeut">&#x25cf;</span>&nbsp;Pending:&nbsp;</span><span id="ModPendDisp"></span></button>
+                            <button id="ModRejFilter" class="modFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorNeg">&#x25cf;</span>&nbsp;Rejected:&nbsp;</span><span id="ModRejDisp"></span></button>
+                        </div>
+                        <div class="flexRow width100 insluate gapLargeTop">
+                            <input id="ModeratorField" type="text" placeholder="username/email" />&nbsp;
+                            <button type="button" id="AddModBtn" class="hasSVG">
+                                <i class="fas fa-2x fa-plus-circle"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <ul id="ModeratorList"></ul>
+                </div>
+                <!-- Mod chat -->
+                <div id="ModChatBox" class="limitHeight gapMegaLeft hideTrue">
+                    <ul id="ModChatDisp" class="scrollHeight colBlack gapNone gapMedBottom"></ul>
+                    <form id="ModChatForm" name="ModChatForm" class="flexRow flexAlignStart">
+                        <textarea name="ModChatInputField" class="gapNone gapMedRight width100" placeholder="Message text" autocomplete="false"></textarea>
+                        <input type="button" name="ModChatSendBtn" class="btnTextBgGreen" value="Send" />
+                    </form>
+                </div>
+            </div>
+            
+            <div id="TreePerms" class="subMenu treeDetPanel hideTrue">
+                <? if(loggedIn) { ?>
+                <form name="permissionForm" class="gapNone">
+                    <table id="PermissionsTable" class="width100" cellspacing="0">
+                        <caption>
+                            <h4>Visitor&nbsp;Permissions</h4>
+                            <div class="flexRow flexSpaceAround gapLargeTop">
+                                <div class="flexRow">
+                                    <span>This debate:</span>
+                                    <input id="UpdatePermsBtn" class="btnTextBgBrown gapLargeLeft" type="button" value="Update" title="Update this debate based on selections." />
+                                </div>
+                                <div class="flexRow">
+                                    <span>Account defaults:</span>
+                                    <button type="button" id="SaveDefaultPermsBtn" class="gapLargeLeft hovBrown hasSVG" title="Set selected check boxes as account defaults.">
+                                        <i class="fas fa-2x fa-save"></i>
+                                    </button>
+                                    <input id="ApplyDefaultPermsBtn" class="btnTextBgBrown gapLargeLeft" type="button" value="Show saved" title="Select default check boxes. Does not automatically update." />
+                                </div>
+                            </div>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Visitor&nbsp;type</th>
+                                <th colspan="3">Who&nbsp;can&nbsp;view:</th>
+                                <th colspan="2">Who&nbsp;can&nbsp;submit:</th>
+                            </tr>
+                            <tr>
+                                <th>Debate</th>
+                                <th>Feedback</th>
+                                <th>Ratings</th>
+                                <th>Feedback</th>
+                                <th>Ratings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <? var perms = permObj || { viewDebate: false, viewFeedback: false, viewRating: false, submitFeedback: false, submitRating: false }; ?>
+                            <tr>
+                                <!-- // TODO: If the ejs is working alright, I don't need to set these buttons in the client when the tree is first loaded -->
+                                <th>Any&nbsp;visitor</th>
+                                <td><input type="radio" id="SB_Perm_Radio_1" name="viewDebate" value="<?= permTypes.ANYONE ?>" class="activeFalse" <?= perms['viewDebate'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_1"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_2" name="viewFeedback" value="<?= permTypes.ANYONE ?>" class="activeFalse" <?= perms['viewFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_2"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_3" name="viewRating" value="<?= permTypes.ANYONE ?>" class="activeFalse" <?= perms['viewRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_3"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_4" name="submitFeedback" value="<?= permTypes.ANYONE ?>" class="activeFalse" <?= perms['submitFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_4"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><!--<input type="radio" disabled/>--></td> <!-- name="submitRating" value="anyone" <?#= (tree.permissions['submitRating'] == 'anyone') ? 'checked' : '' ?> -->
+                            </tr>
+                            <tr>
+                                <th>Anyone&nbsp;logged&nbsp;in</th>
+                                <td><input type="radio" id="SB_Perm_Radio_5" name="viewDebate" value="<?= permTypes.LOGGEDIN ?>" class="activeFalse" <?= perms['viewDebate'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_5"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_6" name="viewFeedback" value="<?= permTypes.LOGGEDIN ?>" class="activeFalse" <?= perms['viewFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_6"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_7" name="viewRating" value="<?= permTypes.LOGGEDIN ?>" class="activeFalse" <?= perms['viewRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_7"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_8" name="submitFeedback" value="<?= permTypes.LOGGEDIN ?>" class="activeFalse" <?= perms['submitFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_8"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_9" name="submitRating" value="<?= permTypes.LOGGEDIN ?>" class="activeFalse" <?= perms['submitRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_9"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                            </tr>
+                            <tr>
+                                <th>Listed&nbsp;guests</th>
+                                <td><input type="radio" id="SB_Perm_Radio_10" name="viewDebate" value="<?= permTypes.GUEST ?>" class="activeFalse" <?= perms['viewDebate'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_10"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_11" name="viewFeedback" value="<?= permTypes.GUEST ?>" class="activeFalse" <?= perms['viewFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_11"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_12" name="viewRating" value="<?= permTypes.GUEST ?>" class="activeFalse" <?= perms['viewRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_12"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_13" name="submitFeedback" value="<?= permTypes.GUEST ?>" class="activeFalse" <?= perms['submitFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_13"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_14" name="submitRating" value="<?= permTypes.GUEST ?>" class="activeFalse" <?= perms['submitRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_14"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                            </tr>
+                            <tr>
+                                <th>Nobody</th>
+                                <td><input type="radio" id="SB_Perm_Radio_15" name="viewDebate" value="<?= permTypes.MOD ?>" class="activeFalse" <?= perms['viewDebate'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_15"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_16" name="viewFeedback" value="<?= permTypes.MOD ?>" class="activeFalse" <?= perms['viewFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_16"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_17" name="viewRating" value="<?= permTypes.MOD ?>" class="activeFalse" <?= perms['viewRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_17"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_18" name="submitFeedback" value="<?= permTypes.MOD ?>" class="activeFalse" <?= perms['submitFeedback'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_18"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                                <td><input type="radio" id="SB_Perm_Radio_19" name="submitRating" value="<?= permTypes.MOD ?>" class="activeFalse" <?= perms['submitRating'] ? 'checked' : '' ?>/><label for="SB_Perm_Radio_19"></label><i class="activeTrueImg fas fa-xs fa-check"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <div class="gapMegaTop">
+                    <h5 class="insulate smSectHead">Guests</h5>
+                    <div id="GuestTotalBtns" class="width100 flexCol flexAlignStretch insluate">
+                        <button id="GuestTotalFilter" class="guestFilterBtn textAsBtn activeTrue flexRow flexSpaceBetween smText"><span>Total:&nbsp;</span><span id="GuestTotalDisp"></span></button>
+                        <button id="GuestAccFilter" class="guestFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorPos">&#x25cf;</span>&nbsp;Accepted:&nbsp;</span><span id="GuestAccDisp"></span></button>
+                        <button id="GuestPendFilter" class="guestFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorNeut">&#x25cf;</span>&nbsp;Pending:&nbsp;</span><span id="GuestPendDisp"></span></button>
+                        <button id="GuestRejFilter" class="guestFilterBtn textAsBtn activeFalse flexRow flexSpaceBetween smText"><span><span class="colorNeg">&#x25cf;</span>&nbsp;Rejected:&nbsp;</span><span id="GuestRejDisp"></span></button>
+                    </div>
+                    <div class="flexRow width100 gapLargeTop">
+                        <input id="GuestField" type="text" placeholder="Username/email" />&nbsp;
+                        <button type="button" id="AddGuestBtn" class="hasSVG">
+                            <i class="fas fa-2x fa-plus-circle"></i>
+                        </button>
+                    </div>
+                    <ul id="TreeGuestList" class="colWhite gapLargeTop"></ul>
+                </div>
+                <? } ?>
+            </div>            
+            <div id="TagListPanel" class="subMenu treeDetPanel hideTrue">
+                <form name="TagForm" id="TagForm" class="flexRow hideTrue">
+                    <input type="text" name="InputElem" maxlength="20" placeholder="Tag"/>&nbsp;
+                    <button type="button" name="AddBtn" class="hasSVG">
+                        <i class="fas fa-2x fa-plus-circle"></i>
+                    </button>
+                </form>
+                <ul id="TagList" class="alignLeft"></ul>
+            </div>
+            <div id="BranchListPanel" class="subMenu treeDetPanel hideTrue">
+                <form id="BranchListFilterForm" name="BranchListFilterForm" class="optForm <? if(loggedIn && treeIsLoaded && isCtrl) { if(permObj.isMod) { ?>hideFalse<? } else { ?>hideTrue<? }} else { ?>hideTrue<? } ?> gapMegaBottom alignLeft">
+                    <label class="noWrapText"><input type="checkbox" name="NewFeedback" disabled />&nbsp;Filter&nbsp;-&nbsp;new&nbsp;submissions&nbsp;only</label>
+                </form>
+                <ul id="BranchList" class="gapNone alignLeft"></ul>
+            </div>
+        </div>
+    </div>
+</div>
