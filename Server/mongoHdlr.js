@@ -17,6 +17,8 @@ var timeBldr = require('./timelineBuilder.js')();
 // ** mlabs CURRENTLY USING MONGO VERSION 3.6.6 **
 
 var mongoURLLabel = "";
+var mongoURI = "";
+
 var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
     mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
     mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
