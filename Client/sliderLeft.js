@@ -691,9 +691,7 @@ var SliderLeft = (function () {
 
             /*======================== BRANCHES TAB/PANEL ========================*/
             document.getElementById('DownloadTreeBtn').addEventListener('click', function() {
-                // * Localhost/Live Switch
-                //window.open('http://localhost:1337/Download?treeID=' + TreeHdlr.active.data._id + '&isCtrl=' + TreeHdlr.active.isControlled);
-                window.open('http://node-mongo-debatabase.7e14.starter-us-west-2.openshiftapps.com/Download?treeID=' + TreeHdlr.active.data._id + '&isCtrl=' + TreeHdlr.active.isControlled);
+                window.open(window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/Download?treeID=' + TreeHdlr.active.data._id + '&isCtrl=' + TreeHdlr.active.isControlled);
             });
         },
         ReplaceBranch: function(idx, newString) {

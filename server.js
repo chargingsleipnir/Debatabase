@@ -156,7 +156,10 @@ function PostSessionConnection() {
                             console.log(error);
                         else {
                             res.download(result.filename, filename, function() {
-                                fs.unlink(result.filename);
+                                fs.unlink(result.filename, (error) => {
+                                    if(error) console.log("Error deleting file: " + error);
+                                    else console.log(result.filename + "was deleted.");
+                                });
                             });
                         }
                     });
