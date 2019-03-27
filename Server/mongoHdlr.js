@@ -1868,32 +1868,36 @@ module.exports = function() {
                         });
                     }
                     else {
-                        db[colls.ACCOUNTS].find({$text: {$search: new RegExp('^' + data.text + '$', 'i')}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}/*, "_id": -1*/}).toArray(function (error, accounts) {
-                            if(!error && accounts.length > 0) {
-                                resObj.resToShow = true;
-                                var accountObjArr = [];
-                                for(var i = 0, len = accounts.length; i < len; i++) {
-                                    accountObjArr.push({
-                                        invite: -1,
-                                        accountID: accounts[i]._id,
-                                        username: accounts[i].username,
-                                        bio: accounts[i].bio
+                        //db[colls.ACCOUNTS].find({$text: {$search: data.text}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}, "_id": -1}).toArray(function (error, accounts) {
+                        db[colls.ACCOUNTS].find({$text: {$search: data.text}}, {score: {$meta: "textScore"}}).sort({score:{$meta:"textScore"}}).toArray(function (error, accounts) {
+                            if(error)
+                                console.log(error);
+                            else {
+                                if(accounts.length > 0) {
+                                    resObj.resToShow = true;
+                                    var accountObjArr = [];
+                                    for(var i = 0, len = accounts.length; i < len; i++) {
+                                        accountObjArr.push({
+                                            invite: -1,
+                                            accountID: accounts[i]._id,
+                                            username: accounts[i].username,
+                                            bio: accounts[i].bio
+                                        });
+                                    }
+                                    resObj.userHTMLString = EJS_LI_AddUser({
+                                        liArr: accountObjArr, 
+                                        indOnline: false, 
+                                        userConnName: false, 
+                                        userConnOpts: data.loggedIn, 
+                                        statusInd: false, 
+                                        accRejBtns: false, 
+                                        accBtn: false, 
+                                        inviteResps: Consts.inviteResps
                                     });
                                 }
-                                resObj.userHTMLString = EJS_LI_AddUser({
-                                    liArr: accountObjArr, 
-                                    indOnline: false, 
-                                    userConnName: false, 
-                                    userConnOpts: data.loggedIn, 
-                                    statusInd: false, 
-                                    accRejBtns: false, 
-                                    accBtn: false, 
-                                    inviteResps: Consts.inviteResps
-                                });
+                                else
+                                    console.log('mongoHdlr.js, SearchTerm(), no accounts found in user search.'); 
                             }
-                            else
-                                console.log('mongoHdlr.js, SearchTerm(), error or no accounts found in user search.');
-
                             socket.emit('SearchTermResp', resObj);
                         });
                     }
