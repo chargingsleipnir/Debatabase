@@ -684,7 +684,10 @@ var TreeHdlr = (function () {
         if(resObj.success) {
             if(User.loggedIn) {
                 User.accountData.created.unshift(resObj.treeData._id);
-                ActivityPg.AddCreatedTree(resObj.linkString);
+
+                if(resObj.isControlled)
+                    ActivityPg.AddCreatedTree(resObj.linkString);
+                    
                 ActivityPg.AddTimelineItem(resObj.timelineString);
             }
             pushTreePath = true;

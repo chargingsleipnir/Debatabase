@@ -99,15 +99,23 @@ var Utility = (function () {
             },
             FromString: function(string, arrTrue) {
                 //* This seems to work for now, though it's likely to fuck up at some point
-                var html = parser.parseFromString(string, "text/html");
-                var body = html.getElementsByTagName("BODY")[0];
-                return arrTrue ? body.children : body.firstElementChild;
+                // var html = parser.parseFromString(string, "text/html");
+                // var body = html.getElementsByTagName("BODY")[0];
+                // return arrTrue ? body.children : body.firstElementChild;
 
                 //* This seems to require specific xml parsing to fully acquire to elements i want right away.
                 // let frag = document.createRange().createContextualFragment(string);
                 // console.log(frag);
                 // console.log(frag.firstElementChild);
                 // return arrTrue ? frag.children : frag.firstElementChild;
+
+                //* New one I saw, we shall see.
+                var template = document.createElement('template');
+                if(!arrTrue)
+                    string = string.trim();
+
+                template.innerHTML = string;
+                return arrTrue ? template.content.children : template.content.firstElementChild;
             },
             ColourByValidity: function(elem) {
                 if (elem.checkValidity() || elem.value == "")

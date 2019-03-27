@@ -809,6 +809,7 @@ var ElemDyns = (function () {
 
             dynObj.Push = function(prepend, li, CB) {
                 li = (typeof li === 'string' || li instanceof String) ? Utility.html.FromString(li, false) : li;
+
                 if(heightKnown) {
                     if(prepend && dynObj.elem.children.length > 0)
                         dynObj.elem.insertBefore(li, dynObj.elem.children[0]);
