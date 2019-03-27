@@ -41,7 +41,7 @@ var User = (function () {
             }); 
         },
         IsGuestAccount: function() {
-            return isGuestAccount;
+            //return isGuestAccount;
         },
         CheckActive: function(value) {
             return (value == User.accountData.username || value == User.accountData.email);
