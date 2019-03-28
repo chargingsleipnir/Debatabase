@@ -180,11 +180,6 @@ footer {
     flex-flow: row nowrap;
     justify-content: center;
 }
-#FooterRight {
-    display: flex;
-    flex-flow: row nowrap;
-    text-align: right;
-}
 #HideFooterBtn {
     position: absolute;
     left: 15px;
