@@ -174,7 +174,7 @@ footer {
     flex-flow: column nowrap;
     margin: 0 10px;
 }
-#FooterRight {
+#FooterMiddle {
     display: flex;
     flex-flow: row nowrap;
 }

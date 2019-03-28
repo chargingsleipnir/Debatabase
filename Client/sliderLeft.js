@@ -684,7 +684,7 @@ var SliderLeft = (function () {
                         idx: branchIdx,
                         asser: arg.assertion,
                         elab: arg.elaboration,
-                        srcString: User.perms.isMod ? TemplateHdlr.GetSrcListEditDisp(arg.sources) : TemplateHdlr.EJS_GetSrcList(this.argData.sources, false),
+                        srcString: User.perms.isMod ? TemplateHdlr.GetSrcListEditDisp(arg.sources) : TemplateHdlr.EJS_GetSrcList(arg.sources, false),
                     });
                 }
             });
