@@ -159,7 +159,7 @@ footer {
     flex: 0 0 auto;
 }
 #FooterContCont {
-    justify-content: center;
+    
     padding: 5px;
     overflow: hidden;
     transition: all 0.25s ease-out;
@@ -173,10 +173,17 @@ footer {
     display: flex;
     flex-flow: column nowrap;
     margin: 0 10px;
+    flex: 1;
 }
 #FooterMiddle {
     display: flex;
     flex-flow: row nowrap;
+    justify-content: center;
+}
+#FooterRight {
+    display: flex;
+    flex-flow: row nowrap;
+    text-align: right;
 }
 #HideFooterBtn {
     position: absolute;
