@@ -21,21 +21,26 @@ var timeBldr = require('./timelineBuilder.js')();
 var mongoURLLabel = "";
 var mongoURI = "";
 
+//mongodb+srv://<username>:<password>@prototype.4ovju.mongodb.net/debatabase_db?retryWrites=true&w=majority
+
 var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
     mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-    mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
+    mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'], // Mongo mongodb+srv domains do not use a port
     mongoDBName = process.env[mongoServiceName + '_DATABASE'],
-    mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-    mongoUser = process.env[mongoServiceName + '_USER'];
+    mongoPassword = process.env[mongoServiceName + '_PASSWORD'],
+    mongoUser = process.env[mongoServiceName + '_USER'],
+    mongoDomain = process.env[mongoServiceName + '_DOMAIN'],
+    mongoOptions = process.env[mongoServiceName + '_OPTIONS'],
 
-if (mongoHost && mongoPort && mongoDBName) {
-    mongoURLLabel = mongoURI = 'mongodb://';
+if (mongoHost && /*mongoPort &&*/ mongoDBName) {
+    mongoURLLabel = mongoURI = mongoDomain + '://';
     if (mongoUser && mongoPassword)
         mongoURI += mongoUser + ':' + mongoPassword + '@';
 
     // Provide UI label that excludes user id and pw
-    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDBName;
-    mongoURI += mongoHost + ':' +  mongoPort + '/' + mongoDBName;
+    var remainder = mongoHost + /*':' + mongoPort +*/ '/' + mongoDBName + mongoOptions;
+    mongoURLLabel += remainder;
+    mongoURI += remainder;
 }
 
 // mongoConn and db are differentiated only because the MongoStore in server.js doesn't seem to take the object from mongojs
