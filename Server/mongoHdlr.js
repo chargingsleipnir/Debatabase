@@ -19,6 +19,7 @@ var mongoURLLabel = "";
 var mongoURI = "";
 
 //mongodb+srv://<username>:<password>@prototype.4ovju.mongodb.net/debatabase_db?retryWrites=true&w=majority
+// Minor change to test git push
 
 var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
     mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
