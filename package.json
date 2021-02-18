@@ -4,7 +4,7 @@
     "description": "Social debate facilitation tool",
     "main": "server.js",
     "dependencies": {
-        "bcrypt": "3.0.5",
+        "bcrypt": "5.0.0",
         "body-parser": "1.18.3",
         "chai": "^3.5.0",
         "chai-http": "^4.2.1",
@@ -17,7 +17,7 @@
         "html-pdf": "2.2.0",
         "mocha": "^6.0.2",
         "mongodb": "^2.1.16",
-        "mongojs": "2.6.0",
+        "mongojs": "3.1.0",
         "morgan": "^1.9.1",
         "nodemailer": "4.6.7",
         "object-assign": "4.1.0",

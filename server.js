@@ -17,9 +17,6 @@ var pdf = require('html-pdf');
 var mongoHdlr = require('./Server/mongoHdlr.js')();
 var Consts = require('./Shared/consts.js');
 
-var port = process.env.PORT || 8080,
-ip = process.env.IP || '0.0.0.0';
-
 Object.assign=require('object-assign');
 
 app.set('view engine', 'ejs');
@@ -169,6 +166,7 @@ function PostSessionConnection() {
     });
     
     function CallIndex(res, session) {
+        console.log(`\nServer.js, CallIndex: session exists <${!!session}>`);
         // TODO: Account for possible lack of session...
     
         if(!session) {
@@ -176,7 +174,10 @@ function PostSessionConnection() {
             res.render('index.html', { pageCountMessage : 6 });
         }
         else {
-            mongoHdlr.GetAccountComp(session.accountID, function(loggedIn, account, submArgCount, timePersCount, timePublCount) {
+            console.log(`-session.accountID <${session.accountID}>`);
+            console.log(`-session.urlParam <${session.urlParam}>`);
+
+            mongoHdlr.GetAccountComp(session.accountID, function(loggedIn = false, account = null, submArgCount = 0, timePersCount = 0, timePublCount = 0) {
                 mongoHdlr.GetMostInteracted(account, function(openTreesObjArr, ctrlTreesObjArr, archTreesObjArr) {
                     mongoHdlr.CheckForTree(session, account, function(resObj) {
                         var ejsObj = {
@@ -274,12 +275,12 @@ function PostSessionConnection() {
 var connTimer = 0;
 var interval = setInterval(function() {
     if(CheckDBConn()) {
-        console.log('Session store connected');
+        console.log('\nSession store connected');
         clearInterval(interval);
     }
     else {
         connTimer+= 0.5;
-        console.log('Session store connection attempt timer: ' + connTimer + 's');
+        console.log('\nSession store connection attempt timer: ' + connTimer + 's');
     }
 }, 500);
 
@@ -300,7 +301,8 @@ io.on("connection", function (socket) {
     mongoHdlr.InitSocketCalls(io, socket);
 });
 
-http.listen(port, ip);
-console.log('%s: Node server started on %s:%d ...', Date(Date.now()), ip, port);
+// http://localhost:1337/
+http.listen(process.env.PORT, process.env.IP);
+console.log('%s: Node server started on %s:%d ...', Date(Date.now()), process.env.IP, process.env.PORT);
 
 module.exports = app;

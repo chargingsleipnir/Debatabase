@@ -15,9 +15,6 @@ var Consts = require('../Shared/consts.js');
 var SuppFuncs = require('../Shared/supportFuncs.js');
 var timeBldr = require('./timelineBuilder.js')();
 
-
-// ** mlabs CURRENTLY USING MONGO VERSION 3.6.6 **
-
 var mongoURLLabel = "";
 var mongoURI = "";
 
@@ -30,7 +27,7 @@ var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
     mongoPassword = process.env[mongoServiceName + '_PASSWORD'],
     mongoUser = process.env[mongoServiceName + '_USER'],
     mongoDomain = process.env[mongoServiceName + '_DOMAIN'],
-    mongoOptions = process.env[mongoServiceName + '_OPTIONS'],
+    mongoOptions = process.env[mongoServiceName + '_OPTIONS'];
 
 if (mongoHost && /*mongoPort &&*/ mongoDBName) {
     mongoURLLabel = mongoURI = mongoDomain + '://';
@@ -44,6 +41,7 @@ if (mongoHost && /*mongoPort &&*/ mongoDBName) {
 }
 
 // mongoConn and db are differentiated only because the MongoStore in server.js doesn't seem to take the object from mongojs
+// TODO: There's no use in having 2 client wrappers, just use mongoDB and toss mongojs if that seems to be better.
 var db = null,
     mongoConn = null,
     gfs = null,
@@ -94,7 +92,14 @@ function Connect() {
             colls.TIMELINE
         ]);
 
-        console.log('Connected to MongoDB at: %s', mongoURI);
+        // db.on('error', (err) => console.log('\nmongojs database error', err));         
+        // db.on('connect', () => console.log('\nnmongojs database connected'));
+
+        db.on('error', function(err) {console.log('\nmongojs database error', err)});  
+        db.on('connect', function() {console.log('\nmongojs database connected')});
+
+        console.log(`\nConnected to MongoDB`);
+        //console.log(`\nConnected to MongoDB at: <${mongoURI}>`);
     });
 };
 
@@ -3427,9 +3432,12 @@ module.exports = function() {
         // 100% do not remember what Comp means
         GetAccountComp: function(accountID, Callback) {
             if(!accountID) {
-                Callback(false, null, 0);
+                console.log(`\nmongoHdlr.js GetAccountComp: No accountID, returning.`);
+
+                Callback();
                 return;
             }
+
             Find(colls.ACCOUNTS, { _id: ObjectId(accountID) }, function (accounts) {
                 if(accounts.length > 0) {
 
@@ -3454,8 +3462,8 @@ module.exports = function() {
                     });
                 }
                 else {
-                    Callback(false, null, 0, 0, 0);
-                    console.log("mongoHdlr GetAccountComp: Account not found");
+                    Callback();
+                    console.log("\nmongoHdlr.js GetAccountComp: Account not found");
                 }
             });
         },
@@ -3872,9 +3880,17 @@ module.exports = function() {
             });
         },
         GetMostInteracted: function(account, Callback) {
+            console.log(`\nmongoHdlr.js GetMostInteracted.`);
+
             db[colls.OPEN_TREES].find({}).sort({ "branches.0.interactions.cumulative" : -1, "_id" : -1 }).limit(20).toArray(function (error, openTrees) {
+                console.log(`\nmongoHdlr.js -db[colls.OPEN_TREES].find openTrees.length <${openTrees.length}>`);
+                
                 db[colls.CTRL_TREES].find({ archived: false }).sort({ "branches.0.interactions.cumulative" : -1, "_id" : -1 }).limit(20).toArray(function (error, ctrlTrees) {
+                    console.log(`\nmongoHdlr.js -db[colls.CTRL_TREES].find non-archived, ctrlTrees.length<${ctrlTrees.length}>`);
+                    
                     db[colls.CTRL_TREES].find({ archived: true }).sort({ "branches.0.interactions.cumulative" : -1, "_id" : -1 }).limit(20).toArray(function (error, archTrees) {
+                        console.log(`\nmongoHdlr.js -db[colls.CTRL_TREES].find archived archTrees.length<${archTrees.length}>`);
+                        
                         var openTreeArr = [];
                         for(var i = 0, len = openTrees.length; i < len; i++) {
                             openTreeArr.push({
