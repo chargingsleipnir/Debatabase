@@ -16,7 +16,7 @@
         "gridfs-stream": "^1.1.1",
         "html-pdf": "2.2.0",
         "mocha": "^6.0.2",
-        "mongodb": "^2.1.16",
+        "mongodb": "^3.1.13",
         "mongojs": "3.1.0",
         "morgan": "^1.9.1",
         "nodemailer": "4.6.7",
